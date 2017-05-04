@@ -1,0 +1,72 @@
+<h1>Test</h1>
+<div class="widgets">
+    <div class="row">
+        <div ba-panel ba-panel-title="Daftar Donatur" ba-panel-class="with-scroll">
+            <div>
+                <div class=" form-group input-group">
+                    <input id="search" type="text" class="col-xs-2 form-control" ng-model="vm.search" ng-keypress="$event.keyCode == 13 ? vm.loadAll() : undefined"placeholder="Masukkan pencarian" autofocus>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="vm.loadAll()"><i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                            <th jh-sort-by="nama"><span>Nama</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="alamat"><span>Alamat</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="telepon"><span>Telepon</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="fax"><span>Fax</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="email"><span>Email</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="web"><span>Web</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="batasan"><span>Batasan</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="selisihKurs"><span>Mengakui selisi kurs</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th>
+                                <button class="btn btn-info editable-table-button btn-xs" ng-click="vm.baru()">Tambah</button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="c in vm.data track by c.id" class="editable-row">
+                        <td>
+                            {{ c.nama}}
+                        </td>
+                        <td>
+                            {{ c.alamat}}
+                        </td>
+                        <td>
+                            {{ c.telepon}}
+                        </td>
+                        <td>
+                            {{ c.fax}}
+                        </td>
+                        <td>
+                            {{ c.email}}
+                        </td>
+                        <td>
+                            {{ c.web}}
+                        </td>
+                        <td>
+                            {{ c.batasan}}
+                        </td>
+                        <td>
+                            {{ c.selisihKurs}}
+                        </td>
+                        <td>
+                            <div class="buttons" >
+                                <button class="btn btn-primary editable-table-button btn-xs" 
+                                        data-toggle="modal" ng-click="vm.ubah(c)">Edit</button>
+                                <button class="btn btn-danger editable-table-button btn-xs" ng-confirm-message="Anda yakin akan menghapus Donatur '{{c.nama}}'?" ng-confirm="vm.hapus(c)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="text-center" ng-if="vm.totalItems > vm.itemsPerPage">
+                <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+                <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+            </div>
+        </div>
+    </div>
+</div>

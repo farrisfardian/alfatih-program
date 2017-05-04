@@ -1,0 +1,156 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package id.alfatih.domain.akuntansi;
+
+import id.alfatih.domain.akademik.TahunAjaran;
+import id.alfatih.domain.akademik.Unit;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+
+/**
+ *
+ * @author ustadho
+ */
+@Entity
+@Table(name = "acc_program")
+public class Program {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    
+    @NotNull
+    @NotEmpty
+    @Column(unique = true, nullable = false)
+    private String nama;
+    
+    @Column(unique = true, length = 20)
+    private String kode;
+    @Temporal(TemporalType.DATE)
+    @Column(name="tgl_mulai")
+    private Date tglMulai;
+    @Temporal(TemporalType.DATE)
+    @Column(name="tgl_selesai")
+    private Date tglSelesai;
+    @Temporal(TemporalType.DATE)
+    @Column(name="tgl_perencanaan")
+    private Date tglPerencanaan;
+    @Column
+    private Boolean aktif;
+    @Column
+    private Double budget;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_parent")
+    private Program parent;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_tahun_ajaran")
+    private TahunAjaran tahunAjaran;
+
+    @ManyToOne
+    @JoinColumn(name = "id_unit")
+    private Unit unit;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getKode() {
+        return kode;
+    }
+
+    public void setKode(String kode) {
+        this.kode = kode;
+    }
+
+    public Boolean getAktif() {
+        return aktif;
+    }
+
+    public void setAktif(Boolean aktif) {
+        this.aktif = aktif;
+    }
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
+
+    public Program getParent() {
+        return parent;
+    }
+
+    public void setParent(Program parent) {
+        this.parent = parent;
+    }
+
+    public TahunAjaran getTahunAjaran() {
+        return tahunAjaran;
+    }
+
+    public void setTahunAjaran(TahunAjaran tahunAjaran) {
+        this.tahunAjaran = tahunAjaran;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+
+    public Date getTglMulai() {
+        return tglMulai;
+    }
+
+    public void setTglMulai(Date tglMulai) {
+        this.tglMulai = tglMulai;
+    }
+
+    public Date getTglSelesai() {
+        return tglSelesai;
+    }
+
+    public void setTglSelesai(Date tglSelesai) {
+        this.tglSelesai = tglSelesai;
+    }
+
+    public Date getTglPerencanaan() {
+        return tglPerencanaan;
+    }
+
+    public void setTglPerencanaan(Date tglPerencanaan) {
+        this.tglPerencanaan = tglPerencanaan;
+    }
+    
+}
