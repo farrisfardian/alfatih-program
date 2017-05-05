@@ -57,13 +57,6 @@
                         "stateRef": "master.unit"
                     }, 
                     {
-                        "name": "master.cabang", 
-                        "title": "Cabang", 
-                        "level": 1, 
-                        "order": 500, 
-                        "stateRef": "master.cabang"
-                    }, 
-                    {
                         "name": "master.tahunajaran", 
                         "title": "Tahun Ajaran", 
                         "level": 1, 
@@ -135,10 +128,27 @@
                 ]
             }, 
             {
+                "name": "pengaturan", 
+                "title": "Pengaturan", 
+                "level": 0, 
+                "order": 400, 
+                "icon": "ion-settings", 
+                "stateRef": "setting", 
+                "subMenu": [
+                    {
+                        "name": "pengaturan.cabang", 
+                        "title": "Cabang", 
+                        "level": 1, 
+                        "order": 0, 
+                        "stateRef": "pengaturan.cabang"
+                    }, 
+                ]
+            },
+            {
                 "name": "laporan", 
                 "title": "Laporan", 
                 "level": 0, 
-                "order": 400, 
+                "order": 500, 
                 "icon": "ion-document", 
                 "stateRef": "laporan", 
                 "subMenu": [
