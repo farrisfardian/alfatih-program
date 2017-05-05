@@ -30,18 +30,18 @@
                     }, 
                     {
                         "name": "master.matauang", 
-                        "title": "matauang", 
+                        "title": "Matauang", 
                         "level": 1, 
                         "order": 100, 
                         "stateRef": "master.matauang"
                     }, 
-                    {
-                        "name": "master.sumberdana", 
-                        "title": "Sumber Dana", 
-                        "level": 1, 
-                        "order": 200, 
-                        "stateRef": "master.sumberdana"
-                    }, 
+//                    {
+//                        "name": "master.sumberdana", 
+//                        "title": "Sumber Dana", 
+//                        "level": 1, 
+//                        "order": 200, 
+//                        "stateRef": "master.sumberdana"
+//                    }, 
                     {
                         "name": "master.donatur", 
                         "title": "Donatur", 

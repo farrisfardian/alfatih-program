@@ -116,7 +116,7 @@ public class UnitResource {
      * or with status 500 (Internal Server Error) if the akun couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "{id}",method = RequestMethod.PUT)
     @Timed
     public ResponseEntity<Unit> updateUnit(@RequestBody Unit akun) throws URISyntaxException {
         log.debug("REST request to update Unit : {}", akun);

@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
  * Spring Data JPA repository for the TahunAjaran entity.
  */
 @SuppressWarnings("unused")
-public interface TahunAjaranRepository extends JpaRepository<TahunAjaran, String> {
+public interface TahunAjaranRepository extends JpaRepository<TahunAjaran, Integer> {
 
     @Query("from TahunAjaran a "
             + "where upper(a.kode) like upper(:s) "

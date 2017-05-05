@@ -35,16 +35,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/akademik/cabang")
 public class CabangResource {
-    private final Logger log=LoggerFactory.getLogger(CabangResource.class);
-    
+
+    private final Logger log = LoggerFactory.getLogger(CabangResource.class);
+
     private static final String ENTITY_NAME = "cabang";
-    
+
     private final CabangRepository repository;
 
     public CabangResource(CabangRepository repository) {
         this.repository = repository;
     }
-    
+
     @RequestMapping("/all")
     @Timed
     public List<Cabang> getAllCabangs() {
@@ -52,46 +53,48 @@ public class CabangResource {
         List<Cabang> x = repository.findAll();
         return x;
     }
-    
+
     @RequestMapping(method = RequestMethod.GET)
     @Timed
     public ResponseEntity<List<Cabang>> filterAll(Pageable p) throws URISyntaxException {
         log.debug("REST request to get all Cabang by Page");
         Page<Cabang> x = repository.findAll(p);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akademik/cabang");
-        
+
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
-    
+
     @RequestMapping("/filter/{s}")
     @Timed
     public ResponseEntity<List<Cabang>> filterByKey(@PathVariable String s, Pageable p) throws URISyntaxException {
         log.debug("REST request to filter Cabang by key per page");
-        Page<Cabang> x = repository.filterByKey("%"+s+"%", p);
+        Page<Cabang> x = repository.filterByKey("%" + s + "%", p);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akademik/cabang");
-        
+
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
-    
+
     /**
-     * GET  /api/akademik/cabang/:id : get the "id" akun.
+     * GET /api/akademik/cabang/:id : get the "id" akun.
      *
      * @param id the id of the akun to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the akun, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the akun,
+     * or with status 404 (Not Found)
      */
     @RequestMapping("{id}")
     @Timed
-    public ResponseEntity<Cabang> getCabang(@PathVariable Integer id){
+    public ResponseEntity<Cabang> getCabang(@PathVariable Integer id) {
         log.debug("REST request get Cabang : {}", id);
         Cabang akun = repository.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(akun));
     }
-    
+
     /**
-     * POST  /api/akademik/cabang : Create a new akun.
+     * POST /api/akademik/cabang : Create a new akun.
      *
      * @param akun the akun to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new akun, or with status 400 (Bad Request) if the akun has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new akun, or with status 400 (Bad Request) if the akun has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(method = RequestMethod.POST)
@@ -103,20 +106,20 @@ public class CabangResource {
         }
         Cabang result = repository.save(akun);
         return ResponseEntity.created(new URI("/api/akademik/cabang/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
-    
+
     /**
-     * PUT  /api/akademik/cabang : Updates an existing akun.
+     * PUT /api/akademik/cabang : Updates an existing akun.
      *
      * @param akun the akun to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated akun,
-     * or with status 400 (Bad Request) if the akun is not valid,
-     * or with status 500 (Internal Server Error) if the akun couldnt be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * akun, or with status 400 (Bad Request) if the akun is not valid, or with
+     * status 500 (Internal Server Error) if the akun couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @Timed
     public ResponseEntity<Cabang> updateCabang(@RequestBody Cabang akun) throws URISyntaxException {
         log.debug("REST request to update Cabang : {}", akun);
@@ -125,12 +128,12 @@ public class CabangResource {
         }
         Cabang result = repository.save(akun);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, akun.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, akun.getId().toString()))
+                .body(result);
     }
-    
+
     /**
-     * DELETE  /api/akademik/cabang/:id : delete the "id" akun.
+     * DELETE /api/akademik/cabang/:id : delete the "id" akun.
      *
      * @param id the id of the akun to delete
      * @return the ResponseEntity with status 200 (OK)
