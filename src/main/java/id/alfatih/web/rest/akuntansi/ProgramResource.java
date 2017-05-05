@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ustadho
  */
 @RestController
-@RequestMapping("/api/akuntansi/program")
+@RequestMapping("/api/anggaran/program")
 public class ProgramResource {
 
     private final Logger log = LoggerFactory.getLogger(ProgramResource.class);
@@ -154,10 +154,12 @@ public class ProgramResource {
      * status 500 (Internal Server Error) if the akun couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @Timed
-    public ResponseEntity<Program> updateProgram(@RequestBody Program akun) throws URISyntaxException {
+    public ResponseEntity<Program> updateProgram(@PathVariable Integer id, @RequestBody Program akun) throws URISyntaxException {
         log.debug("REST request to update Program : {}", akun);
+        Program p = repository.findOne(id);
+        akun.setId(p.getId());
         if (akun.getId() == null) {
             return createProgram(akun);
         }

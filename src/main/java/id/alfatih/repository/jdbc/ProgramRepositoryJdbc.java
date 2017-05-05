@@ -23,7 +23,7 @@ public class ProgramRepositoryJdbc {
     DataSource dataSource;
 
     public Object filterProgram(String search) {
-        String query = "SELECT r.id, r.aktif, r.budget, r.kode, r.mulai, r.nama, r.pelaksana, r.selesai, r.status, \n" +
+        String query = "SELECT r.id, r.aktif, r.budget, r.kode, r.tgl_mulai, r.nama, r.pelaksana, r.tgl_selesai, r.status, \n" +
 "       r.id_parent, r.id_tahun_ajaran, ta.kode as kode_tahun_ajaran from\n"
                 + "(SELECT *, case when id_parent is null then id else id_parent end as order_by\n"
                 + "  FROM acc_program) r "

@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ustadho
  */
 @RestController
-@RequestMapping("/api/akuntansi/proyek")
+@RequestMapping("/api/anggaran/proyek")
 public class ProyekResource {
 
     private final Logger log = LoggerFactory.getLogger(ProyekResource.class);

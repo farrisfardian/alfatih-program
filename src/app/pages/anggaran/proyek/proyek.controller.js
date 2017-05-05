@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('Alfatih.pages.anggaran')
-            .controller('ProgramController', ProgramController)
+            .controller('ProyekController', ProyekController)
 
     /** @ngInject */
-    function ProgramController($scope, $uibModal, $log, $TreeDnDConvert, toastr, ProgramService, TahunAjaranService,
+    function ProyekController($scope, $uibModal, $log, $TreeDnDConvert, toastr, ProyekService, 
             ParseLinks, AlertService, paginationConstants, pagingParams, $state) {
         var vm = this;
         vm.search = '';
@@ -73,7 +73,7 @@
         loadAllFlat();
 
         function loadAllFlat() {
-            ProgramService.cariSemua({id: 'list-flat'}, onSuccess, onError);
+            ProyekService.cariSemua({id: 'list-flat'}, onSuccess, onError);
             function onSuccess(data) {
                 vm.dataFlat = data;
                 console.log('vm.dataFlat', vm.dataFlat);
@@ -85,7 +85,7 @@
         }
 
         function loadAll() {
-            ProgramService.query({
+            ProyekService.query({
                 id: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : 'filter',
                 cari: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : vm.search,
                 page: pagingParams.page - 1,
@@ -127,7 +127,7 @@
         function baru() {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/anggaran/program/program-dialog.html',
+                templateUrl: 'app/pages/anggaran/proyek/proyek-dialog.html',
                 controller: 'ProgramDialogController',
                 controllerAs: 'vm',
                 size: 'lg',
@@ -149,13 +149,13 @@
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/anggaran/program/program-dialog.html',
-                controller: 'ProgramDialogController',
+                templateUrl: 'app/pages/anggaran/proyek/proyek-dialog.html',
+                controller: 'ProyekDialogController',
                 controllerAs: 'vm',
                 size: 'lg',
                 resolve: {
-                    entity: ['ProgramService', function (ProgramService) {
-                            return ProgramService.get({id: x.id}).$promise;
+                    entity: ['ProyekService', function (ProyekService) {
+                            return ProyekService.get({id: x.id}).$promise;
                         }],
                 }
             });
@@ -167,7 +167,7 @@
         }
 
         function hapus(x) {
-            ProgramService.delete({id: x.id}).success(function () {
+            ProyekService.delete({id: x.id}).success(function () {
                 toastr.success('Hapus data sukses!');
                 loadAll();
             });

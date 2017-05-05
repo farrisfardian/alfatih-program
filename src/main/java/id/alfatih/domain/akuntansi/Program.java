@@ -52,6 +52,8 @@ public class Program {
     private Boolean aktif;
     @Column
     private Double budget;
+    private String pelaksana;
+    private String status;
     
     @ManyToOne
     @JoinColumn(name = "id_parent")
@@ -89,6 +91,30 @@ public class Program {
         this.kode = kode;
     }
 
+    public Date getTglMulai() {
+        return tglMulai;
+    }
+
+    public void setTglMulai(Date tglMulai) {
+        this.tglMulai = tglMulai;
+    }
+
+    public Date getTglSelesai() {
+        return tglSelesai;
+    }
+
+    public void setTglSelesai(Date tglSelesai) {
+        this.tglSelesai = tglSelesai;
+    }
+
+    public Date getTglPerencanaan() {
+        return tglPerencanaan;
+    }
+
+    public void setTglPerencanaan(Date tglPerencanaan) {
+        this.tglPerencanaan = tglPerencanaan;
+    }
+
     public Boolean getAktif() {
         return aktif;
     }
@@ -103,6 +129,22 @@ public class Program {
 
     public void setBudget(Double budget) {
         this.budget = budget;
+    }
+
+    public String getPelaksana() {
+        return pelaksana;
+    }
+
+    public void setPelaksana(String pelaksana) {
+        this.pelaksana = pelaksana;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String satus) {
+        this.status = satus;
     }
 
     public Program getParent() {
@@ -129,28 +171,5 @@ public class Program {
         this.unit = unit;
     }
 
-    public Date getTglMulai() {
-        return tglMulai;
-    }
-
-    public void setTglMulai(Date tglMulai) {
-        this.tglMulai = tglMulai;
-    }
-
-    public Date getTglSelesai() {
-        return tglSelesai;
-    }
-
-    public void setTglSelesai(Date tglSelesai) {
-        this.tglSelesai = tglSelesai;
-    }
-
-    public Date getTglPerencanaan() {
-        return tglPerencanaan;
-    }
-
-    public void setTglPerencanaan(Date tglPerencanaan) {
-        this.tglPerencanaan = tglPerencanaan;
-    }
     
 }

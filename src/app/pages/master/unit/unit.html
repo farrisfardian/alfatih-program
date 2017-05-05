@@ -14,7 +14,7 @@
                 <table class="table table-bordered table-hover table-condensed">
                     <thead>
                         <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                            <th jh-sort-by="nama"><span>Nama</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th style="text-align: left" jh-sort-by="nama"><span>Nama</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="alamat"><span>Alamat</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="telepon"><span>Telepon</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="kontak"><span>Kontak</span><span class="glyphicon glyphicon-sort"></span></th>
@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tr ng-repeat="c in vm.data track by c.id" class="editable-row">
-                        <td>
+                        <td style="text-align: left" >
                             {{ c.nama}}
                         </td>
                         <td>

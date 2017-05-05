@@ -3,7 +3,7 @@
     <thead>
     <tr>
     <th ng-class="expandingProperty.titleClass" ng-style="expandingProperty.titleStyle"    
-    compile="expandingProperty.titleTemplate">
+    compile="expandingProperty.titleTemplate" style="text-align: left">
     {{expandingProperty.displayName || expandingProperty.field || expandingProperty}}
     </th>
     <th ng-repeat="col in colDefinitions" ng-class="col.titleClass" ng-style="col.titleStyle"
@@ -12,21 +12,23 @@
     </th>
     </tr>
     </thead>
-    <tbody tree-dnd-nodes>
+     <tbody tree-dnd-nodes>
     <tr tree-dnd-node="node" ng-repeat="node in tree_nodes track by node.__hashKey__ "
     ng-show="enabledFilter ? node.__filtered_visible__ === true && node.__visible__ : node.__visible__"
     ng-class="enabledFilter ? (node.__filtered__ === true? 'success': '') : (node.__selected__ ? ' active':'')"
-    ng-click="onSelect(node)">
+    ng-click="vm.select(node)" style="padding : 0 0 0 0; margin:0 0 0 0">
     <td tree-dnd-node-handle
     ng-style="expandingProperty.cellStyle ? expandingProperty.cellStyle : {'padding-left': $callbacks.calsIndent(node.__level__)}"
-    ng-class="expandingProperty.cellClass" compile="expandingProperty.cellTemplate">
-    <a data-nodrag> <i ng-class="node.__icon_class__"
+    ng-class="expandingProperty.cellClass" compile="expandingProperty.cellTemplate" style="padding : 0 0 0 0; margin:0 0 0 0;font-weight: {{node.__children__.length===0?'normal':'bolder'}} ; text-align: left">
+            <a data-nodrag ng-click="toggleExpand(node)"> {{node.__children__.length===0?'':(node.__expanded__===true?'-':'+')}}</i>
+        </a>
+        <a data-nodrag> <i ng-class="node.__icon_class__"
     ng-click="toggleExpand(node)"
     class="tree-icon"></i>
     </a> {{node[expandingProperty.field] || node[expandingProperty]}}
     </td>
     <td ng-repeat="col in colDefinitions" ng-class="col.cellClass" ng-style="col.cellStyle"
-    compile="col.cellTemplate" title="{{col.displayName}}">
+    compile="col.cellTemplate" title="{{col.displayName}}" style="padding : 0 0 0 0; margin:0 0 0 0;font-weight: {{node.__children__.length===0?'normal':'bolder'}}">
     {{node[col.field]}}
     </td>
     </tr>
