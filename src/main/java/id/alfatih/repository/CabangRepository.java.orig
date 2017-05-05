@@ -1,7 +1,10 @@
 package id.alfatih.repository;
 
 import id.alfatih.domain.akademik.Cabang;
+<<<<<<< HEAD
+=======
 import id.alfatih.domain.akademik.Cabang;
+>>>>>>> f623676af24f48585135939631e67ca07c0beeb6
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -9,7 +12,11 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
 /**
+<<<<<<< HEAD
+ * Spring Data JPA repository for the Unit entity.
+=======
  * Spring Data JPA repository for the Cabang entity.
+>>>>>>> f623676af24f48585135939631e67ca07c0beeb6
  */
 @SuppressWarnings("unused")
 public interface CabangRepository extends JpaRepository<Cabang, Integer> {

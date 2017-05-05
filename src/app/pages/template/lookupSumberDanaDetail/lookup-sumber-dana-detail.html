@@ -1,0 +1,51 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+            <em class="ion-ios-close-empty sn-link-close"></em>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{modalTitle}}</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="form1" id="formRate">
+            <!--<div ba-panel ba-panel-title="Daftar Akun" ba-panel-class="with-scroll">-->
+            <div class=" form-group ">
+                <div class="input-group">
+                    <input id="search" type="text" class="form-control" ng-model="ctrl.search" ng-keypress="$event.keyCode == 13 ? ctrl.loadAll() : undefined" placeholder="Masukkan pencarian" autofocus>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="ctrl.loadAll()"><i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr jh-sort="ctrl.predicate" ascending="ctrl.reverse" callback="ctrl.transition()">
+                            <th style="text-align: left" jh-sort-by="nama"><span>Nama</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="kode"><span>Kode</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th ><span>Sumber Dana</span></th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="c in ctrl.data track by c.id" class="editable-row" ng-click="ctrl.select(c)">
+                        <td style="text-align: left">
+                            {{ c.nama}}
+                        </td>
+                        <td>
+                            {{ c.kode}}
+                        </td>
+                        <td>
+                            {{ c.sumberDana.nama}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="text-center" ng-if="ctrl.totalItems > ctrl.itemsPerPage">
+                <jhi-item-count page="ctrl.page" total="ctrl.queryCount" items-per-page="ctrl.itemsPerPage"></jhi-item-count>
+                <uib-pagination class="pagination-sm" total-items="ctrl.totalItems" items-per-page="ctrl.itemsPerPage" ng-model="ctrl.page" ng-change="ctrl.transition()"></uib-pagination>
+            </div>
+            <!--</div>-->
+        </form>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
