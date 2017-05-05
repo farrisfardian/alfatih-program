@@ -14,27 +14,23 @@
                 <table class="table table-bordered table-hover table-condensed">
                     <thead>
                         <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                            <th jh-sort-by="nama"><span>Nama</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th style="text-align: left" jh-sort-by="nama"><span>Nama</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="alamat"><span>Alamat</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="telepon"><span>Telepon</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="kontak"><span>Kontak</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="hp"><span>HP</span><span class="glyphicon glyphicon-sort"></span></th>
-<<<<<<< HEAD
                             <th ><span>Cabag</span></span></th>
-=======
-                            <th jh-sort-by="parent"><span>Parent</span><span class="glyphicon glyphicon-sort"></span></th>
->>>>>>> a836039b175cb7b3c2ee7d4ca3e5c1c6af30f9a4
                             <th>
                                 <button class="btn btn-info editable-table-button btn-xs" ng-click="vm.baru()">Tambah</button>
                             </th>
                         </tr>
                     </thead>
                     <tr ng-repeat="c in vm.data track by c.id" class="editable-row">
-<<<<<<< HEAD
+<<<<<<< HEAD:src/app/pages/pengaturan/unit/unit.html
                         <td style="text-align: left">
 =======
-                        <td>
->>>>>>> a836039b175cb7b3c2ee7d4ca3e5c1c6af30f9a4
+                        <td style="text-align: left" >
+>>>>>>> e30f06e612e46de0dfd5162ec5f48bf878a21ead:src/app/pages/master/unit/unit.html
                             {{ c.nama}}
                         </td>
                         <td>
@@ -50,11 +46,7 @@
                             {{ c.hp}}
                         </td>
                         <td>
-<<<<<<< HEAD
                             {{ c.cabang.nama}}
-=======
-                            {{ c.parent.nama}}
->>>>>>> a836039b175cb7b3c2ee7d4ca3e5c1c6af30f9a4
                         </td>
                         <td>
                             <div class="buttons" >

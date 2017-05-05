@@ -257,3 +257,14 @@ INSERT INTO acc_akun(id, kode, nama, id_kelompok, id_parent, created_by, created
 (161,'8.10.99','8.10.99',13, 158, 'system', now());
 
 alter SEQUENCE acc_akun_id_seq restart with 162;
+
+CREATE TABLE acc_skema_budget(
+  id serial primary key,
+  nama character varying(255) unique not null
+);
+
+insert into acc_skema_budget(nama) VALUES
+('Konsolidasi (Standar)'),
+('Per Donor'),
+('Per Periode');
+

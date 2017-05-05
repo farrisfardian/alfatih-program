@@ -2,13 +2,13 @@
     'use strict';
 
     angular.module('Alfatih.pages.anggaran')
-            .factory('ProgramService', ProgramService);
+            .factory('ProyekService', ProyekService);
 
     /** @ngInject */
-    ProgramService.inject = ['$http', '$resource'];
+    ProyekService.inject = ['$http', '$resource'];
 
-    function ProgramService($http, $resource) {
-        var resourceUrl =  'api/anggaran/program/:id/:cari';
+    function ProyekService($http, $resource) {
+        var resourceUrl =  'api/anggaram/proyek/:id/:cari';
 
         return $resource(resourceUrl, {id: "@id", cari: "@cari"}, {
             'query': { method: 'GET', isArray: true},

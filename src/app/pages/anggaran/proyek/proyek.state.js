@@ -9,15 +9,15 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-                .state('anggaran.program', {
-                    url: '/program',
-                    templateUrl: 'app/pages/anggaran/program/program.html',
-                    controller: 'ProgramController',
+                .state('anggaran.proyek', {
+                    url: '/proyek',
+                    templateUrl: 'app/pages/anggaran/proyek/proyek.html',
+                    controller: 'ProyekController',
                     controllerAs: 'vm',
-                    title: 'Anggaran Program',
+                    title: 'Proyek',
                     data: {
                         authorities: ['ROLE_ADMIN'],
-                        pageTitle: 'Daftar Program'
+                        pageTitle: 'Proyek'
                     },
                     sidebarMeta: {
                         order: 100,

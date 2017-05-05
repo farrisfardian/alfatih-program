@@ -36,14 +36,14 @@
                 displayName: 'Kode'
             },
             {
-                field: 'mulai',
+                field: 'tgl_mulai',
                 displayName: 'Tgl Mulai',
-                cellTemplate:'<span><bold>{{node.mulai|date:\'dd/MM/yyyy\'}}</bold></span>'
+                cellTemplate:'<span><bold>{{node.tgl_mulai|date:\'dd/MM/yyyy\'}}</bold></span>'
             },
             {
-                field: 'selesai',
+                field: 'tgl_selesai',
                 displayName: 'Tgl Selesai',
-                cellTemplate:'<span><bold>{{node.selesai|date:\'dd/MM/yyyy\'}}</bold></span>'
+                cellTemplate:'<span><bold>{{node.tgl_selesai|date:\'dd/MM/yyyy\'}}</bold></span>'
             },
             {
                 field: 'aktif',
