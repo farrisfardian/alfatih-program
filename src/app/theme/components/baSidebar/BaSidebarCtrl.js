@@ -49,20 +49,7 @@
                         "order": 300, 
                         "stateRef": "master.donatur"
                     }, 
-                    {
-                        "name": "master.unit", 
-                        "title": "Unit Organisasi", 
-                        "level": 1, 
-                        "order": 400, 
-                        "stateRef": "master.unit"
-                    }, 
-                    {
-                        "name": "master.cabang", 
-                        "title": "Cabang", 
-                        "level": 1, 
-                        "order": 500, 
-                        "stateRef": "master.cabang"
-                    }, 
+                    
                     {
                         "name": "master.tahunajaran", 
                         "title": "Tahun Ajaran", 
@@ -126,6 +113,13 @@
                         "stateRef": "transaksi.jurnal"
                     }, 
                     {
+                        "name": "transaksi.akad-donatur", 
+                        "title": "Akad Donatur", 
+                        "level": 1, 
+                        "order": 150, 
+                        "stateRef": "transaksi.akad-donatur"
+                    }, 
+                    {
                         "name": "transaksi.um", 
                         "title": "Uang Muka", 
                         "level": 1, 
@@ -135,10 +129,48 @@
                 ]
             }, 
             {
+                "name": "pengaturan", 
+                "title": "Pengaturan", 
+                "level": 0, 
+                "order": 400, 
+                "icon": "ion-settings", 
+                "stateRef": "setting", 
+                "subMenu": [
+                    {
+                        "name": "pengaturan.cabang", 
+                        "title": "Cabang", 
+                        "level": 1, 
+                        "order": 0, 
+                        "stateRef": "pengaturan.cabang"
+                    }, 
+                    {
+                        "name": "pengaturan.unit", 
+                        "title": "Unit Organisasi", 
+                        "level": 1, 
+                        "order": 100, 
+                        "stateRef": "pengaturan.unit"
+                    }, 
+                    {
+                        "name": "pengaturan.jenis-jurnal", 
+                        "title": "Jenis Jurnal", 
+                        "level": 1, 
+                        "order": 200, 
+                        "stateRef": "pengaturan.jenis-jurnal"
+                    }, 
+                    {
+                        "name": "pengaturan.dokumen-sumber", 
+                        "title": "Dokumen Sumber", 
+                        "level": 1, 
+                        "order": 300, 
+                        "stateRef": "pengaturan.dokumen-sumber"
+                    }, 
+                ]
+            },
+            {
                 "name": "laporan", 
                 "title": "Laporan", 
                 "level": 0, 
-                "order": 400, 
+                "order": 500, 
                 "icon": "ion-document", 
                 "stateRef": "laporan", 
                 "subMenu": [

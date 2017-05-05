@@ -1,33 +1,47 @@
 (function () {
     'use strict';
 
-    angular.module('Alfatih.pages.master')
-            .controller('CabangDialogController', CabangDialogController);
+    angular.module('Alfatih.pages.anggaran')
+            .controller('ProgramDialogController', ProgramDialogController);
 
-    function CabangDialogController($timeout, $scope, $uibModal, $stateParams, $log, $uibModalInstance, entity, CabangService) {
+    function ProgramDialogController($http, $timeout, $scope, $stateParams, $uibModalInstance, $uibModal, $log, entity, ProgramService, TahunAjaranService) {
         var vm = this;
 
-        vm.data = entity;
-        vm.listJenis = [];
+        vm.akun = entity;
+        vm.listTahunAjaran = [];
         vm.clear = clear;
         vm.save = save;
-        vm.lookupParent = lookupParent;
-        vm.modalTitle = vm.data == undefined || vm.data.id == null ? "Tambah Cabang" : "Ubah Cabang";
+        vm.lookupProgram = lookupProgram;
+        console.log('vm.akun', vm.akun);
         $timeout(function () {
             angular.element('.form-group:eq(1)>input').focus();
         });
 
+        $scope.dateOptions = {format: 'DD/MM/YYYY', showClear: false};
+//        $http.get('api/master/tahun-ajaran/all').success(function (d) {
+//            console.log('data', d);
+//            vm.listTahunAjaran = d;
+//        });
+        TahunAjaranService.cariSemua({id: 'all'}, function (d) {
+            console.log('data', d);
+            vm.listTahunAjaran = d;
+        });
         function clear() {
             $uibModalInstance.dismiss('cancel');
         }
+        if (entity.id === null) {
+            $scope.modalTitle = "Tambah Program"
+        } else {
+            $scope.modalTitle = "Edit Program"
+        }
 
         function save() {
-            console.log('vm.akun', vm.data);
+            console.log('vm.akun', vm.akun);
             vm.isSaving = true;
-            if (vm.data.id !== null) {
-                CabangService.update(vm.data, onSaveSuccess, onSaveError);
+            if (vm.akun.id !== null) {
+                ProgramService.update(vm.akun, onSaveSuccess, onSaveError);
             } else {
-                CabangService.save(vm.data, onSaveSuccess, onSaveError);
+                ProgramService.save(vm.akun, onSaveSuccess, onSaveError);
             }
         }
 
@@ -42,12 +56,12 @@
             vm.isSaving = false;
         }
         
-        function lookupParent() {
+        function lookupProgram() {
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/template/lookupCabang/lookup-unit.html',
-                controller: 'LookupCabangController',
+                templateUrl: 'app/pages/template/lookupProgramTree/lookup-program-tree.html',
+                controller: 'LookupProgramTreeController',
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {
@@ -63,7 +77,7 @@
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                vm.data.parent = selectedItem;
+                vm.akun.parent = selectedItem;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });

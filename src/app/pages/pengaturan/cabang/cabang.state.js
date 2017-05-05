@@ -1,15 +1,15 @@
 (function () {
     'use strict';
     angular
-            .module('Alfatih.pages.master')
+            .module('Alfatih.pages.pengaturan')
             .config(stateConfig);
     stateConfig.$inject = ['$stateProvider'];
     function stateConfig($stateProvider) {
         $stateProvider
-                .state('master.cabang', {
+                .state('pengaturan.cabang', {
 //                    parent: 'akademik.daftar',
                     url: '/cabang',
-                    templateUrl: 'app/pages/master/cabang/cabang.html',
+                    templateUrl: 'app/pages/pengaturan/cabang/cabang.html',
                     controller: 'CabangController',
                     controllerAs: 'vm',
                     data: {

@@ -6,6 +6,7 @@
 package id.alfatih.domain.akuntansi;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import id.alfatih.domain.akademik.Cabang;
 import id.alfatih.domain.akademik.Unit;
 import java.util.Date;
 import java.util.Set;
@@ -50,6 +51,9 @@ public class Jurnal {
     @ManyToOne
     @JoinColumn(name = "id_dokumen")
     private DokumenSumber dokumen;
+    @ManyToOne
+    @JoinColumn(name = "id_cabang")
+    private Cabang cabang;
     @ManyToOne
     @JoinColumn(name = "id_jenis_jurnal")
     private JenisJurnal jenis;
@@ -119,5 +123,21 @@ public class Jurnal {
 
     public void setJenis(JenisJurnal jenis) {
         this.jenis = jenis;
+    }
+
+    public String getTerimaDari() {
+        return terimaDari;
+    }
+
+    public void setTerimaDari(String terimaDari) {
+        this.terimaDari = terimaDari;
+    }
+
+    public Cabang getCabang() {
+        return cabang;
+    }
+
+    public void setCabang(Cabang cabang) {
+        this.cabang = cabang;
     }
 }

@@ -1,20 +1,23 @@
 (function () {
     'use strict';
+
     angular
-            .module('Alfatih.pages.master')
+            .module('Alfatih.pages.pengaturan')
             .config(stateConfig);
+
     stateConfig.$inject = ['$stateProvider'];
+
     function stateConfig($stateProvider) {
         $stateProvider
-                .state('master.unit', {
-//                    parent: 'akademik.daftar',
-                    url: '/unit',
-                    templateUrl: 'app/pages/master/unit/unit.html',
-                    controller: 'UnitController',
+                .state('pengaturan.jenis-jurnal', {
+                    url: '/jenis-jurnal',
+                    templateUrl: 'app/pages/pengaturan/jenis-jurnal/jenis-jurnal.html',
+                    controller: 'JenisJurnalController',
                     controllerAs: 'vm',
+                    title: 'Daftar Jenis Jurnal',
                     data: {
-                        authorities: ['ROLE_AKADEMIK', 'ROLE_ADMIN'],
-                        pageTitle: 'unit'
+                        authorities: ['ROLE_ADMIN'],
+                        pageTitle: 'Daftar Jenis Jurnal'
                     },
                     sidebarMeta: {
                         order: 100,
@@ -41,6 +44,7 @@
                                 };
                             }]
                     }
-                })
+                });
     }
+
 })();

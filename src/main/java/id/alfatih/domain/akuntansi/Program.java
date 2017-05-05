@@ -6,7 +6,7 @@
 package id.alfatih.domain.akuntansi;
 
 import id.alfatih.domain.akademik.TahunAjaran;
-import id.alfatih.domain.akademik.Unit;
+import id.alfatih.domain.akademik.Cabang;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,8 +62,8 @@ public class Program {
     private TahunAjaran tahunAjaran;
 
     @ManyToOne
-    @JoinColumn(name = "id_unit")
-    private Unit unit;
+    @JoinColumn(name = "id_cabang")
+    private Cabang cabang;
 
     public Integer getId() {
         return id;
@@ -121,12 +121,12 @@ public class Program {
         this.tahunAjaran = tahunAjaran;
     }
 
-    public Unit getUnit() {
-        return unit;
+    public Cabang getCabang() {
+        return cabang;
     }
 
-    public void setUnit(Unit unit) {
-        this.unit = unit;
+    public void setCabang(Cabang unit) {
+        this.cabang = unit;
     }
 
     public Date getTglMulai() {

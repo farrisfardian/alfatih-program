@@ -1,11 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('Alfatih.pages.master')
-            .controller('CabangController', CabangController)
+    angular.module('Alfatih.pages.transaksi')
+            .controller('AkadDonaturController', AkadDonaturController)
 
     /** @ngInject */
-    function CabangController($scope, $uibModal, $log, toastr, CabangService, 
+    function AkadDonaturController($scope, $uibModal, $log, toastr, AkadDonaturService, 
             ParseLinks, AlertService, paginationConstants, pagingParams, $state) {
         var vm = this;
         vm.search = '';vm.loadAll = loadAll;
@@ -21,7 +21,7 @@
         loadAll();
 
         function loadAll() {
-            CabangService.query({
+            AkadDonaturService.query({
                 id: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : 'filter',
                 cari: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : vm.search,
                 page: pagingParams.page - 1,
@@ -63,8 +63,8 @@
         function baru() {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/master/cabang/cabang-dialog.html',
-                controller: 'CabangDialogController',
+                templateUrl: 'app/pages/transaksi/akad-donatur/akad-donatur-dialog.html',
+                controller: 'AkadDonaturDialogController',
                 controllerAs: 'vm',
                 size: 'md',
                 resolve: {
@@ -86,13 +86,13 @@
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/master/cabang/cabang-dialog.html',
-                controller: 'CabangDialogController',
+                templateUrl: 'app/pages/transaksi/akad-donatur/akad-donatur-dialog.html',
+                controller: 'AkadDonaturDialogController',
                 controllerAs: 'vm',
                 size: 'md',
                 resolve: {
-                    entity: ['CabangService', function (CabangService) {
-                            return CabangService.get({id: x.id}).$promise;
+                    entity: ['AkadDonaturService', function (AkadDonaturService) {
+                            return AkadDonaturService.get({id: x.id}).$promise;
                         }],
                 }
             });
@@ -105,7 +105,7 @@
         }
 
         function hapus(x) {
-            CabangService.delete({id: x.id}, function () {
+            AkadDonaturService.delete({id: x.id}, function () {
                 toastr.success('Hapus data sukses!');
                 loadAll();
             });

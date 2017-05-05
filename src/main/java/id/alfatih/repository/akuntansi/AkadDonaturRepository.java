@@ -16,7 +16,7 @@ import org.springframework.data.repository.query.Param;
  *
  * @author ustadho
  */
-public interface AkadDonaturRepository extends JpaRepository<AkadDonatur, Integer> {
+public interface AkadDonaturRepository extends JpaRepository<AkadDonatur, String> {
 
     public Page<AkadDonatur> findByKeteranganContainingIgnoreCase(String nama, Pageable pr);
 

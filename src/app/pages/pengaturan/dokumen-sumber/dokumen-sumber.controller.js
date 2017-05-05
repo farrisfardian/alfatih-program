@@ -1,11 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('Alfatih.pages.master')
-            .controller('UnitController', UnitController)
+    angular.module('Alfatih.pages.pengaturan')
+            .controller('DokumenSumberController', DokumenSumberController)
 
     /** @ngInject */
-    function UnitController($scope, $uibModal, $log, toastr, UnitService, 
+    function DokumenSumberController($scope, $uibModal, $log, toastr, DokumenSumberService, 
             ParseLinks, AlertService, paginationConstants, pagingParams, $state) {
         var vm = this;
         vm.search = '';vm.loadAll = loadAll;
@@ -21,7 +21,7 @@
         loadAll();
 
         function loadAll() {
-            UnitService.query({
+            DokumenSumberService.query({
                 id: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : 'filter',
                 cari: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : vm.search,
                 page: pagingParams.page - 1,
@@ -63,8 +63,8 @@
         function baru() {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/master/unit/unit-dialog.html',
-                controller: 'UnitDialogController',
+                templateUrl: 'app/pages/pengaturan/dokumen-sumber/dokumen-sumber-dialog.html',
+                controller: 'DokumenSumberDialogController',
                 controllerAs: 'vm',
                 size: 'md',
                 resolve: {
@@ -74,7 +74,6 @@
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                toastr.success('Tambah data sukses!');
                 loadAll();
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
@@ -86,18 +85,17 @@
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/master/unit/unit-dialog.html',
-                controller: 'UnitDialogController',
+                templateUrl: 'app/pages/pengaturan/dokumen-sumber/dokumen-sumber-dialog.html',
+                controller: 'DokumenSumberDialogController',
                 controllerAs: 'vm',
                 size: 'md',
                 resolve: {
-                    entity: ['UnitService', function (UnitService) {
-                            return UnitService.get({id: x.id}).$promise;
+                    entity: ['DokumenSumberService', function (DokumenSumberService) {
+                            return DokumenSumberService.get({id: x.id}).$promise;
                         }],
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                toastr.success('Ubah data sukses!');
                 loadAll()
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
@@ -105,7 +103,7 @@
         }
 
         function hapus(x) {
-            UnitService.delete({id: x.id}, function () {
+            DokumenSumberService.delete({id: x.id},function () {
                 toastr.success('Hapus data sukses!');
                 loadAll();
             });

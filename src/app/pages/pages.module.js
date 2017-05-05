@@ -7,7 +7,10 @@
 
     angular.module('Alfatih.pages', [
         'ui.router',
-        'Alfatih.pages.master'
+        'Alfatih.pages.master',
+        'Alfatih.pages.anggaran',
+        'Alfatih.pages.pengaturan',
+        'Alfatih.pages.transaksi',
     ])
       .config(routeConfig);
 //

@@ -1,14 +1,14 @@
 (function () {
     'use strict';
 
-    angular.module('Alfatih.pages.master')
-            .factory('CabangService', CabangService);
+    angular.module('Alfatih.pages.transaksi')
+            .factory('JurnalService', JurnalService);
 
     /** @ngInject */
-    CabangService.inject = ['$http', '$resource'];
+    JurnalService.inject = ['$http', '$resource'];
 
-    function CabangService($http, $resource) {
-        var resourceUrl =  'api/akademik/cabang/:id/:cari';
+    function JurnalService($http, $resource) {
+        var resourceUrl =  'api/akuntansi/jurnal/:id/:cari';
 
         return $resource(resourceUrl, {id: "@id", cari: "@cari"}, {
             'query': { method: 'GET', isArray: true},
