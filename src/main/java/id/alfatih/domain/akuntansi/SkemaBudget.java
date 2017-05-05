@@ -23,7 +23,7 @@ public class SkemaBudget {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column
+    @Column(unique = true, nullable = false)
     private String nama;
 
     public Integer getId() {

@@ -1,5 +1,5 @@
 <div class="widgets">
-    <div ba-panel ba-panel-title="Edit santri" ba-panel-class="with-scroll">
+    <div ba-panel ba-panel-title="Anggaran Proyek" ba-panel-class="with-scroll">
         <div class="modal-body">
             <form class="form-horizontal" name="form1" id="formRate">
                 <div>
@@ -9,7 +9,7 @@
                         </div>
                         <div class="col-md-5" ng-class="{error: form1.status.$invalid}">
                             <div class="input-group">
-                                <input class="form-control" ng-model="vm.akun.parent.nama" name="parent"/>
+                                <input class="form-control" ng-model="vm.data.program.nama" name="program"/>
                                 <span class="input-group-addon" ng-click="vm.lookupProgram()"><span class="glyphicon glyphicon-search"></span></span>
                             </div>
                         </div>
@@ -17,9 +17,9 @@
                             <label class="control-label" for="nama">Skema Budget</label>
                         </div>
                         <div class="col-md-3">
-                            <ui-select data-ng-model="vm.data.kelompok" name="kelompok" required>
-                                <ui-select-match placeholder="Pilih Kelompok Santri">{{$select.selected.nama}}</ui-select-match>
-                                <ui-select-choices data-repeat="i in vm.listKelompokSantri | filter: $select.search">
+                            <ui-select data-ng-model="vm.data.skemaBudget" name="skema" class="btn-group bootstrap-select form-control">
+                                <ui-select-match placeholder="Pilih Skema">{{$select.selected.nama}}</ui-select-match>
+                                <ui-select-choices data-repeat="i in vm.listSkemaBudget | filter: $select.search">
                                     <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
                                 </ui-select-choices>
                             </ui-select>
@@ -27,42 +27,49 @@
                     </div>                
                     <div class="form-group">
                         <div class="col-md-2">
-                            <label class="control-label" for="mulai">Mulai</label>
+                            <label class="control-label" for="mulai">Durasi</label>
                         </div>
-                        <div class="col-md-3" ng-class="{error: form1.tglMasuk.$invalid}">
+                        <div class="col-md-3" ng-class="{error: form1.durasiMulai.$invalid}">
                             <div class="input-group">
-                                <input class="form-control" datetimepicker ng-model="vm.data.tglMasuk" options="vm.dateOptions" name="tglMasuk"/>
+                                <input class="form-control" datetimepicker ng-model="vm.data.durasiAwal" options="vm.dateOptions" name="tglMasuk"/>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <label class="control-label" for="tahunAjaran">Sampai</label>
                         </div>                   
-                        <div class="col-md-3" ng-class="{error: form1.tahunAjaran.$invalid}">
+                        <div class="col-md-3" ng-class="{error: form1.durasiAkhir.$invalid}">
                             <div class="input-group">
-                                <input class="form-control" datetimepicker ng-model="vm.data.tglMasuk" options="vm.dateOptions" name="tglMasuk"/>
+                                <input class="form-control" datetimepicker ng-model="vm.data.durasiAkhir" options="vm.dateOptions" name="tglMasuk"/>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-xs-2">
-                            <label class="control-label" for="tipe">Kelompok</label>
-                        </div>                   
-                        <div class="col-sm-8" ng-class="{error: form1.kelompok.$invalid}">
-                            <ui-select data-ng-model="vm.data.kelompok" name="kelompok" required>
-                                <ui-select-match placeholder="Pilih Kelompok Santri">{{$select.selected.nama}}</ui-select-match>
-                                <ui-select-choices data-repeat="i in vm.listKelompokSantri | filter: $select.search">
-                                    <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
-                                </ui-select-choices>
-                            </ui-select>
-                            <span style="float:right; color:white" class="help-block label label-danger" ng-show="form1.kelompok.$error.required">
-                                Harus Diisi
-                            </span>
-                        </div>
-                    </div>
                 </div>
             </form>
+            <div class="row">
+                <div class="table-responsive">
+                    <tree-dnd tree-class="table table-bordered table-hover table-striped"
+                              tree-data="vm.tree_data"
+                              tree-control="vm.my_tree"
+                              filter="vm._filter"
+                              primary-key="id"
+                              column-defs="vm.col_defs"
+                              expand-on="vm.expanding_property"
+
+                              template-url="app/pages/template/dnd-tree/tree-dnd-template-render.html"
+
+                              indent="30"
+                              indent-plus="20"
+                              indent-unit="px"
+                              enable-hotkey="true"
+                              enable-drag="false"
+                              enable-drop="false"
+                              enable-status="true"
+                              enable-move="false">
+                    </tree-dnd>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" ng-click="vm.simpan()">Simpan</button>

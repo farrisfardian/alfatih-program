@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ustadho
  */
 @RestController
-@RequestMapping("/api/akuntansi/skema-budget")
+@RequestMapping("/api/master/skema-budget")
 public class SkemaBudgetResource {
     private final Logger log=LoggerFactory.getLogger(SkemaBudgetResource.class);
     

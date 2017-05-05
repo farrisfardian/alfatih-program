@@ -8,7 +8,7 @@
     SkemaBudgetService.inject = ['$http', '$resource'];
 
     function SkemaBudgetService($http, $resource) {
-        var resourceUrl =  'api/akuntansi/skema-budget/:id/:cari';
+        var resourceUrl =  'api/master/skema-budget/:id/:cari';
 
         return $resource(resourceUrl, {id: "@id", cari: "@cari"}, {
             'query': { method: 'GET', isArray: true},

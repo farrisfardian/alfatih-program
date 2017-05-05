@@ -27,7 +27,7 @@ public class ProgramRepositoryJdbc {
 "       r.id_parent, r.id_tahun_ajaran, ta.kode as kode_tahun_ajaran from\n"
                 + "(SELECT *, case when id_parent is null then id else id_parent end as order_by\n"
                 + "  FROM acc_program) r "
-                + "join m_tahun_ajaran ta on ta.id=r.id_tahun_ajaran "
+                + "left join m_tahun_ajaran ta on ta.id=r.id_tahun_ajaran "
                 + "where coalesce(r.nama,'')||coalesce(r.kode,'') ilike '%" + (search == null ? "" : search) + "%' order by order_by, id;";
         return mr.mapList(query);
     }

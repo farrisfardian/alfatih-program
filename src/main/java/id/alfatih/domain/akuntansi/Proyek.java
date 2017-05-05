@@ -49,6 +49,16 @@ public class Proyek {
     @JoinColumn(name = "id_program")
     private Program program;
 
+    @ManyToOne
+    @JoinColumn(name = "id_skema_budget")
+    private SkemaBudget skemaBudget;
+
+    @Temporal(TemporalType.DATE)
+    private Date durasiAwal;
+    
+    @Temporal(TemporalType.DATE)
+    private Date durasiAkhir;
+    
     public Integer getId() {
         return id;
     }
@@ -95,6 +105,30 @@ public class Proyek {
 
     public void setProgram(Program program) {
         this.program = program;
+    }
+
+    public SkemaBudget getSkemaBudget() {
+        return skemaBudget;
+    }
+
+    public void setSkemaBudget(SkemaBudget skemaBudget) {
+        this.skemaBudget = skemaBudget;
+    }
+
+    public Date getDurasiAwal() {
+        return durasiAwal;
+    }
+
+    public void setDurasiAwal(Date durasiAwal) {
+        this.durasiAwal = durasiAwal;
+    }
+
+    public Date getDurasiAkhir() {
+        return durasiAkhir;
+    }
+
+    public void setDurasiAkhir(Date durasiAkhir) {
+        this.durasiAkhir = durasiAkhir;
     }
 
 }
