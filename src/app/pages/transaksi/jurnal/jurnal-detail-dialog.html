@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-md-2" ng-class="{error: form1.akun.$invalid}">
                         <div class="input-group" >
-                            <input class="form-control" ng-model="ctrl.data.akun.kode" name="akun" ng-keypress="$event.keyCode == 13 ? ctrl.cariAkunByKode(ctrl.akun.kode) : undefined"/>
+                            <input class="form-control" ng-model="ctrl.data.akun.kode" name="akun" ng-keypress="$event.keyCode == 13 ? ctrl.cariAkunByKode(ctrl.data.akun.kode) : undefined"/>
                             <span class="input-group-addon" ng-click="ctrl.lookupAkun()"><span class="glyphicon glyphicon-search"></span></span>
                         </div>
                     </div>

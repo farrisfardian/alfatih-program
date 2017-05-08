@@ -15,6 +15,7 @@
         ctrl.lookupProyek = lookupProyek;
         ctrl.lookupAkun = lookupAkun;
         ctrl.cariAkunByKode = cariAkunByKode;
+        $scope.modalTitle = (entity.akun === null || entity.akun === undefined)?"Tambah Detail Jurnal":"Ubah Detail Jurnal";
         console.log('ctrl.data', ctrl.data);
         $timeout(function () {
             angular.element('.form-group:eq(1)>input').focus();
@@ -38,7 +39,7 @@
         function onSaveError() {
             ctrl.isSaving = false;
         }
-        
+
         function cariAkunByKode(kode) {
             console.log('cariAkunByKode executed, kode : ', kode);
             AkunService.cariSatu({id: "kode", cari: kode}, onSaveSuccess, onSaveError);
@@ -53,7 +54,7 @@
                 toastr.error(data.headers('X-alfatihApp-error'));
             }
         }
-        
+
         function lookupProyek() {
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -107,7 +108,7 @@
                 $log.info('Modal dismissed at: ' + new Date());
             });
         }
-        
+
         function lookupAkadDonatur() {
             console.log('Open modal');
             var modalInstance = $uibModal.open({

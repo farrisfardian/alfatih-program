@@ -22,6 +22,7 @@
                 }
             },
             'update': { method:'PUT' },
+            'cariSatu': {method: 'GET'},
             'cariSemua': {
                 method: 'GET', isArray: true,
                 transformResponse: function (data, header) {
