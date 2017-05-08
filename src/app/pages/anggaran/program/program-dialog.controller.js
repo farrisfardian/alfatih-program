@@ -64,10 +64,10 @@
         }
 
         function onSaveError(response) {
-            //console.log('error', response)
+            console.log('error', response.headers('x-alfatihapp-error'))
             vm.isSaving = false;
             vm.success = null;
-            if (response.status === 400 && response.data === 'Kode sudah digunakan') {
+            if (response.status === 400 && response.headers('x-alfatihapp-error') === 'Kode sudah digunakan') {
                 vm.errorKodeExists = 'ERROR';
             } else {
                 vm.error = 'ERROR';

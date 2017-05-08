@@ -171,10 +171,15 @@
         }
 
         function hapus(x) {
-            ProgramService.delete({id: x.id}).success(function () {
+            ProgramService.delete({id: x.id}, 
+            function () {
                 toastr.success('Hapus data sukses!');
-                loadAll();
-            });
+                loadAllFlat()();
+            },
+            function(){
+                
+            }
+            );
         }
 
         function tambahSub(x) {

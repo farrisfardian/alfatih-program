@@ -42,7 +42,8 @@
             },
             {
                 field: 'aktif',
-                displayName: 'Aktif'
+                displayName: 'Aktif',
+                cellTemplate: '<center> <i class="ion-checkmark-round" ng-show="node.aktif"></i></center>'
             },
             {
                 field: 'budget',
@@ -64,7 +65,7 @@
                 ctrl.tree_data = $TreeDnDConvert.line2tree(ctrl.dataFlat, 'id', 'id_parent');
             }
             function onError(error) {
-                AlertService.error(error.data.message);
+                AlertService.error(error);
             }
         }
 

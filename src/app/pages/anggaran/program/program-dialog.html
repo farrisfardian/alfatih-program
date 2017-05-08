@@ -17,7 +17,7 @@
                         <span style="float:right; color:white" class="help-block label label-danger" ng-show="form1.kode.$error.required">
                             Harus Diisi
                         </span>
-                        <span style="float:right; color:white" class="help-block label label-danger" ng-show="kodeExists">
+                        <span style="float:right; color:white" class="help-block label label-danger" ng-show="vm.errorKodeExists">
                             Kode sudah terpakai
                         </span>
                     </div>
@@ -119,3 +119,5 @@
         <button type="button" class="btn btn-danger" ng-click="$dismiss()">Batal</button>
     </div>
 </div>
+
+vm.errorKodeExists{{vm.errorKodeExists}}
