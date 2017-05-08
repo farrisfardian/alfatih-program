@@ -7,6 +7,7 @@ package id.alfatih.repository.akuntansi;
 
 import id.alfatih.domain.akuntansi.Program;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,4 +38,6 @@ public interface ProgramRepository extends JpaRepository<Program, Integer>{
             + "and a.id not in (select pg.parent.id from Program pg where pg.parent.id is not null) "
     )
     public List<Program> findByUnit(@Param("id") Integer id);
+
+    public Optional<Program> findOneByKode(String kode);
 }

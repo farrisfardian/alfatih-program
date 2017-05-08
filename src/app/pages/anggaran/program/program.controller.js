@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function ProgramController($scope, $uibModal, $log, $TreeDnDConvert, toastr, ProgramService, TahunAjaranService,
-            ParseLinks, AlertService, paginationConstants, pagingParams, $state) {
+            ParseLinks, AlertService, paginationConstants, pagingParams, $state, $timeout) {
         var vm = this;
         vm.search = '';
         vm.loadAll = loadAll;
@@ -18,6 +18,7 @@
         vm.baru = baru;
         vm.ubah = ubah;
         vm.hapus = hapus;
+        vm.tambahSub = tambahSub;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.tree = {};
         vm.tree_data = {};
@@ -25,34 +26,35 @@
         vm._filter = {};
         vm.expanding_property = {
             /*template: "<td>OK All</td>",*/
-            field: 'nama',
+            field: 'kode',
             titleClass: 'text-center',
             cellClass: 'v-middle',
-            displayName: 'Nama'
+            displayName: 'Kode'
         };
         vm.col_defs = [
             {
-                field: 'kode',
-                displayName: 'Kode'
+                field: 'nama',
+                displayName: 'Nama Program'
             },
             {
                 field: 'tgl_mulai',
                 displayName: 'Tgl Mulai',
-                cellTemplate:'<span><bold>{{node.tgl_mulai|date:\'dd/MM/yyyy\'}}</bold></span>'
+                cellTemplate: '<span><bold>{{node.tgl_mulai|date:\'dd/MM/yyyy\'}}</bold></span>'
             },
             {
                 field: 'tgl_selesai',
                 displayName: 'Tgl Selesai',
-                cellTemplate:'<span><bold>{{node.tgl_selesai|date:\'dd/MM/yyyy\'}}</bold></span>'
+                cellTemplate: '<span><bold>{{node.tgl_selesai|date:\'dd/MM/yyyy\'}}</bold></span>'
             },
             {
                 field: 'aktif',
-                displayName: 'Aktif'
+                displayName: 'Aktif',
+                cellTemplate: '<center> <i class="ion-checkmark-round" ng-show="node.aktif"></i></center>'
             },
             {
                 field: 'budget',
                 displayName: 'Budget',
-                cellTemplate:'<span><bold>{{node.budget|number}}</bold></span>'
+                cellTemplate: '<span><bold>{{node.budget|number}}</bold></span>'
             },
             {
                 field: 'kode_tahun_ajaran',
@@ -65,7 +67,9 @@
                 titleClass: 'text-center',
                 cellClass: 'v-middle text-center',
                 displayName: '',
-                cellTemplate: '<a href="" ng-click="vm.ubah(node)" > <i class="glyphicon glyphicon-edit"></i> </a>  &nbsp; <a href="" ng-confirm-message="Anda yakin akan menghapus Program \'{{node.nama}}\'?" ng-confirm="vm.hapus(node)"> <i class="glyphicon glyphicon-remove"></i> </a>'
+                cellTemplate: ' <a href="" ng-click="vm.ubah(node)" > <i class="glyphicon glyphicon-edit"></i> </a>  &nbsp; \n\
+                                <a href="" ng-confirm-message="Anda yakin akan menghapus Program \'{{node.nama}}\'?" ng-confirm="vm.hapus(node)"> <i class="glyphicon glyphicon-remove"></i> </a> &nbsp; \n\
+                                <a href="" ng-click="vm.tambahSub(node)" > <i class="glyphicon glyphicon-plus"></i> </a>'
             }
         ];
 
@@ -80,7 +84,7 @@
                 vm.tree_data = $TreeDnDConvert.line2tree(vm.dataFlat, 'id', 'id_parent');
             }
             function onError(error) {
-                AlertService.error(error.data.message);
+                AlertService.error(error);
             }
         }
 
@@ -172,6 +176,37 @@
                 loadAll();
             });
         }
+
+        function tambahSub(x) {
+            var sub = {id: null, parent: null};
+            ProgramService.get({id: x.id}, onSuccess, onError);
+            function onSuccess(data) {
+                sub.parent = data;
+                console.log('sub', sub);
+            }
+            function onError(error) {
+                AlertService.error(error);
+            }
+            $timeout(function () {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'app/pages/anggaran/program/program-dialog.html',
+                    controller: 'ProgramDialogController',
+                    controllerAs: 'vm',
+                    size: 'lg',
+                    resolve: {
+                        entity: sub
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) {
+                    loadAllFlat();
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            }, 300);
+
+        }
+        ;
     }
 
 })();
