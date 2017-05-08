@@ -1,17 +1,24 @@
 (function () {
     'use strict';
 
-    angular.module('Alfatih.pages.master')
+    angular.module('Alfatih.pages.pengaturan')
             .controller('UnitDialogController', UnitDialogController);
 
+<<<<<<< HEAD
+    function UnitDialogController($timeout, $scope, $uibModal, $stateParams, $log, $uibModalInstance, entity, UnitService, CabangService) {
+=======
     function UnitDialogController($timeout, $scope, $uibModal, $stateParams, $log, $uibModalInstance, entity, UnitService) {
+>>>>>>> a836039b175cb7b3c2ee7d4ca3e5c1c6af30f9a4
         var vm = this;
 
         vm.data = entity;
         vm.listJenis = [];
         vm.clear = clear;
         vm.save = save;
+<<<<<<< HEAD
+=======
         vm.lookupParent = lookupParent;
+>>>>>>> a836039b175cb7b3c2ee7d4ca3e5c1c6af30f9a4
         vm.modalTitle = vm.data == undefined || vm.data.id == null ? "Tambah Unit" : "Ubah Unit";
         $timeout(function () {
             angular.element('.form-group:eq(1)>input').focus();
@@ -21,6 +28,14 @@
             $uibModalInstance.dismiss('cancel');
         }
 
+<<<<<<< HEAD
+        CabangService.cariSemua({id: 'all'}, function (d) {
+            console.log('vm.listCabang', d);
+            vm.listCabang = d;
+        });
+
+=======
+>>>>>>> a836039b175cb7b3c2ee7d4ca3e5c1c6af30f9a4
         function save() {
             console.log('vm.akun', vm.data);
             vm.isSaving = true;
@@ -41,6 +56,8 @@
         function onSaveError() {
             vm.isSaving = false;
         }
+<<<<<<< HEAD
+=======
         
         function lookupParent() {
             console.log('Open modal');
@@ -68,6 +85,7 @@
                 $log.info('Modal dismissed at: ' + new Date());
             });
         }
+>>>>>>> a836039b175cb7b3c2ee7d4ca3e5c1c6af30f9a4
 
 
     }

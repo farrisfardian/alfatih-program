@@ -1,8 +1,8 @@
 (function () {
     'use strict';
     angular.module('Alfatih')
-            .controller('LookupMataAnggaranController', LookupMataAnggaranController);
-    function LookupMataAnggaranController($timeout, $stateParams, $uibModalInstance, $scope, $uibModal, $log, toastr, ParseLinks, AlertService, paginationConstants, lookupPagingParams, $state, MataAnggaranService) {
+            .controller('LookupAkadDonaturController', LookupAkadDonaturController);
+    function LookupAkadDonaturController($timeout, $stateParams, $uibModalInstance, $scope, $uibModal, $log, toastr, ParseLinks, AlertService, paginationConstants, lookupPagingParams, $state, AkadDonaturService) {
 
         var ctrl = this;
         ctrl.search = '';
@@ -13,10 +13,10 @@
         ctrl.transition = transition;
         ctrl.itemsPerPage = paginationConstants.itemsPerPage;
         ctrl.select = select;
-        $scope.modalTitle = "Cari Mata Anggaran";
+        $scope.modalTitle = "Cari AkadDonatur";
         loadAll();
         function loadAll() {
-            MataAnggaranService.query({
+            AkadDonaturService.query({
                 id: (ctrl.search === null || ctrl.search === undefined || ctrl.search === '') ? '' : 'filter',
                 cari: (ctrl.search === null || ctrl.search === undefined || ctrl.search === '') ? '' : ctrl.search,
                 page: lookupPagingParams.page - 1,

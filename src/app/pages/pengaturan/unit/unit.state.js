@@ -6,15 +6,14 @@
     stateConfig.$inject = ['$stateProvider'];
     function stateConfig($stateProvider) {
         $stateProvider
-                .state('pengaturan.cabang', {
-//                    parent: 'akademik.daftar',
-                    url: '/cabang',
-                    templateUrl: 'app/pages/pengaturan/cabang/cabang.html',
-                    controller: 'CabangController',
+                .state('pengaturan.unit', {
+                    url: '/unit',
+                    templateUrl: 'app/pages/pengaturan/unit/unit.html',
+                    controller: 'UnitController',
                     controllerAs: 'vm',
                     data: {
-                        authorities: ['ROLE_AKADEMIK', 'ROLE_ADMIN'],
-                        pageTitle: 'cabang'
+                        authorities: ['ROLE_ADMIN'],
+                        pageTitle: 'Unit'
                     },
                     sidebarMeta: {
                         order: 100,

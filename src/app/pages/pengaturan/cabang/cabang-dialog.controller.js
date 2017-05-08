@@ -4,8 +4,7 @@
     angular.module('Alfatih.pages.pengaturan')
             .controller('CabangDialogController', CabangDialogController);
 
-    function CabangDialogController($timeout, $scope, $uibModal, $stateParams, $log, $uibModalInstance, 
-        entity, CabangService) {
+    function CabangDialogController($timeout, $scope, $uibModal, $stateParams, $log, $uibModalInstance, entity, CabangService) {
         var vm = this;
 
         vm.data = entity;
@@ -13,7 +12,7 @@
         vm.clear = clear;
         vm.save = save;
         vm.lookupParent = lookupParent;
-        vm.modalTitle = vm.data == undefined || vm.data.id == null ? "Tambah Unit" : "Ubah Unit";
+        vm.modalTitle = vm.data == undefined || vm.data.id == null ? "Tambah Cabang" : "Ubah Cabang";
         $timeout(function () {
             angular.element('.form-group:eq(1)>input').focus();
         });
@@ -47,8 +46,8 @@
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/template/lookupUnit/lookup-unit.html',
-                controller: 'LookupUnitController',
+                templateUrl: 'app/pages/template/lookupCabang/lookup-unit.html',
+                controller: 'LookupCabangController',
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {

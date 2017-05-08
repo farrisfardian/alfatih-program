@@ -1,19 +1,23 @@
 (function () {
     'use strict';
+
     angular
-            .module('Alfatih.pages.master')
+            .module('Alfatih.pages.pengaturan')
             .config(stateConfig);
+
     stateConfig.$inject = ['$stateProvider'];
+
     function stateConfig($stateProvider) {
         $stateProvider
-                .state('master.unit', {
-                    url: '/unit',
-                    templateUrl: 'app/pages/master/unit/unit.html',
-                    controller: 'UnitController',
+                .state('pengaturan.dokumen-sumber', {
+                    url: '/dokumen-sumber',
+                    templateUrl: 'app/pages/pengaturan/dokumen-sumber/dokumen-sumber.html',
+                    controller: 'DokumenSumberController',
                     controllerAs: 'vm',
+                    title: 'Daftar Dokumen Sumber',
                     data: {
                         authorities: ['ROLE_ADMIN'],
-                        pageTitle: 'Unit'
+                        pageTitle: 'Daftar Dokumen Sumber'
                     },
                     sidebarMeta: {
                         order: 100,
@@ -40,6 +44,7 @@
                                 };
                             }]
                     }
-                })
+                });
     }
+
 })();

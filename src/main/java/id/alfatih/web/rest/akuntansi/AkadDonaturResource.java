@@ -93,7 +93,7 @@ public class AkadDonaturResource {
      */
     @RequestMapping("{id}")
     @Timed
-    public ResponseEntity<AkadDonatur> getAkadDonatur(@PathVariable Integer id) {
+    public ResponseEntity<AkadDonatur> getAkadDonatur(@PathVariable String id) {
         log.debug("REST request get AkadDonatur : {}", id);
         AkadDonatur akun = repository.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(akun));
@@ -131,7 +131,7 @@ public class AkadDonaturResource {
      */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @Timed
-    public ResponseEntity<AkadDonatur> updateAkadDonatur(@PathVariable Integer id, @RequestBody AkadDonatur akun) throws URISyntaxException {
+    public ResponseEntity<AkadDonatur> updateAkadDonatur(@PathVariable String id, @RequestBody AkadDonatur akun) throws URISyntaxException {
         log.debug("REST request to update AkadDonatur : {}", akun);
         if (akun.getId() == null) {
             return createAkadDonatur(akun);
@@ -150,7 +150,7 @@ public class AkadDonaturResource {
      */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @Timed
-    public ResponseEntity<Void> deleteAkadDonatur(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteAkadDonatur(@PathVariable String id) {
         log.debug("REST request to delete AkadDonatur : {}", id);
         repository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();

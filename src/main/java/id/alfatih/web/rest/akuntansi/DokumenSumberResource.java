@@ -117,7 +117,7 @@ public class DokumenSumberResource {
      * or with status 500 (Internal Server Error) if the akun couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "{id}",method = RequestMethod.PUT)
     @Timed
     public ResponseEntity<DokumenSumber> updateDokumenSumber(@RequestBody DokumenSumber akun) throws URISyntaxException {
         log.debug("REST request to update DokumenSumber : {}", akun);

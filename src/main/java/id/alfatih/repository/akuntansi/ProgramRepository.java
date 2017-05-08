@@ -34,7 +34,7 @@ public interface ProgramRepository extends JpaRepository<Program, Integer>{
     public Page<Program> filterEndpointByKey(@Param("s") String s, Pageable pr);
  
     @Query("from Program a "
-            + "where a.unit.id=:id "
+            + "where a.cabang.id=:id "
             + "and a.id not in (select pg.parent.id from Program pg where pg.parent.id is not null) "
     )
     public List<Program> findByUnit(@Param("id") Integer id);

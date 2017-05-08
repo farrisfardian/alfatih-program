@@ -2,22 +2,22 @@
     'use strict';
 
     angular
-            .module('Alfatih')
+            .module('Alfatih.pages.pengaturan')
             .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
         $stateProvider
-                .state('akuntansi.daftar.tahun-ajaran', {
-                    url: '/tahun-ajaran',
-                    templateUrl: 'app/pages/akuntansi/daftar/tahunAjaran/tahun-ajaran.html',
-                    controller: 'TahunAjaranController',
+                .state('pengaturan.jenis-jurnal', {
+                    url: '/jenis-jurnal',
+                    templateUrl: 'app/pages/pengaturan/jenis-jurnal/jenis-jurnal.html',
+                    controller: 'JenisJurnalController',
                     controllerAs: 'vm',
-                    title: 'Daftar Tahun Ajaran',
+                    title: 'Daftar Jenis Jurnal',
                     data: {
                         authorities: ['ROLE_ADMIN'],
-                        pageTitle: 'Daftar Tahun Ajaran'
+                        pageTitle: 'Daftar Jenis Jurnal'
                     },
                     sidebarMeta: {
                         order: 100,

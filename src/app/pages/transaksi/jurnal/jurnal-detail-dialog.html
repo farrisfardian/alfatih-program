@@ -1,0 +1,116 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+            <em class="ion-ios-close-empty sn-link-close"></em>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{modalTitle}}</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="form1" id="formRate">
+            <div>                            
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="akun">Akun</label>
+                    </div>
+                    <div class="col-md-2" ng-class="{error: form1.akun.$invalid}">
+                        <div class="input-group" >
+                            <input class="form-control" ng-model="ctrl.data.akun.kode" name="akun" ng-keypress="$event.keyCode == 13 ? ctrl.cariAkunByKode(ctrl.akun.kode) : undefined"/>
+                            <span class="input-group-addon" ng-click="ctrl.lookupAkun()"><span class="glyphicon glyphicon-search"></span></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label" for="akun">Nama Akun</label>
+                    </div>
+                    <div class="col-md-6">
+                        {{ctrl.data.akun.nama||'empty'}}
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="mataUang">Mata Uang</label>
+                    </div>
+                    <div class="col-md-2" ng-class="{error: form1.mataUang.$invalid}">
+                        {{ctrl.data.akun.mataUang.nama||'empty'}}
+                        <!--                        <ui-select data-ng-model="ctrl.data.mataUang" name="mataUang">
+                                                    <ui-select-match placeholder="Pilih Mata Uang">{{$select.selected.nama}}</ui-select-match>
+                                                    <ui-select-choices data-repeat="i in ctrl.listMataUang| filter: $select.search">
+                                                        <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>-->
+                    </div>
+                    <div class="col-md-2" ng-class="{error: form1.rate.$invalid}">
+                        <label class="control-label" for="">Rate</label>
+                    </div>
+                    <div class="col-md-3" ng-class="{error: form1.rate.$invalid}">
+                        <input class="form-control" type="number" ng-model="ctrl.data.rate" name="rate"/>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="detail">Keterangan</label>
+                    </div>
+                    <div class="col-md-10" ng-class="{error: form1.detail.$invalid}">
+                        <textarea name="detail" type="text" class="form-control" id="detail" ng-model="ctrl.data.detail" rows="2" autofocus></textarea>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="akadDonatur">Akad</label>
+                    </div>
+                    <div class="col-md-10" ng-class="{error: form1.akadDonatur.$invalid}">
+                        <div class="input-group" >
+                            <input class="form-control" ng-model="ctrl.data.akadDonatur.keterangan" name="akadDonatur" ng-keypress="$event.keyCode == 13 ? ctrl.lookupAkadDonatur() : undefined"/>
+                            <span class="input-group-addon" ng-click="ctrl.lookupAkadDonatur()"><span class="glyphicon glyphicon-search"></span></span>
+                        </div>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="">SumberDana</label>
+                    </div>
+                    <div class="col-md-8" ng-class="{error: form1.proyek.$invalid}">
+                        <div class="input-group" >{{ctrl.data.akadDonatur.donatur.nama}}
+                        </div>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="proyek">Proyek</label>
+                    </div>
+                    <div class="col-md-3" ng-class="{error: form1.proyek.$invalid}">
+                        <div class="input-group" >
+                            <input class="form-control" ng-model="ctrl.data.proyek.kode" name="proyek" ng-keypress="$event.keyCode == 13 ? ctrl.lookupProyek() : undefined"/>
+                            <span class="input-group-addon" ng-click="ctrl.lookupProyek()"><span class="glyphicon glyphicon-search"></span></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label" for="">Ket.Proyek</label>
+                    </div>
+                    <div class="col-md-5" ng-class="{error: form1.proyek.$invalid}">
+                        <div class="input-group" >{{ctrl.data.proyek.keterangan}}
+                        </div>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <div class="col-md-2" ng-class="{error: form1.debet.$invalid}">
+                        <label class="control-label" for="">Debet</label>
+                    </div>
+                    <div class="col-md-3" ng-class="{error: form1.debet.$invalid}">
+                        <input class="form-control" type="number" ng-model="ctrl.data.debet" name="debet"/>
+                    </div>
+                    <div class="col-md-2" ng-class="{error: form1.kredit.$invalid}">
+                        <label class="control-label" for="">Kredit</label>
+                    </div>
+                    <div class="col-md-3" ng-class="{error: form1.kredit.$invalid}">
+                        <input class="form-control" type="number" ng-model="ctrl.data.kredit" name="kredit"/>
+                    </div>
+                </div> 
+
+            </div> 
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="ctrl.save()">Simpan</button>
+        <button type="button" class="btn btn-danger" ng-click="$dismiss()">Batal</button>
+    </div>
+</div>

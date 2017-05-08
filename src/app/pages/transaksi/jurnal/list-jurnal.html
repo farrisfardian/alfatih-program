@@ -1,6 +1,6 @@
 <div class="widgets">
     <div class="row">
-        <div ba-panel ba-panel-title="Daftar Tahun Ajaran" ba-panel-class="with-scroll">
+        <div ba-panel ba-panel-title="Daftar Jurnal" ba-panel-class="with-scroll">
             <div>
                 <div class=" form-group input-group">
                     <input id="search" type="text" class="col-xs-2 form-control" ng-model="vm.search" ng-keypress="$event.keyCode == 13 ? vm.loadAll() : undefined"placeholder="Masukkan pencarian" autofocus>
@@ -14,9 +14,12 @@
                 <table class="table table-bordered table-hover table-condensed">
                     <thead>
                         <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                            <th jh-sort-by="kode"><span>Kode</span><span class="glyphicon glyphicon-sort"></span></th>
-                            <th jh-sort-by="tahunAwal"><span>Tahun Awal</span><span class="glyphicon glyphicon-sort"></span></th>
-                            <th jh-sort-by="tahunAkhir"><span>Tahun Akhir</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="tanggal"><span>Tanggal</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="nomor"><span>Tanggal</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="uraian"><span>Uraian</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="unit.nama"><span>Unit</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="program.nama"><span>Program</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="jenis.nama"><span>Jenis</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th>
                                 <button class="btn btn-info editable-table-button btn-xs" ng-click="vm.baru()">Tambah</button>
                             </th>
@@ -24,19 +27,28 @@
                     </thead>
                     <tr ng-repeat="c in vm.data track by c.id" class="editable-row">
                         <td>
-                            {{ c.kode}}
+                            {{ c.tanggal|date :'dd-MM-yyyy'}}
                         </td>
                         <td>
-                            {{ c.tahunAwal}}
+                            {{ c.nomor}}
                         </td>
                         <td>
-                            {{ c.tahunAkhir}}
+                            {{ c.uraian}}
+                        </td>
+                        <td>
+                            {{ c.unit.nama}}
+                        </td>
+                        <td>
+                            {{ c.program.nama}}
+                        </td>
+                        <td>
+                            {{ c.jenis.nama}}
                         </td>
                         <td>
                             <div class="buttons" >
                                 <button class="btn btn-primary editable-table-button btn-xs" 
                                         data-toggle="modal" ng-click="vm.ubah(c)">Edit</button>
-                                <button class="btn btn-danger editable-table-button btn-xs" ng-confirm-message="Anda yakin akan menghapus Tahun Ajaran '{{c.tahunAwal}}' / '{{c.tahunAkhir}}'?" ng-confirm="vm.hapus(c)">Delete</button>
+<!--                                <button class="btn btn-danger editable-table-button btn-xs" ng-confirm-message="Anda yakin akan menghapus Jurnal '{{c.nomor}}'?" ng-confirm="vm.hapus(c)">Delete</button>-->
                             </div>
                         </td>
                     </tr>

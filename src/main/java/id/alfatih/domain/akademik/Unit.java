@@ -44,10 +44,6 @@ public class Unit implements Serializable {
     private String kontak;
 
     private String hp;
-
-    @ManyToOne
-    @JoinColumn(name = "id_parent")
-    private Unit parent;
     
     @ManyToOne
     @JoinColumn(name = "id_cabang")
@@ -99,14 +95,6 @@ public class Unit implements Serializable {
 
     public void setHp(String hp) {
         this.hp = hp;
-    }
-
-    public Unit getParent() {
-        return parent;
-    }
-
-    public void setParent(Unit parent) {
-        this.parent = parent;
     }
 
     public Cabang getCabang() {

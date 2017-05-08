@@ -45,8 +45,8 @@ public class JurnalDetail {
     @JoinColumn(name = "id_proyek")
     private Proyek proyek;    
     @ManyToOne
-    @JoinColumn(name = "id_sumber_dana")
-    private Donatur sumberDana;
+    @JoinColumn(name = "id_akad_donatur")
+    private AkadDonatur akadDonatur;
     @ManyToOne
     @JoinColumn(name = "id_jurnal")
     @JsonBackReference
@@ -108,12 +108,12 @@ public class JurnalDetail {
         this.proyek = proyek;
     }
 
-    public Donatur getSumberDana() {
-        return sumberDana;
+    public AkadDonatur getAkadDonatur() {
+        return akadDonatur;
     }
 
-    public void setSumberDana(Donatur sumberDana) {
-        this.sumberDana = sumberDana;
+    public void setAkadDonatur(AkadDonatur akadDonatur) {
+        this.akadDonatur = akadDonatur;
     }
 
     public Jurnal getJurnal() {

@@ -1,11 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('Alfatih.pages.akuntansi.daftar')
-            .controller('TahunAjaranController', TahunAjaranController)
+    angular.module('Alfatih.pages.pengaturan')
+            .controller('DokumenSumberController', DokumenSumberController)
 
     /** @ngInject */
-    function TahunAjaranController($scope, $uibModal, $log, toastr, TahunAjaranService,
+    function DokumenSumberController($scope, $uibModal, $log, toastr, DokumenSumberService, 
             ParseLinks, AlertService, paginationConstants, pagingParams, $state) {
         var vm = this;
         vm.search = '';vm.loadAll = loadAll;
@@ -21,7 +21,7 @@
         loadAll();
 
         function loadAll() {
-            TahunAjaranService.query({
+            DokumenSumberService.query({
                 id: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : 'filter',
                 cari: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : vm.search,
                 page: pagingParams.page - 1,
@@ -41,7 +41,6 @@
                 vm.queryCount = vm.totalItems;
                 vm.data = data;
                 vm.page = pagingParams.page;
-                console.log('vm.data', vm.data);
             }
             function onError(error) {
                 AlertService.error(error.data.message);
@@ -64,8 +63,8 @@
         function baru() {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/akuntansi/daftar/tahunAjaran/tahun-ajaran-dialog.html',
-                controller: 'TahunAjaranDialogController',
+                templateUrl: 'app/pages/pengaturan/dokumen-sumber/dokumen-sumber-dialog.html',
+                controller: 'DokumenSumberDialogController',
                 controllerAs: 'vm',
                 size: 'md',
                 resolve: {
@@ -86,13 +85,13 @@
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/akuntansi/daftar/tahunAjaran/tahun-ajaran-dialog.html',
-                controller: 'TahunAjaranDialogController',
+                templateUrl: 'app/pages/pengaturan/dokumen-sumber/dokumen-sumber-dialog.html',
+                controller: 'DokumenSumberDialogController',
                 controllerAs: 'vm',
                 size: 'md',
                 resolve: {
-                    entity: ['TahunAjaranService', function (TahunAjaranService) {
-                            return TahunAjaranService.get({id: x.id}).$promise;
+                    entity: ['DokumenSumberService', function (DokumenSumberService) {
+                            return DokumenSumberService.get({id: x.id}).$promise;
                         }],
                 }
             });
@@ -104,7 +103,7 @@
         }
 
         function hapus(x) {
-            TahunAjaranService.delete({id: x.id}, function () {
+            DokumenSumberService.delete({id: x.id},function () {
                 toastr.success('Hapus data sukses!');
                 loadAll();
             });

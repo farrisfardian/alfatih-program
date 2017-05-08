@@ -53,18 +53,20 @@
                     <div class="col-sm-8" ng-class="{error: form1.status.$invalid}">
                         <input name="hp" type="text" class="form-control" id="hp" ng-model="vm.data.hp" autofocus/>
                     </div>
-                </div>
+                </div>               
                 <div class="form-group">
                     <div class="col-xs-3">
-                        <label class="control-label" for="parent">Parent</label>
+                        <label class="control-label" for="cabang">Cabang</label>
                     </div>
-                    <div class="col-sm-8">
-                        <div class="input-group">
-                            <input class="form-control" ng-model="vm.data.parent.nama" name="parent"/>
-                            <span class="input-group-addon" ng-click="vm.lookupParent()"><span class="glyphicon glyphicon-search"></span></span>
-                        </div>
+                    <div class="col-sm-8" ng-class="{error: form1.cabang.$invalid}">
+                        <ui-select data-ng-model="vm.data.cabang" name="cabang">
+                            <ui-select-match placeholder="Pilih Cabang">{{$select.selected.nama}}</ui-select-match>
+                            <ui-select-choices data-repeat="i in vm.listCabang| filter: $select.search">
+                                <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
-                </div>                 
+                </div>               
             </div>
         </form>
     </div>

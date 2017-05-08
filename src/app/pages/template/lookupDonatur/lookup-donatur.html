@@ -21,20 +21,32 @@
                 <table class="table table-bordered table-hover table-condensed">
                     <thead>
                         <tr jh-sort="ctrl.predicate" ascending="ctrl.reverse" callback="ctrl.transition()">
-                            <th jh-sort-by="kode"><span>Kode</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="nama"><span>Nama</span><span class="glyphicon glyphicon-sort"></span></th>
-                            <th jh-sort-by="keterangan"><span>Keterangan</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="alamat"><span>Alamat</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="telepon"><span>Telepon</span><span class="glyphicon glyphicon-sort"></span></th>                            
+                            <th jh-sort-by="email"><span>Email</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="web"><span>Web</span><span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="batasan"><span>Batasan</span><span class="glyphicon glyphicon-sort"></span></th>
                         </tr>
                     </thead>
-                    <tr ng-repeat="c in ctrl.data track by c.id" class="editable-row">
-                        <td>
-                            {{ c.kode}}
-                        </td>
+                    <tr ng-repeat="c in ctrl.data track by c.id" class="editable-row" ng-click="ctrl.select(c)">
                         <td>
                             {{ c.nama}}
                         </td>
                         <td>
-                            {{ c.keterangan}}
+                            {{ c.alamat}}
+                        </td>
+                        <td>
+                            {{ c.telepon}}
+                        </td>
+                        <td>
+                            {{ c.email}}
+                        </td>
+                        <td>
+                            {{ c.web}}
+                        </td>
+                        <td>
+                            {{ c.batasan}}
                         </td>
                     </tr>
                 </table>

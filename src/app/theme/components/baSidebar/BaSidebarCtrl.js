@@ -30,18 +30,18 @@
                     }, 
                     {
                         "name": "master.matauang", 
-                        "title": "matauang", 
+                        "title": "Matauang", 
                         "level": 1, 
                         "order": 100, 
                         "stateRef": "master.matauang"
                     }, 
-                    {
-                        "name": "master.sumberdana", 
-                        "title": "Sumber Dana", 
-                        "level": 1, 
-                        "order": 200, 
-                        "stateRef": "master.sumberdana"
-                    }, 
+//                    {
+//                        "name": "master.sumberdana", 
+//                        "title": "Sumber Dana", 
+//                        "level": 1, 
+//                        "order": 200, 
+//                        "stateRef": "master.sumberdana"
+//                    }, 
                     {
                         "name": "master.donatur", 
                         "title": "Donatur", 
@@ -49,13 +49,7 @@
                         "order": 300, 
                         "stateRef": "master.donatur"
                     }, 
-                    {
-                        "name": "master.unit", 
-                        "title": "Unit Organisasi", 
-                        "level": 1, 
-                        "order": 400, 
-                        "stateRef": "master.unit"
-                    }, 
+                    
                     {
                         "name": "master.tahunajaran", 
                         "title": "Tahun Ajaran", 
@@ -119,6 +113,13 @@
                         "stateRef": "transaksi.jurnal"
                     }, 
                     {
+                        "name": "transaksi.akad-donatur", 
+                        "title": "Akad Donatur", 
+                        "level": 1, 
+                        "order": 150, 
+                        "stateRef": "transaksi.akad-donatur"
+                    }, 
+                    {
                         "name": "transaksi.um", 
                         "title": "Uang Muka", 
                         "level": 1, 
@@ -141,6 +142,27 @@
                         "level": 1, 
                         "order": 0, 
                         "stateRef": "pengaturan.cabang"
+                    }, 
+                    {
+                        "name": "pengaturan.unit", 
+                        "title": "Unit Organisasi", 
+                        "level": 1, 
+                        "order": 100, 
+                        "stateRef": "pengaturan.unit"
+                    }, 
+                    {
+                        "name": "pengaturan.jenis-jurnal", 
+                        "title": "Jenis Jurnal", 
+                        "level": 1, 
+                        "order": 200, 
+                        "stateRef": "pengaturan.jenis-jurnal"
+                    }, 
+                    {
+                        "name": "pengaturan.dokumen-sumber", 
+                        "title": "Dokumen Sumber", 
+                        "level": 1, 
+                        "order": 300, 
+                        "stateRef": "pengaturan.dokumen-sumber"
                     }, 
                 ]
             },

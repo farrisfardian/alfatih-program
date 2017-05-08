@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    angular.module('Alfatih.pages.akuntansi.daftar')
-            .controller('TahunAjaranDialogController', TahunAjaranDialogController);
+    angular.module('Alfatih.pages.pengaturan')
+            .controller('JenisJurnalDialogController', JenisJurnalDialogController);
 
-    function TahunAjaranDialogController($timeout, $scope, $stateParams, $uibModalInstance, entity, TahunAjaranService) {
+    function JenisJurnalDialogController($timeout, $scope, $stateParams, $uibModalInstance, entity, JenisJurnalService) {
         var vm = this;
         
         vm.akun = entity;
@@ -19,18 +19,18 @@
             $uibModalInstance.dismiss('cancel');
         }
         if (entity.id === null) {
-            $scope.modalTitle = "Tambah Tahun Ajaran"
+            $scope.modalTitle = "Tambah Jenis Jurnal"
         } else {
-            $scope.modalTitle = "Edit Tahun Ajaran"
+            $scope.modalTitle = "Edit Jenis Jurnal"
         }
 
         function save () {
             console.log('vm.akun', vm.akun);
             vm.isSaving = true;
             if (vm.akun.id !== null) {
-                TahunAjaranService.update(vm.akun, onSaveSuccess, onSaveError);
+                JenisJurnalService.update(vm.akun, onSaveSuccess, onSaveError);
             } else {
-                TahunAjaranService.save(vm.akun, onSaveSuccess, onSaveError);
+                JenisJurnalService.save(vm.akun, onSaveSuccess, onSaveError);
             }
         }
 

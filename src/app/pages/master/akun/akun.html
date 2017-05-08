@@ -19,7 +19,7 @@
     ng-click="vm.select(node)" style="padding : 0 0 0 0; margin:0 0 0 0">
     <td tree-dnd-node-handle
     ng-style="expandingProperty.cellStyle ? expandingProperty.cellStyle : {'padding-left': $callbacks.calsIndent(node.__level__)}"
-    ng-class="expandingProperty.cellClass" compile="expandingProperty.cellTemplate" style="padding : 0 0 0 0; margin:0 0 0 0;font-weight: {{node.__children__.length===0?'normal':'bolder'}}">
+    ng-class="expandingProperty.cellClass" compile="expandingProperty.cellTemplate" style="padding : 0 0 0 0; margin:0 0 0 0;font-weight: {{node.__children__.length===0?'normal':'bolder'}};text-align: left">
             <a data-nodrag ng-click="toggleExpand(node)"> {{node.__children__.length===0?'':(node.__expanded__===true?'-':'+')}}</i>
         </a>
         <a data-nodrag> <i ng-class="node.__icon_class__"
@@ -36,7 +36,7 @@
     </table>
 </script>
 <div class="widgets">
-    <div class="row" style="font-weight: normal">
+    <div class="row" style="font-weight: normal;">
         <div>
             <div>
                 <div class=" form-group input-group col-md-12 ">

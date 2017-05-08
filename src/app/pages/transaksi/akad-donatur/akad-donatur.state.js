@@ -1,20 +1,19 @@
 (function () {
     'use strict';
     angular
-            .module('Alfatih.pages.pengaturan')
+            .module('Alfatih.pages.transaksi')
             .config(stateConfig);
     stateConfig.$inject = ['$stateProvider'];
     function stateConfig($stateProvider) {
         $stateProvider
-                .state('pengaturan.cabang', {
-//                    parent: 'akademik.daftar',
-                    url: '/cabang',
-                    templateUrl: 'app/pages/pengaturan/cabang/cabang.html',
-                    controller: 'CabangController',
+                .state('transaksi.akad-donatur', {
+                    url: '/akad-donatur',
+                    templateUrl: 'app/pages/transaksi/akad-donatur/akad-donatur.html',
+                    controller: 'AkadDonaturController',
                     controllerAs: 'vm',
                     data: {
-                        authorities: ['ROLE_AKADEMIK', 'ROLE_ADMIN'],
-                        pageTitle: 'cabang'
+                        authorities: ['ROLE_ADMIN'],
+                        pageTitle: 'Unit'
                     },
                     sidebarMeta: {
                         order: 100,

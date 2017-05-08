@@ -10,6 +10,7 @@
         'Alfatih.pages.master',
         'Alfatih.pages.anggaran',
         'Alfatih.pages.pengaturan',
+        'Alfatih.pages.transaksi',
     ])
       .config(routeConfig);
 //

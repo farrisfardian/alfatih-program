@@ -2,13 +2,13 @@
     'use strict';
 
     angular.module('Alfatih.pages.pengaturan')
-            .factory('CabangService', CabangService);
+            .factory('UnitService', UnitService);
 
     /** @ngInject */
-    CabangService.inject = ['$http', '$resource'];
+    UnitService.inject = ['$http', '$resource'];
 
-    function CabangService($http, $resource) {
-        var resourceUrl =  'api/akademik/cabang/:id/:cari';
+    function UnitService($http, $resource) {
+        var resourceUrl =  'api/akademik/unit/:id/:cari';
 
         return $resource(resourceUrl, {id: "@id", cari: "@cari"}, {
             'query': { method: 'GET', isArray: true},

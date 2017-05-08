@@ -85,7 +85,7 @@ public class TahunAjaranResource {
      */
     @RequestMapping("{id}")
     @Timed
-    public ResponseEntity<TahunAjaran> getTahunAjaran(@PathVariable String id) {
+    public ResponseEntity<TahunAjaran> getTahunAjaran(@PathVariable Integer id) {
         log.debug("REST request get TahunAjaran : {}", id);
         TahunAjaran akun = repository.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(akun));
@@ -121,7 +121,7 @@ public class TahunAjaranResource {
      * status 500 (Internal Server Error) if the akun couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "{id}",method = RequestMethod.PUT)
     @Timed
     public ResponseEntity<TahunAjaran> updateTahunAjaran(@RequestBody TahunAjaran akun) throws URISyntaxException {
         log.debug("REST request to update TahunAjaran : {}", akun);
@@ -142,7 +142,7 @@ public class TahunAjaranResource {
      */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @Timed
-    public ResponseEntity<Void> deleteTahunAjaran(@PathVariable String id) {
+    public ResponseEntity<Void> deleteTahunAjaran(@PathVariable Integer id) {
         log.debug("REST request to delete TahunAjaran : {}", id);
         repository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
