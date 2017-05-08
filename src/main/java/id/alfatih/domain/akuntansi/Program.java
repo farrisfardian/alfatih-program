@@ -39,12 +39,15 @@ public class Program {
     
     @Column(unique = true, length = 20)
     private String kode;
+    
     @Temporal(TemporalType.DATE)
     @Column(name="tgl_mulai")
     private Date tglMulai;
+    
     @Temporal(TemporalType.DATE)
     @Column(name="tgl_selesai")
     private Date tglSelesai;
+    
     @Temporal(TemporalType.DATE)
     @Column(name="tgl_perencanaan")
     private Date tglPerencanaan;

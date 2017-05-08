@@ -1,3 +1,13 @@
+CREATE TABLE m_tahun_ajaran(
+  id serial primary key,
+  kode character varying(5) unique not null,
+  tahun_akhir character varying(4),
+  tahun_awal character varying(4)
+);
+
+insert into m_tahun_ajaran(kode, tahun_awal, tahun_akhir) VALUES
+('1718', '2017', '2018');
+
 CREATE TABLE m_cabang(
   id serial primary key,
   alamat character varying(255),
@@ -30,6 +40,37 @@ insert into m_unit(nama, id_cabang) VALUES
 ('Kuttab Al Fatih Depok', 1),
 ('Kuttab Al Fatih Bandung', 1),
 ('Akademi Guru', 1);
+
+CREATE TABLE acc_program(
+  id serial primary key,
+  aktif boolean default true,
+  budget double precision,
+  kode character varying(20),
+  nama character varying(255) NOT NULL,
+  pelaksana character varying(255),
+  status character varying(255),
+  tgl_mulai date,
+  tgl_perencanaan date,
+  tgl_selesai date,
+  id_parent integer,
+  id_tahun_ajaran integer,
+  id_unit integer,
+  CONSTRAINT fk7y22o9mmsq19ew7ljuokyyoum FOREIGN KEY (id_parent)
+      REFERENCES public.acc_program (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fkd95i8yxt414aha1o46yqbkivi FOREIGN KEY (id_unit)
+      REFERENCES public.m_unit (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fkhogbv404cdrmduh7nus0pdktr FOREIGN KEY (id_tahun_ajaran)
+      REFERENCES public.m_tahun_ajaran (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT uk_c3i4w7540b5buhn7wkhkmpa1x UNIQUE (kode),
+  CONSTRAINT uk_tc27muxb1mwpcnvgcd6khwn86 UNIQUE (nama)
+);
+
+insert into acc_program(kode, nama, id_tahun_ajaran, id_unit, id_parent) VALUES
+('KAFDPK', 'Kuttab Al-Fatih Depok', 1, 1, null),
+('KAFDPK1718', 'Kuttab Al-Fatih Depok Tahun Ajaran 2017-2018', 1, 1, 1);
 
 CREATE TABLE acc_mata_uang
 (

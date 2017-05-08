@@ -139,6 +139,13 @@ public class ProgramResource {
         if (akun.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new akun cannot already have an ID")).body(null);
         }
+        Optional<Program> existingProgram = repository.findOneByKode(akun.getKode());
+        if (existingProgram.isPresent() && (!existingProgram.get().getId().equals(akun.getId()))) {
+            return ResponseEntity.badRequest()
+                .headers(HeaderUtil.createFailureAlert("program", "kodeExists", "Kode sudah digunakan"))
+                .body(null);
+        }
+        
         Program result = repository.save(akun);
         return ResponseEntity.created(new URI("/api/akuntansi/program/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -162,6 +169,12 @@ public class ProgramResource {
         akun.setId(p.getId());
         if (akun.getId() == null) {
             return createProgram(akun);
+        }
+        Optional<Program> existingProgram = repository.findOneByKode(akun.getKode());
+        if (existingProgram.isPresent() && (!existingProgram.get().getId().equals(akun.getId()))) {
+            return ResponseEntity.badRequest()
+                .headers(HeaderUtil.createFailureAlert("program", "kodeExists", "Kode sudah digunakan"))
+                .body(null);
         }
         Program result = repository.save(akun);
         return ResponseEntity.ok()

@@ -28,10 +28,12 @@ public class TahunAjaran {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true, length = 5)
+    @Column(unique = true, length = 5, nullable = false)
     private String kode;
+
     @Column(name = "tahun_awal", length = 4)
     private String tahunAwal;
+
     @Column(name = "tahun_akhir", length = 4)
     private String tahunAkhir;
 
