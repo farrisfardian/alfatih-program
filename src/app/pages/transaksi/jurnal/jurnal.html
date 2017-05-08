@@ -135,25 +135,26 @@
                                                 {{c.detail}}
                                             </td>
                                             <td style="padding: 0 0 0 0">
-                                                {{c.mataAnggaran.nama}}
+                                                {{c.debet|number}}
                                             </td>
                                             <td style="padding: 0 0 0 0">
-                                                {{c.dk}}
+                                                {{c.kredit|number}}
                                             </td>
                                             <td style="padding: 0 0 0 0">
-                                                {{c.jumlah|number}}
+                                                {{c.akun.mataUang.nama}}
                                             </td>
-                                            <td ng-show="vm.data.multiCurrency" style="padding: 0 0 0 0">
-                                        <ui-select data-ng-model="c.mataUang" name="mataUang">
-                                            <ui-select-match placeholder="Pilih Mata Uang">{{$select.selected.nama}}</ui-select-match>
-                                            <ui-select-choices data-repeat="i in vm.listMataUang| filter: $select.search">
-                                                <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
-                                            </ui-select-choices>
-                                        </ui-select>
-                                        </td>
-                                        <td ng-show="vm.data.multiCurrency" style="padding: 0 0 0 0">
-                                            <input class="form-control" type="number" ng-model="c.rate" name="rate"/>
-                                        </td>
+                                            <td style="padding: 0 0 0 0">
+                                                {{c.rate|number}}
+                                            </td>
+                                            <td style="padding: 0 0 0 0">
+                                                {{c.akadDonatur.keterangan}}
+                                            </td>
+                                            <td style="padding: 0 0 0 0">
+                                                {{c.proyek.program.nama}}
+                                            </td>
+                                            <td style="padding: 0 0 0 0">
+                                                {{c.proyek.kode}}
+                                            </td>
                                         <td>
                                             <button class="btn btn-pencil editable-table-button btn-xs" type="button" ng-click="vm.ubah(c, $index)">Edit</button>
                                             <button class="btn btn-danger editable-table-button btn-xs" ng-confirm-message="Anda yakin akan menghapus '{{c.akun.nama}}'?" ng-confirm="vm.hapusItem($index)" type="button">Delete</button>
