@@ -27,7 +27,7 @@
                     </thead>
                     <tr ng-repeat="c in vm.data track by c.id" class="editable-row">
                         <td style="text-align: left">
-                            {{ c.tanggal}}
+                            {{ c.tanggal|date : 'dd/MM/yyyy'}}
                         </td>
                         <td>
                             {{ c.program.nama}}
@@ -36,7 +36,7 @@
                             {{ c.donatur.nama}}
                         </td>
                         <td>
-                            {{ c.donasi}}
+                            {{ c.donasi|number}}
                         </td>
                         <td>
                             {{ c.batasan}}

@@ -28,28 +28,29 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "acc_program")
 public class Program {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @NotNull
     @NotEmpty
     @Column(unique = true, nullable = false)
     private String nama;
-    
+
     @Column(unique = true, length = 20)
     private String kode;
-    
+
     @Temporal(TemporalType.DATE)
-    @Column(name="tgl_mulai")
+    @Column(name = "tgl_mulai")
     private Date tglMulai;
-    
+
     @Temporal(TemporalType.DATE)
-    @Column(name="tgl_selesai")
+    @Column(name = "tgl_selesai")
     private Date tglSelesai;
-    
+
     @Temporal(TemporalType.DATE)
-    @Column(name="tgl_perencanaan")
+    @Column(name = "tgl_perencanaan")
     private Date tglPerencanaan;
     @Column
     private Boolean aktif;
@@ -57,11 +58,11 @@ public class Program {
     private Double budget;
     private String pelaksana;
     private String status;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_parent")
     private Program parent;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_tahun_ajaran")
     private TahunAjaran tahunAjaran;
@@ -69,6 +70,10 @@ public class Program {
     @ManyToOne
     @JoinColumn(name = "id_cabang")
     private Cabang cabang;
+
+    @ManyToOne
+    @JoinColumn(name = "id_skema_budget")
+    private SkemaBudget skemaBudget;
 
     public Integer getId() {
         return id;
@@ -174,5 +179,12 @@ public class Program {
         this.cabang = unit;
     }
 
-    
+    public SkemaBudget getSkemaBudget() {
+        return skemaBudget;
+    }
+
+    public void setSkemaBudget(SkemaBudget skemaBudget) {
+        this.skemaBudget = skemaBudget;
+    }
+
 }

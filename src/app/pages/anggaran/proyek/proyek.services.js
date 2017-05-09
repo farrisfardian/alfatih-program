@@ -8,7 +8,7 @@
     ProyekService.inject = ['$http', '$resource'];
 
     function ProyekService($http, $resource) {
-        var resourceUrl =  'api/anggaram/proyek/:id/:cari';
+        var resourceUrl =  'api/anggaran/proyek/:id/:cari';
 
         return $resource(resourceUrl, {id: "@id", cari: "@cari"}, {
             'query': { method: 'GET', isArray: true},

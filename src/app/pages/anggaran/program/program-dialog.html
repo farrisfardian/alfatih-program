@@ -21,7 +21,7 @@
                             Kode sudah terpakai
                         </span>
                     </div>
-                    <div class="col-xs-2">
+                    <div class="col-md-2">
                         <label class="control-label" for="tahunAjaran">Tahun Ajaran</label>
                     </div>                   
                     <div class="col-sm-4" ng-class="{error: form1.tahunAjaran.$invalid}">
@@ -71,26 +71,11 @@
                     </div>
                 </div>                
                 <div class="form-group">
-                    <div class="col-xs-2">
+                    <div class="col-md-2">
                         <label class="control-label" for="budget">Budget</label>
                     </div>                   
                     <div class="col-md-4" ng-class="{error: form1.budget.$invalid}">
                         <input name="budget" type="number" class="form-control" id="budget" ng-model="vm.data.budget" required autofocus/>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="control-label" for="pelaksana">Pelaksana</label>
-                    </div>
-                    <div class="col-md-4" ng-class="{error: form1.pelaksana.$invalid}">
-                        <input name="pelaksana" type="text" class="form-control" id="pelaksana" ng-model="vm.data.pelaksana"  autofocus/>
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <div class="col-md-2">
-                        <label class="control-label" for="status">Status</label>
-                    </div>
-                    <div class="col-md-4" ng-class="{error: form1.status.$invalid}">
-                        <input name="status" type="text" class="form-control" id="status" ng-model="vm.data.status" autofocus/>
                     </div>
                     <div class="col-md-4">
                         <label class="checkbox-inline custom-checkbox nowrap">
@@ -98,12 +83,38 @@
                             <span>Aktif</span>
                         </label>
                     </div>
+<!--                    <div class="col-md-2">
+                        <label class="control-label" for="nama">Skema Budget</label>
+                    </div>
+                    <div class="col-md-4">
+                        <ui-select data-ng-model="vm.data.skemaBudget" name="skema" class="btn-group bootstrap-select form-control">
+                            <ui-select-match placeholder="Pilih Skema">{{$select.selected.nama}}</ui-select-match>
+                            <ui-select-choices data-repeat="i in vm.listSkemaBudget | filter: $select.search">
+                                <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>-->
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="pelaksana">Pelaksana</label>
+                    </div>
+                    <div class="col-md-4" ng-class="{error: form1.pelaksana.$invalid}">
+                        <input name="pelaksana" type="text" class="form-control" id="pelaksana" ng-model="vm.data.pelaksana"  autofocus/>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label" for="status">Status</label>
+                    </div>
+                    <div class="col-md-4" ng-class="{error: form1.status.$invalid}">
+                        <input name="status" type="text" class="form-control" id="status" ng-model="vm.data.status" autofocus/>
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-2">
                         <label class="control-label" for="parent">Parent</label>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-6">
                         <div class="input-group">
                             <input class="form-control" ng-model="vm.data.parent.nama" name="parent" ng-disabled="true"/>
                             <span class="input-group-addon" ng-click="vm.lookupProgram()"><span class="glyphicon glyphicon-search"></span></span>

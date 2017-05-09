@@ -14,6 +14,7 @@ import id.alfatih.service.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -161,6 +162,8 @@ public class AkunResource {
         if (akun.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new akun cannot already have an ID")).body(null);
         }
+        akun.setCreatedBy("user");
+        akun.setCreatedDate(new Date());
         Akun result = repository.save(akun);
         return ResponseEntity.created(new URI("/api/akuntansi/akun/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

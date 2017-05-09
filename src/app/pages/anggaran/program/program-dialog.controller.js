@@ -4,7 +4,7 @@
     angular.module('Alfatih.pages.anggaran')
             .controller('ProgramDialogController', ProgramDialogController);
 
-    function ProgramDialogController($http, $timeout, $scope, $stateParams, $uibModalInstance, $uibModal, $log, entity, ProgramService, TahunAjaranService) {
+    function ProgramDialogController($http, $timeout, $scope, $stateParams, $uibModalInstance, $uibModal, $log, entity, ProgramService, TahunAjaranService, SkemaBudgetService) {
         var vm = this;
         console.log('entity', entity);
         vm.errorKodeExists = null;
@@ -16,6 +16,15 @@
         $timeout(function () {
             angular.element('.form-group:eq(1)>input').focus();
         });
+        SkemaBudgetService.cariSemua({id: 'all'},
+                function (data) {
+                    vm.listSkemaBudget = data;
+                    vm.data.skemaBudget = data[0];
+                },
+                function (error) {
+                    AlertService.error(error.data.message);
+                }
+        );
         $scope.dateOptions = {format: 'DD/MM/YYYY', showClear: false};
 //        $http.get('api/master/tahun-ajaran/all').success(function (d) {
 //            console.log('data', d);
@@ -49,7 +58,8 @@
             vm.isSaving = true;
             console.log('simpan vm.data', vm.data);
             if (vm.data.id === undefined || vm.data.id === null) {
-                ProgramService.save(vm.data, onSaveSuccess, onSaveError);;
+                ProgramService.save(vm.data, onSaveSuccess, onSaveError);
+                ;
             } else {
                 console.log('update', vm.data)
                 ProgramService.update(vm.data, onSaveSuccess, onSaveError);
