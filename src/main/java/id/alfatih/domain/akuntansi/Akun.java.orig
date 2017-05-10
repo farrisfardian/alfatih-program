@@ -5,23 +5,40 @@ package id.alfatih.domain.akuntansi;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+<<<<<<< HEAD
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import id.alfatih.domain.akademik.Cabang;
+import java.io.Serializable;
+import java.util.List;
+=======
 import id.alfatih.domain.akademik.Cabang;
 import java.io.Serializable;
 import java.util.Date;
+>>>>>>> a0174ce7a43363a56caa578ccaf218bd321a681c
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+<<<<<<< HEAD
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.ColumnDefault;
+=======
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.ColumnDefault;
+>>>>>>> a0174ce7a43363a56caa578ccaf218bd321a681c
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -50,6 +67,8 @@ public class Akun implements Serializable {
     @Column(columnDefinition = "text")
     private String keterangan;
 
+<<<<<<< HEAD
+=======
     @Column
     private String createdBy;
 
@@ -57,6 +76,7 @@ public class Akun implements Serializable {
     @Column
     private Date createdDate;
 
+>>>>>>> a0174ce7a43363a56caa578ccaf218bd321a681c
     @ManyToOne
     @JoinColumn(name = "id_kelompok")
     private KelompokAkun kelompok;
@@ -70,10 +90,13 @@ public class Akun implements Serializable {
     @JsonBackReference
     private Akun parent;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Akun> children;
 
+=======
+>>>>>>> a0174ce7a43363a56caa578ccaf218bd321a681c
     @ManyToOne
     @JoinColumn(name = "id_cabang")
     private Cabang cabang;
@@ -148,6 +171,7 @@ public class Akun implements Serializable {
         this.cabang = cabang;
     }
 
+<<<<<<< HEAD
     public Boolean getAktif() {
         return aktif;
     }
@@ -170,6 +194,22 @@ public class Akun implements Serializable {
 
     public void setExpanded(boolean expanded) {
         this.expanded = expanded;
+=======
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+>>>>>>> a0174ce7a43363a56caa578ccaf218bd321a681c
     }
 
 }

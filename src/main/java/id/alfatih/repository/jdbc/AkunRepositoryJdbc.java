@@ -28,7 +28,7 @@ public class AkunRepositoryJdbc {
                 + "  FROM \n"
                 + "(SELECT *, case when id_parent is null then id else id_parent end as order_by\n"
                 + "  FROM acc_akun) r "
-                + "  join acc_kelompok_akun ja on ja.id = r.id_kelompok"
+                + "  left join acc_kelompok_akun ja on ja.id = r.id_kelompok"
                 + " where coalesce(r.nama,'')||coalesce(r.kode,'') ilike '%" + (search == null ? "" : search) + "%' order by order_by, id;";
         return mr.mapList(query);
     }

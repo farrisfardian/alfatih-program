@@ -37,5 +37,10 @@ public interface ProyekRepository extends JpaRepository<Proyek, Integer> {
             + "where a.program.id=:id "
             + "and a.id not in (select pg.parent.id from Proyek pg where pg.parent.id is not null) "
     )
+    public List<Proyek> findEndpointByProgram(@Param("id") Integer id);
+
+    @Query("from Proyek a "
+            + "where a.program.id=:id "
+    )
     public List<Proyek> findByProgram(@Param("id") Integer id);
 }

@@ -10,8 +10,8 @@
                 {{col.displayName|| col.field}}<button class="btn btn-info editable-table-button btn-xs" ng-click="vm.baru()" ng-show="($index + 1) === colDefinitions.length">Tambah</button>    
             </th>
         </tr>
-    </thead>
-    <tbody tree-dnd-nodes>
+    </thead>    
+    <tbody tree-dnd-nodes ng-show="tree_nodes.length>0">
         <tr tree-dnd-node="node" ng-repeat="node in tree_nodes track by node.__hashKey__ "
             ng-show="enabledFilter ? node.__filtered_visible__ === true && node.__visible__ : node.__visible__"
             ng-class="enabledFilter ? (node.__filtered__ === true ? 'success' : '') : (node.__selected__ ? ' active' : '')"
@@ -19,7 +19,7 @@
             <td tree-dnd-node-handle
                 ng-style="expandingProperty.cellStyle ? expandingProperty.cellStyle : {'padding-left': $callbacks.calsIndent(node.__level__)}"
                 ng-class="expandingProperty.cellClass" compile="expandingProperty.cellTemplate" style="padding : 0 0 0 0; margin:0 0 0 0;font-weight: {{node.__children__.length===0?'normal':'bolder'}} ; text-align: left">
-                <a data-nodrag ng-click="toggleExpand(node)"> {{node.__children__.length===0?'':(node.__expanded__===true?'-':'+')}}</i>
+                <a data-nodrag ng-click="toggleExpand(node)"> {{node.__children__.length===0?'':(node.__expanded__===true?'-':'+')}}
                 </a>
                 <a data-nodrag> <i ng-class="node.__icon_class__"
                                    ng-click="toggleExpand(node)"

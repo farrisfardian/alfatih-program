@@ -23,11 +23,20 @@ public class ProyekRepositoryJdbc {
     DataSource dataSource;
 
     public Object filterProyek(String search) {
-        String query = "SELECT r.id, r.budget, r.kode, r.keterangan, \n" +
-"       r.id_parent from\n"
+        String query = "SELECT r.id, r.budget, r.kode, r.keterangan, \n"
+                + "       r.id_parent, id_program from\n"
                 + "(SELECT *, case when id_parent is null then id else id_parent end as order_by\n"
-                + "  FROM acc_proyek) r "                
+                + "  FROM acc_proyek) r "
                 + "where coalesce(r.keterangan,'')||coalesce(r.kode,'') ilike '%" + (search == null ? "" : search) + "%' order by order_by, id;";
+        return mr.mapList(query);
+    }
+
+    public Object filterProyekByProgram(Integer search) {
+        String query = "SELECT r.id, r.budget, r.kode, r.keterangan, \n"
+                + "       r.id_parent, id_program from\n"
+                + "(SELECT *, case when id_parent is null then id else id_parent end as order_by\n"
+                + "  FROM acc_proyek) r "
+                + "where r.id_program = " + search + " order by order_by, id;";
         return mr.mapList(query);
     }
 

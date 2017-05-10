@@ -1,0 +1,83 @@
+<<<<<<< HEAD
+(function () {
+    'use strict';
+
+    angular.module('Alfatih.pages.anggaran')
+            .factory('ProyekService', ProyekService);
+
+    /** @ngInject */
+    ProyekService.inject = ['$http', '$resource'];
+
+    function ProyekService($http, $resource) {
+        var resourceUrl =  'api/anggaram/proyek/:id/:cari';
+
+        return $resource(resourceUrl, {id: "@id", cari: "@cari"}, {
+            'query': { method: 'GET', isArray: true},
+            'get': {
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
+            },
+            'update': { method:'PUT' },
+            'cariSatu': {method: 'GET'},
+            'cariSemua': {
+                method: 'GET', isArray: true,
+                transformResponse: function (data, header) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+
+                }
+            }
+        });
+    }
+
+})();
+
+=======
+(function () {
+    'use strict';
+
+    angular.module('Alfatih.pages.anggaran')
+            .factory('ProyekService', ProyekService);
+
+    /** @ngInject */
+    ProyekService.inject = ['$http', '$resource'];
+
+    function ProyekService($http, $resource) {
+        var resourceUrl =  'api/anggaran/proyek/:id/:cari';
+
+        return $resource(resourceUrl, {id: "@id", cari: "@cari"}, {
+            'query': { method: 'GET', isArray: true},
+            'get': {
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
+            },
+            'update': { method:'PUT' },
+            'cariSatu': {method: 'GET'},
+            'cariSemua': {
+                method: 'GET', isArray: true,
+                transformResponse: function (data, header) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+
+                }
+            }
+        });
+    }
+
+})();
+
+>>>>>>> a0174ce7a43363a56caa578ccaf218bd321a681c

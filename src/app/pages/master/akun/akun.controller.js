@@ -118,7 +118,7 @@
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                $scope.loadAll();
+                loadAllFlat();
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
@@ -140,7 +140,7 @@
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                loadAll()
+                loadAllFlat();
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });

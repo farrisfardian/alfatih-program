@@ -4,15 +4,15 @@
     angular.module('Alfatih.pages.anggaran')
             .controller('ProyekDialogController', ProyekDialogController);
 
-    function ProyekDialogController($http, $timeout, $scope, $stateParams, $uibModalInstance, $uibModal, $log, entity, ProgramService, TahunAjaranService) {
-        var vm = this;
+    function ProyekDialogController($http, $timeout, $scope, $stateParams, $uibModalInstance, $uibModal, $log, entity, ProyekService, TahunAjaranService) {
+        var ctrl = this;
 
-        vm.akun = entity;
-        vm.listTahunAjaran = [];
-        vm.clear = clear;
-        vm.save = save;
-        vm.lookupProgram = lookupProgram;
-        console.log('vm.akun', vm.akun);
+        ctrl.akun = entity;
+        ctrl.listTahunAjaran = [];
+        ctrl.clear = clear;
+        ctrl.save = save;
+        ctrl.lookupProyek = lookupProyek;
+        console.log('ctrl.akun', ctrl.akun);
         $timeout(function () {
             angular.element('.form-group:eq(1)>input').focus();
         });
@@ -20,28 +20,28 @@
         $scope.dateOptions = {format: 'DD/MM/YYYY', showClear: false};
 //        $http.get('api/master/tahun-ajaran/all').success(function (d) {
 //            console.log('data', d);
-//            vm.listTahunAjaran = d;
+//            ctrl.listTahunAjaran = d;
 //        });
         TahunAjaranService.cariSemua({id: 'all'}, function (d) {
             console.log('data', d);
-            vm.listTahunAjaran = d;
+            ctrl.listTahunAjaran = d;
         });
         function clear() {
             $uibModalInstance.dismiss('cancel');
         }
         if (entity.id === null) {
-            $scope.modalTitle = "Tambah Program"
+            $scope.modalTitle = "Tambah Proyek"
         } else {
-            $scope.modalTitle = "Edit Program"
+            $scope.modalTitle = "Edit Proyek"
         }
 
         function save() {
-            console.log('vm.akun', vm.akun);
-            vm.isSaving = true;
-            if (vm.akun.id !== null) {
-                ProgramService.update(vm.akun, onSaveSuccess, onSaveError);
+            console.log('ctrl.akun', ctrl.akun);
+            ctrl.isSaving = true;
+            if (ctrl.akun.id !== null) {
+                ProyekService.update(ctrl.akun, onSaveSuccess, onSaveError);
             } else {
-                ProgramService.save(vm.akun, onSaveSuccess, onSaveError);
+                ProyekService.save(ctrl.akun, onSaveSuccess, onSaveError);
             }
         }
 
@@ -49,19 +49,19 @@
             console.log('onSaveSuccess', result);
             $scope.$emit('Alfatih:akunUpdate', result);
             $uibModalInstance.close(result);
-            vm.isSaving = false;
+            ctrl.isSaving = false;
         }
 
         function onSaveError() {
-            vm.isSaving = false;
+            ctrl.isSaving = false;
         }
         
-        function lookupProgram() {
+        function lookupProyek() {
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/template/lookupProgramTree/lookup-program-tree.html',
-                controller: 'LookupProgramTreeController',
+                templateUrl: 'app/pages/template/lookupProyekTree/lookup-program-tree.html',
+                controller: 'LookupProyekTreeController',
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {
@@ -77,7 +77,7 @@
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                vm.akun.parent = selectedItem;
+                ctrl.akun.parent = selectedItem;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });

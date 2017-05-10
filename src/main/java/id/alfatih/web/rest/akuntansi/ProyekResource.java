@@ -54,6 +54,11 @@ public class ProyekResource {
         return repositoryJdbc.filterProyek(null);
     }
 
+    @RequestMapping(value = "/list-flat-by-program/{idProgram}", method = RequestMethod.GET)
+    public Object ambilSemuaFlatByProgram(@PathVariable Integer idProgram) {
+        return repositoryJdbc.filterProyekByProgram(idProgram);
+    }
+
     @RequestMapping("/all")
     @Timed
     public List<Proyek> getAllJenisProyeks() {
@@ -81,7 +86,7 @@ public class ProyekResource {
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
-    
+
     @RequestMapping("/filter-endpoint-all")
     @Timed
     public ResponseEntity<List<Proyek>> filterEndpointAll(Pageable p) throws URISyntaxException {
@@ -91,7 +96,7 @@ public class ProyekResource {
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
-    
+
     @RequestMapping("/filter-endpoint/{s}")
     @Timed
     public ResponseEntity<List<Proyek>> filterEndpointByKey(@PathVariable String s, Pageable p) throws URISyntaxException {
@@ -101,6 +106,7 @@ public class ProyekResource {
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
+
     @RequestMapping("/find-by-program/{id}")
     @Timed
     public List<Proyek> findByProgram(@PathVariable Integer id) throws URISyntaxException {
@@ -154,7 +160,7 @@ public class ProyekResource {
      * status 500 (Internal Server Error) if the akun couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @Timed
     public ResponseEntity<Proyek> updateProyek(@RequestBody Proyek akun) throws URISyntaxException {
         log.debug("REST request to update Proyek : {}", akun);
