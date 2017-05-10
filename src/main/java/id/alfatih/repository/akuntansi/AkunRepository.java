@@ -6,6 +6,7 @@
 package id.alfatih.repository.akuntansi;
 
 import id.alfatih.domain.akuntansi.Akun;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -49,4 +50,11 @@ public interface AkunRepository extends JpaRepository<Akun, Integer> {
     )
     public Page<Akun> filterEndpointByKeyPerCabang(@Param("s") String s, @Param("idCabang") Integer idCabang, Pageable pr);
 
+    @Query(value = "select * from acc_akun where id_kelompok =1 and id not in(select id_parent from acc_akun where id_parent is not null and aktif=TRUE)\n"
+            + "order by kode", nativeQuery = true)
+    public List<Akun> listKasBank();
+    
+    @Query("from Akun a where parent is null order by a.kode")
+    public List<Akun> listParentChildren();
+    
 }
