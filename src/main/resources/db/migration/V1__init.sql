@@ -309,3 +309,35 @@ insert into acc_skema_budget(nama) VALUES
 ('Per Donor'),
 ('Per Periode');
 
+create or replace function fn_hitung_budget_parent_proyek(v_id_parent int, v_ket varchar)returns varchar as $$
+declare
+	r record;
+	s record;
+	v_out varchar;
+begin
+
+	select sum(coalesce(budget,0)) as budget, id_parent as id into r from acc_proyek  where id_parent = v_id_parent group by id_parent;
+
+	update acc_proyek set budget = r.budget where id = r.id;
+	raise notice 'r.id = %',r.id;
+
+	select * into s from acc_proyek  where id = r.id;
+	raise notice 's.id = %, s.id_parent = %',s.id,s.id_parent;
+	
+	if(s.id_parent is not null) then
+
+		select fn_hitung_budget_parent_proyek(s.id_parent,coalesce(v_ket,'')) into v_out;
+
+	else
+
+		v_out:=coalesce(v_ket,'')||'Proyek id '||v_id_parent||' berhasil dihitung. ';
+		
+	end if;	
+	return v_out;
+	
+end
+/*
+select fn_hitung_budget_parent_proyek(4,'');
+select * from acc_proyek;
+*/
+$$language plpgsql;

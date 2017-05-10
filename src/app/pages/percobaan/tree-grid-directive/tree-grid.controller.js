@@ -1,11 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('Alfatih.pages.anggaran')
-            .controller('ProyekController', ProyekController)
+    angular.module('Alfatih.pages.percobaan')
+            .controller('TreeGridController', TreeGridController)
 
     /** @ngInject */
-    function ProyekController($scope, $uibModal, $log, $timeout, $TreeDnDConvert, toastr, ProyekService,
+    function TreeGridController($scope, $uibModal, $log, $timeout, $TreeDnDConvert, toastr, ProyekService,
             ParseLinks, AlertService, paginationConstants, pagingParams, $state) {
         var vm = this;
         vm.dateOptions = {format: 'DD/MM/YYYY', showClear: false};
@@ -23,9 +23,19 @@
         vm.tree_data = {};
         $scope.my_tree = vm.tree = {};
         vm._filter = {};
-        vm.listProyek = [];
-        vm.totalBudget = 0;
+        vm.listTreeGrid = [];
+        vm.resetAllFlat = resetAllFlat;
 
+//        $scope.expanding_property = "Name";
+//        $scope.col_defs = [
+//            {field: "Description"},
+//            {field: "Area"},
+//            {field: "Population"},
+//            {field: "TimeZone", displayName: "Time Zone"}
+//        ];
+//        $scope.my_tree_handler = function (branch) {
+//            console.log('you clicked on', branch)
+//        };
         vm.dummyData = [
             {
                 "keterangan": "TES",
@@ -152,6 +162,17 @@
                         }
                     }
                 }
+//                for (var i = 0; i < tree.length; i++) {
+//                    if (tree[i].id === node.id_parent) {
+//                        hitungSummary(tree[i], selisih, tree[i].children);
+//                    } else {
+//                        if (tree[i].children.length > 0) {
+//                            for (var j = 0; j < tree[i].children.length; j++) {
+//                                hitungSummary(tree[i], selisih, tree[i].children);
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
 
@@ -196,12 +217,15 @@
             return tree;
         }
 
+
+//        vm.expanding_property = "kode";
         vm.expanding_property = {
             /*template: "<td>OK All</td>",*/
             field: 'kode',
             titleClass: 'text-center',
             cellClass: 'v-middle',
             displayName: 'ID',
+            cellTemplate: ''
         };
         vm.col_defs = [
             {
@@ -223,6 +247,7 @@
                 cellTemplate: '<a href="" ng-click="cellTemplateScope.ubah(row)" > <i class="glyphicon glyphicon-edit"></i> </a>  &nbsp; \n\
                                 <a href="" ng-confirm-message="Anda yakin akan menghapus Proyek \'{{row.branch.kode}}\'?" ng-confirm="cellTemplateScope.hapus(row)" ng-show="row.branch.children.length===0"> <i class="glyphicon glyphicon-remove"></i> </a> &nbsp; \n\
                                 <a href="" ng-click="cellTemplateScope.tambahSub(row)" > <i class="glyphicon glyphicon-plus"></i> </a>',
+//                cellTemplate: "<img ng-click='cellTemplateScope.click(\'example\')' ng-src='{{ row.branch[col.field] }}' />",
                 cellTemplateScope: {
                     ubah: function (data) {         // this works too: $scope.someMethod;
                         console.log('ubah data', data);
@@ -237,6 +262,10 @@
                         vm.tambahSub(data.branch);
                     }
                 }
+
+//                cellTemplate: '<a href="" ng-click="vm.ubah(node)" > <i class="glyphicon glyphicon-edit"></i> </a>  &nbsp; \n\
+//                                <a href="" ng-confirm-message="Anda yakin akan menghapus Program \'{{node.nama}}\'?" ng-confirm="vm.hapus(node)" ng-show="node.__children__.length===0"> <i class="glyphicon glyphicon-remove"></i> </a> &nbsp; \n\
+//                                <a href="" ng-click="vm.tambahSub(node)" > <i class="glyphicon glyphicon-plus"></i> </a>'
             }
         ];
 
@@ -251,11 +280,8 @@
                 vm.my_tree = vm.tree = {};
                 vm.dataFlat = (data === null || data.length === 0) ? [] : data;
                 console.log('vm.dataFlat', vm.dataFlat);
+//                vm.tree_data = $TreeDnDConvert.line2tree(vm.dataFlat, 'id', 'id_parent');
                 vm.tree_data = getTree(vm.dataFlat, 'id', 'id_parent');
-                vm.totalBudge = 0;
-                for (var i = 0; i < vm.tree_data.length; i++) {
-                    vm.totalBudget += vm.tree_data[i].budget;
-                }
                 $timeout(function () {
                     $scope.my_tree.expand_all();
                 }, 300);
@@ -377,7 +403,8 @@
                     }
                 });
                 modalInstance.result.then(function (selectedItem) {
-                    loadAllFlat();
+                    loadAllFlat();                    
+                    hitungSummary(selectedItem,selectedItem.budget,vm.tree_data);
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });

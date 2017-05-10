@@ -39,7 +39,6 @@
             <div class="row">
                 <button ng-click="my_tree.expand_all()" class="btn btn-default btn-sm">Expand All</button>
                 <button ng-click="my_tree.collapse_all()" class="btn btn-default btn-sm">Collapse All</button>
-                <button class="btn btn-info btn-sm pull-right" ng-click="vm.baru()" >Tambah Baris</button> 
                 <div class="table-responsive">
                     <tree-grid tree-data="vm.tree_data" tree-control="my_tree" col-defs="vm.col_defs" expand-on="vm.expanding_property" on-select="vm.my_tree_handler(branch)" expand-level="2" icon-leaf= "glyphicon glyphicon-globe"></tree-grid>
                     <!--                    <tree-dnd tree-class="table table-bordered table-hover table-striped"
@@ -63,9 +62,9 @@
                                         </tree-dnd>-->
                 </div>
             </div>
-            <span class="pull-right" style="font-size: large;font-weight: bolder"><bold>Total Budget : {{vm.totalBudget|number}}</bold></span>
         </div>
         <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="vm.resetAllFlat()">Reset Flat</button>
             <button type="button" class="btn btn-primary" ng-click="vm.simpan()">Simpan</button>
             <button type="button" class="btn btn-danger" ng-click="$dismiss()">Batal</button>
         </div>
