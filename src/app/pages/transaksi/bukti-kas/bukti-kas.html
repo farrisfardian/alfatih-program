@@ -1,0 +1,177 @@
+<div class="widgets">
+    <form class="form-horizontal" name="form1">
+        <div class="row">
+            <div class="col-md-12">
+                <div ba-panel ba-panel-title="Entri Bukti Kas" ba-panel-class="with-scroll">
+                    <div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label" for="nomor">Nomor</label>
+                                </div>
+                                <div class="col-md-4" ng-class="{error: form1.nomor.$invalid}">
+                                    <input name="nomor" type="text" class="form-control" id="nomor" ng-model="vm.data.nomor" autofocus/>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label" for="cabang">Cabang</label>
+                                </div>
+                                <div class="col-md-4" ng-class="{error: form1.cabang.$invalid}">
+                                    <ui-select data-ng-model="vm.data.cabang" name="cabang">
+                                        <ui-select-match placeholder="Pilih Cabang">{{$select.selected.nama}}</ui-select-match>
+                                        <ui-select-choices data-repeat="i in vm.listUnit | filter: $select.search">
+                                            <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label" for="tanggal">Tanggal</label>
+                                </div>
+                                <div class="col-md-4" ng-class="{error: form1.tanggal.$invalid}">
+                                    <div class="input-group">
+                                        <input class="form-control" datetimepicker ng-model="vm.data.tanggal" options="dateOptions" name="tanggal" ng-required="true"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label" for="terimaDari">Terima Dari</label>
+                                </div>
+                                <div class="col-md-4" ng-class="{error: form1.terimaDari.$invalid}">
+                                    <input name="terimaDari" type="text" class="form-control" id="terimaDari" ng-model="vm.data.terimaDari"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label" for="memo">Uraian</label>
+                                </div>
+                                <div class="col-md-10" ng-class="{error: form1.memo.$invalid}">
+                                    <input name="memo" type="text" class="form-control" id="memo" ng-model="vm.data.memo"/>
+                                </div>                    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label" for="akun">Akun</label>
+                                </div>
+                                <div class="col-md-10" ng-class="{error: form1.akun.$invalid}">
+                                    <ui-select data-ng-model="vm.data.kasBank" name="cabang" class="btn-group bootstrap-select form-control">
+                                        <ui-select-match placeholder="Pilih Akun Kas/ Bank">[{{$select.selected.kode}} ] {{$select.selected.nama}}</ui-select-match>
+                                        <ui-select-choices data-repeat="i in vm.listKasBank | filter: $select.search">
+                                            <div data-ng-bind-html="'['+i.kode+' ] '+ i.nama| highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-md-6" >
+                                    {{vm.data.akun.nama}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label" for="jumlah">Jumlah</label>
+                                </div>
+                                <div class="col-md-4" ng-class="{error: form1.jumlah.$invalid}">
+                                    <input name="jumlah" type="number" class="form-control pull-left" id="jumlah" ng-model="vm.data.jumlah" autofocus  ng-required="true"/>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label" for="multiCurrency">Multi Currency</label>
+                                </div>
+                                <div class="col-md-4" ng-class="{error: form1.multiCurrency.$invalid}">
+                                    <input name="multiCurrency" type="checkbox" class="form-control pull-left" id="multiCurrency" ng-model="vm.data.multiCurrency"  autofocus/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="vm.data.multiCurrency === true">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label" for="mataUang">Mata Uang</label>
+                                </div>
+                                <div class="col-md-4" ng-class="{error: form1.mataUang.$invalid}">
+                                    <ui-select data-ng-model="c.mataUang" name="mataUang">
+                                        <ui-select-match placeholder="Pilih Mata Uang">{{$select.selected.nama}}</ui-select-match>
+                                        <ui-select-choices data-repeat="i in vm.listMataUang| filter: $select.search">
+                                            <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label" for="rate">Rate</label>
+                                </div>
+                                <div class="col-md-4" ng-class="{error: form1.rate.$invalid}">
+                                    <input name="rate" type="number" class="form-control pull-left" id="rate" ng-model="vm.data.rate" autofocus/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div ba-panel ba-panel-title="Detail" ba-panel-class="with-scroll table-panel">
+                                <div class="horizontal-scroll">
+                                    <table class="table table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 150px"><span>Akun</span></th>
+                                                <th style="width: 250px"><span>Nama</span></th>
+                                                <th style="width: 300px"><span>Uraian</span></th>
+                                                <th style="width: 150px"><span>Jumlah</span></th>
+                                                <th ng-show="vm.data.multiCurrency" style="width: 150px"><span>Mata Uang</span></th>
+                                                <th ng-show="vm.data.multiCurrency" style="width: 150px"><span>Rate</span></th>
+                                                <th>
+                                                    <button class="btn btn-info editable-table-button btn-xs" ng-click="vm.tambahDetail()" type="button">Tambah</button>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="c in vm.data.listDetail" style="margin: 0 0 0 0" class="editable-row">
+                                            <td style="padding: 0 0 0 0; height: 34px" >
+                                                <div class="input-group" >
+                                                    <input class="form-control" ng-model="c.akun.kode" name="akun" ng-keypress="$event.keyCode == 13 ? vm.cariAkunByKode(c.akun.kode, $index) : undefined"/>
+                                                    <span class="input-group-addon" ng-click="vm.lookupAkun($index)"><span class="glyphicon glyphicon-search"></span></span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 0 0 0 0">
+                                                {{c.akun.nama}}
+                                            </td>
+                                            <td style="padding: 0 0 0 0">
+                                                <input class="form-control" type="text" ng-model="c.detail" name="detail" />
+                                            </td>
+
+                                            <td style="padding: 0 0 0 0">
+                                                <input class="form-control" type="number" ng-model="c.jumlah" name="jumlah"/>
+                                            </td>
+                                            <td ng-show="vm.data.multiCurrency" style="padding: 0 0 0 0">
+                                        <ui-select data-ng-model="c.mataUang" name="mataUang">
+                                            <ui-select-match placeholder="Pilih Mata Uang">{{$select.selected.nama}}</ui-select-match>
+                                            <ui-select-choices data-repeat="i in vm.listMataUang| filter: $select.search">
+                                                <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        </td>
+                                        <td ng-show="vm.data.multiCurrency" style="padding: 0 0 0 0">
+                                            <input class="form-control" type="number" ng-model="c.rate" name="rate"/>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-danger editable-table-button btn-xs" ng-confirm-message="Anda yakin akan menghapus Dokumen Sumber '{{c.nama}}'?" ng-confirm="vm.hapus(c)" type="button">Delete</button>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">                        
+                    </div>
+                    <button type="button" class="btn btn-primary pull-right" ng-click="vm.save()" ng-disabled="!vm.isBalance() || form1.$invalid">Simpan</button>
+                    <button type="button" class="btn btn-danger pull-right" ng-click="$dismiss()">Batal</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -7,6 +7,7 @@ package id.alfatih.web.rest.akuntansi;
 
 import com.codahale.metrics.annotation.Timed;
 import id.alfatih.domain.akuntansi.Akun;
+import id.alfatih.domain.model.AkunVM;
 import id.alfatih.repository.akuntansi.AkunRepository;
 import id.alfatih.repository.jdbc.AkunRepositoryJdbc;
 import id.alfatih.service.util.HeaderUtil;
@@ -62,6 +63,22 @@ public class AkunResource {
         List<Akun> x = repository.findAll();
         return x;
     }
+    
+    @RequestMapping("/parent-children")
+    @Timed
+    public List<Akun> listParentChildren() {
+        log.debug("REST request to get parent children");
+        List<Akun> x = repository.listParentChildren();
+        return x;
+    }
+    
+    @RequestMapping("/kas-bank")
+    @Timed
+    public List<Akun> listKasBank() {
+        log.debug("REST request to get lsit kas-bank");
+        List<Akun> x = repository.listKasBank();
+        return x;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     @Timed
@@ -113,10 +130,21 @@ public class AkunResource {
      */
     @RequestMapping("{id}")
     @Timed
-    public ResponseEntity<Akun> getAkun(@PathVariable Integer id) {
+    public ResponseEntity<AkunVM> getAkun(@PathVariable Integer id) {
         log.debug("REST request get Akun : {}", id);
         Akun akun = repository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(akun));
+        AkunVM a = new AkunVM();
+        a.setId(akun.getId());
+        a.setAktif(akun.getAktif());
+        a.setNama(akun.getNama());
+        a.setKode(akun.getKode());
+        a.setKeterangan(akun.getKeterangan());
+        a.setKelompok(akun.getKelompok());
+        a.setParent(akun.getParent());
+        a.setChildren(akun.getChildren());
+        a.setCabang(akun.getCabang());
+        a.setExpanded(akun.getExpanded());
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(a));
     }
 
     /**

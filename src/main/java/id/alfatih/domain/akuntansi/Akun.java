@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -66,11 +67,22 @@ public class Akun implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_parent")
+    @JsonBackReference
     private Akun parent;
+
+    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Akun> children;
 
     @ManyToOne
     @JoinColumn(name = "id_cabang")
     private Cabang cabang;
+
+    @ColumnDefault(value = "true")
+    private Boolean aktif;
+
+    @ColumnDefault(value = "true")
+    private boolean expanded;
 
     public Integer getId() {
         return id;
@@ -136,20 +148,28 @@ public class Akun implements Serializable {
         this.cabang = cabang;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public Boolean getAktif() {
+        return aktif;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setAktif(Boolean aktif) {
+        this.aktif = aktif;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public List<Akun> getChildren() {
+        return children;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setChildren(List<Akun> children) {
+        this.children = children;
+    }
+
+    public boolean getExpanded() {
+        return this.expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 
 }
