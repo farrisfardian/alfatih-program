@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import id.alfatih.domain.akademik.Cabang;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -77,7 +77,7 @@ public class Akun implements Serializable {
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<Akun> children;
+    private Set<Akun> children;
 
     @ManyToOne
     @JoinColumn(name = "id_cabang")
@@ -161,11 +161,11 @@ public class Akun implements Serializable {
         this.aktif = aktif;
     }
 
-    public List<Akun> getChildren() {
+    public Set<Akun> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Akun> children) {
+    public void setChildren(Set<Akun> children) {
         this.children = children;
     }
 

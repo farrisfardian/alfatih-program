@@ -7,6 +7,7 @@ package id.alfatih.web.rest.akuntansi;
 
 import com.codahale.metrics.annotation.Timed;
 import id.alfatih.domain.akuntansi.Proyek;
+import id.alfatih.model.ProyekDto;
 import id.alfatih.repository.akuntansi.ProyekRepository;
 import id.alfatih.repository.jdbc.ProyekRepositoryJdbc;
 import id.alfatih.service.util.HeaderUtil;
@@ -47,6 +48,14 @@ public class ProyekResource {
     public ProyekResource(ProyekRepository repository, ProyekRepositoryJdbc repositoryJdbc) {
         this.repository = repository;
         this.repositoryJdbc = repositoryJdbc;
+    }
+
+    @RequestMapping("/parent-children")
+    @Timed
+    public List<Proyek> listParentChildren() {
+        log.debug("REST request to get parent children");
+        List<Proyek> x = repository.listParentChildren();
+        return x;
     }
 
     @RequestMapping(value = "/list-flat", method = RequestMethod.GET)
@@ -124,10 +133,21 @@ public class ProyekResource {
      */
     @RequestMapping("{id}")
     @Timed
-    public ResponseEntity<Proyek> getProyek(@PathVariable Integer id) {
+    public ResponseEntity<ProyekDto> getProyek(@PathVariable Integer id) {
         log.debug("REST request get Proyek : {}", id);
         Proyek akun = repository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(akun));
+        ProyekDto a = new ProyekDto();
+        a.setBudget(akun.getBudget());
+//        a.setChildren(akun.getChildren());
+        a.setDurasiAkhir(akun.getDurasiAkhir());
+        a.setDurasiAwal(akun.getDurasiAwal());
+        a.setExpanded(akun.isExpanded());
+        a.setId(akun.getId());
+        a.setKeterangan(akun.getKeterangan());
+        a.setKode(akun.getKode());
+        a.setParent(akun.getParent());
+        a.setProgram(akun.getProgram());
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(a));
     }
 
     /**

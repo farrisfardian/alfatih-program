@@ -40,4 +40,7 @@ public interface ProgramRepository extends JpaRepository<Program, Integer>{
     public List<Program> findByUnit(@Param("id") Integer id);
 
     public Optional<Program> findOneByKode(String kode);
+    
+    @Query("from Program a where parent is null order by a.kode")
+    public List<Program> listParentChildren();
 }
