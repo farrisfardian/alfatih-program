@@ -1,0 +1,68 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+            <em class="ion-ios-close-empty sn-link-close"></em>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{modalTitle}}</h4>
+    </div>
+
+    <div class="modal-body">
+        <!--        <form class="form-horizontal" name="form1" id="formRate">
+                    <div>
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label class="control-label" for="nama">Program</label>
+                            </div>
+                            <div class="col-md-5" ng-class="{error: form1.status.$invalid}">
+                                <div class="input-group">
+                                    <input class="form-control" ng-model="ctrl.data.program.nama" name="program" ng-disabled="ctrl.programExists"/>
+                                    <span class="input-group-addon" ng-click="ctrl.lookupProgram()"><span class="glyphicon glyphicon-search" ng-disabled="ctrl.programExists"></span></span>
+                                </div>
+                            </div>                        
+                        </div>                
+                    </div>
+                </form>-->
+        <div class="row">
+            <b>Program : </b>
+            <div class="vertical-scroll">
+                <tree-dnd tree-class="table table-bordered table-hover table-striped"
+                          tree-data="ctrl.tree_data_program"
+                          tree-control="ctrl.my_tree_program"
+                          filter="ctrl._filter_program"
+                          primary-key="id"
+                          column-defs="ctrl.col_defs_program"
+                          expand-on="ctrl.expanding_property_program"
+
+                          template-url="app/pages/template/dnd-tree/program-template-render.html"
+
+                          indent="30"
+                          indent-plus="20"
+                          indent-unit="px"
+                          enable-hotkey="true"
+                          enable-drag="false"
+                          enable-drop="false"
+                          enable-status="true"
+                          enable-move="false">
+                </tree-dnd>
+            </div>
+        </div>
+        <div class="row">
+            <b>Proyek : </b><br>
+            <!--            <button ng-click="my_tree.expand_all()" class="btn btn-default btn-sm">Expand All</button>
+                        <button ng-click="my_tree.collapse_all()" class="btn btn-default btn-sm">Collapse All</button>                -->
+            <div class="table-responsive">
+                <tree-grid tree-data="ctrl.tree_data" tree-control="my_tree" col-defs="ctrl.col_defs" expand-on="ctrl.expanding_property" on-select="ctrl.my_tree_handler(branch)" expand-level="2" icon-leaf= "glyphicon glyphicon-globe"></tree-grid>
+            </div>
+        </div>
+        <span class="pull-right" style="font-size: large;font-weight: bolder"><bold>Total Budget : {{ctrl.totalBudget|number}}</bold></span>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="ctrl.simpan()">Simpan</button>
+        <button type="button" class="btn btn-danger" ng-click="$dismiss()">Batal</button>
+    </div>
+</div>
+<!--<div class='row'>
+    <div class="col-xs-12 col-sm-6" style='background-color:yellow;height:200px'>1st Div</div>
+    <div class="col-xs-12 col-sm-6" style='float:right;background-color:blue;height:600px'>2nd Div</div><br/><div class="clearfix visible-xs"></div>
+    <div class="col-xs-12 col-sm-6"  style='background-color:red;height:2000px'>3rd Div</div>
+</div>-->
