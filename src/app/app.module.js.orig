@@ -25,8 +25,11 @@
         'ui.select',
         'angular-progress-button-styles',
         'ntt.TreeDnD',
-        'jqwidgets',
+<<<<<<< HEAD
         'treeGrid',
+=======
+        'jqwidgets',
+>>>>>>> 1a91a4b40bde8c64c30902709b6d254fedee6e11
         'Alfatih.theme',
         'Alfatih.pages'
     ])

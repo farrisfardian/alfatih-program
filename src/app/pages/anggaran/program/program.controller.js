@@ -9,6 +9,7 @@
             ParseLinks, AlertService, paginationConstants, pagingParams, $state, $timeout) {
         var vm = this;
         vm.search = '';
+        vm.isLookup = false;
         vm.loadAll = loadAll;
         vm.loadAllFlat = loadAllFlat;
         vm.loadPage = loadPage;

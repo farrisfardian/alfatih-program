@@ -40,4 +40,9 @@ public class ProyekRepositoryJdbc {
         return mr.mapList(query);
     }
 
+    public Object hitungBudgetParent(Integer search) {
+        String query = "select fn_hitung_budget_parent_proyek(" + search + ",'');";
+        return mr.mapSingle(query);
+    }
+
 }

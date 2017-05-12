@@ -146,6 +146,9 @@ public class ProyekResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new akun cannot already have an ID")).body(null);
         }
         Proyek result = repository.save(akun);
+        if (result.getParent() != null) {
+            repositoryJdbc.hitungBudgetParent(result.getParent().getId());
+        }
         return ResponseEntity.created(new URI("/api/akuntansi/program/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
@@ -168,6 +171,9 @@ public class ProyekResource {
             return createProyek(akun);
         }
         Proyek result = repository.save(akun);
+        if (result.getParent() != null) {
+            repositoryJdbc.hitungBudgetParent(result.getParent().getId());
+        }
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, akun.getId().toString()))
                 .body(result);
@@ -183,7 +189,11 @@ public class ProyekResource {
     @Timed
     public ResponseEntity<Void> deleteProyek(@PathVariable Integer id) {
         log.debug("REST request to delete Proyek : {}", id);
+        Proyek findOne = repository.findOne(id);
         repository.delete(id);
+        if (findOne.getParent() != null) {
+            repositoryJdbc.hitungBudgetParent(findOne.getParent().getId());
+        }
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
