@@ -7,7 +7,11 @@ package id.alfatih.domain.model;
  */
 import id.alfatih.domain.akuntansi.*;
 import id.alfatih.domain.akademik.Cabang;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -42,6 +46,10 @@ public class AkunVM {
 
     private boolean expanded;
 
+    private String createdBy;
+
+    private Date createdDate;
+    
     public Integer getId() {
         return id;
     }
@@ -128,6 +136,22 @@ public class AkunVM {
 
     public void setExpanded(boolean expanded) {
         this.expanded = expanded;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
 }

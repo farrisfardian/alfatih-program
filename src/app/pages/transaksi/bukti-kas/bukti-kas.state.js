@@ -11,7 +11,7 @@
         $stateProvider
                 .state('transaksi.bkm', {
                     url: '/bkm/:id',
-                    templateUrl: 'app/pages/transaksi/bukti-kas/bukti-kas.html',
+                    templateUrl: 'app/pages/transaksi/bukti-kas/bukti-kas-jqw.html',
                     controller: 'BuktiKasController',
                     controllerAs: 'vm',
                     title: 'Transaksi Penerimaan Kas/ Bank',

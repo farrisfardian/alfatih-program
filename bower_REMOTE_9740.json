@@ -93,91 +93,6 @@
     "amcharts-stock": {
       "main": "./dist/amcharts/amstock.js"
     },
-<<<<<<< HEAD
-    "overrides": {
-        "amcharts": {
-            "main": [
-                "./dist/amcharts/amcharts.js",
-                "./dist/amcharts/plugins/responsive/responsive.min.js",
-                "./dist/amcharts/serial.js",
-                "./dist/amcharts/funnel.js",
-                "./dist/amcharts/pie.js",
-                "./dist/amcharts/gantt.js"
-            ]
-        },
-        "amcharts-stock": {
-            "main": "./dist/amcharts/amstock.js"
-        },
-        "ammap": {
-            "main": [
-                "./dist/ammap/ammap.js",
-                "./dist/ammap/maps/js/worldLow.js"
-            ]
-        },
-        "bootstrap": {
-            "main": [
-                "dist/css/bootstrap.css",
-                "js/dropdown.js",
-                "./dist/fonts/**.*"
-            ]
-        },
-        "slimScroll": {
-            "main": "./jquery.slimscroll.js"
-        },
-        "font-awesome": {
-            "main": [
-                "css/font-awesome.css",
-                "fonts/FontAwesome.otf",
-                "fonts/fontawesome-webfont.eot",
-                "fonts/fontawesome-webfont.svg",
-                "fonts/fontawesome-webfont.ttf",
-                "fonts/fontawesome-webfont.woff",
-                "fonts/fontawesome-webfont.woff2"
-            ]
-        },
-        "jqwidgets": {
-            "main": [
-                "jqwidgets/jqxcore.js",
-                "jqwidgets/jqxdata.js",
-                "jqwidgets/jqxbuttons.js",
-                "jqwidgets/jqxscrollbar.js",
-                "jqwidgets/jqxdropdownlist.js",
-                "jqwidgets/jqxmenu.js",
-                "jqwidgets/jqxgrid.js",
-                "jqwidgets/jqxdatatable.js",
-                "jqwidgets/jqxtreegrid.js",
-                "jqwidgets/jqxgrid.edit.js",
-                "jqwidgets/jqxgrid.pager.js",
-                "jqwidgets/jqxgrid.sort.js",
-                "jqwidgets/jqxgrid.filter.js",
-                "jqwidgets/jqxgrid.storage.js",
-                "jqwidgets/jqxdata.export.js",
-                "jqwidgets/jqxgrid.export.js",
-                "jqwidgets/jqxgrid.columnsresize.js",
-                "jqwidgets/jqxgrid.columnsreorder.js",
-                "jqwidgets/jqxgrid.selection.js",
-                "jqwidgets/jqxgrid.aggregates.js",
-                "jqwidgets/jqxgrid.grouping.js",
-                "jqwidgets/jqxpanel.js",
-                "jqwidgets/jqxcheckbox.js",
-                "jqwidgets/jqxtabs.js",
-                "jqwidgets/jqxlistbox.js",
-                "jqwidgets/jqxinput.js",
-                "jqwidgets/jqxformattedinput.js",
-                "jqwidgets/jqxmaskedinput.js",
-                "jqwidgets/jqxdate.js",
-                "jqwidgets/jqxdatetimeinput.js",
-                "jqwidgets/jqxcalendar.js",
-                "jqwidgets/jqxpasswordinput.js",
-                "jqwidgets/jqxvalidator.js",
-                "jqwidgets/jqxcombobox.js",
-                "jqwidgets/jqxcomplexinput.js",
-                "jqwidgets/jqxangular.js",
-                "jqwidgets/styles/jqx.base.css",
-                "jqwidgets/styles/jqx.ui-sunny.css"
-            ]
-        }
-=======
     "ammap": {
       "main": [
         "./dist/ammap/ammap.js",
@@ -235,7 +150,6 @@
         "jqwidgets/styles/jqx.base.css",
         "jqwidgets/styles/jqx.ui-sunny.css"
       ]
->>>>>>> 1c8e320f525177541d30464c152c8ead35db6ef5
     }
   }
 }
