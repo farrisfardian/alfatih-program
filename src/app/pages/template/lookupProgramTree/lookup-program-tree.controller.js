@@ -20,15 +20,15 @@
         ctrl._filter = {};
         ctrl.expanding_property = {
             /*template: "<td>OK All</td>",*/
-            field: 'nama',
+            field: 'kode',
+            displayName: 'Kode'
 //            titleClass: 'text-center',
 //            cellClass: 'v-middle',
-            displayName: 'Nama'
         };
         ctrl.col_defs = [
             {
-                field: 'kode',
-                displayName: 'Kode'
+                field: 'nama',
+                displayName: 'Nama'
             },
             {
                 field: 'mulai',
@@ -53,6 +53,14 @@
             {
                 field: 'kode_tahun_ajaran',
                 displayName: 'Tahun Ajaran'
+            }, {
+                titleStyle: {
+                    'width': '80pt'
+                },
+                titleClass: 'text-center',
+                cellClass: 'v-middle text-center',
+                displayName: '',
+                cellTemplate: '<a ng-show="node.__children__.length===0" href="" ng-click="ctrl.select(node)"  > <i class="glyphicon glyphicon-edit"></i> Pilih</a>  '
             }
         ];
         loadAllFlat();

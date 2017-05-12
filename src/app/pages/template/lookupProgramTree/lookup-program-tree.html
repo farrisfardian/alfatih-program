@@ -1,38 +1,3 @@
-<script type="text/ng-template" id="tree-dnd-template-render.html">
-    <table ng-class="$tree_class">
-    <thead>
-    <tr>
-    <th ng-class="expandingProperty.titleClass" ng-style="expandingProperty.titleStyle"    
-    compile="expandingProperty.titleTemplate">
-    {{expandingProperty.displayName || expandingProperty.field || expandingProperty}}
-    </th>
-    <th ng-repeat="col in colDefinitions" ng-class="col.titleClass" ng-style="col.titleStyle"
-    compile="col.titleTemplate">
-    {{col.displayName || col.field}}
-    </th>
-    </tr>
-    </thead>
-    <tbody tree-dnd-nodes>
-    <tr tree-dnd-node="node" ng-repeat="node in tree_nodes track by node.__hashKey__ "
-    ng-show="enabledFilter ? node.__filtered_visible__ === true && node.__visible__ : node.__visible__"
-    ng-class="enabledFilter ? (node.__filtered__ === true? 'success': '') : (node.__selected__ ? ' active':'')"
-    ng-click="ctrl.select(node)">
-    <td tree-dnd-node-handle
-    ng-style="expandingProperty.cellStyle ? expandingProperty.cellStyle : {'padding-left': $callbacks.calsIndent(node.__level__)}"
-    ng-class="expandingProperty.cellClass" compile="expandingProperty.cellTemplate">
-    <a data-nodrag> <i ng-class="node.__icon_class__"
-    ng-click="toggleExpand(node)"
-    class="tree-icon"></i>
-    </a> {{node[expandingProperty.field] || node[expandingProperty]}}
-    </td>
-    <td ng-repeat="col in colDefinitions" ng-class="col.cellClass" ng-style="col.cellStyle"
-    compile="col.cellTemplate" title="{{col.displayName}}">
-    {{node[col.field]}}
-    </td>
-    </tr>
-    </tbody>
-    </table>
-</script>
 <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
@@ -58,7 +23,7 @@
                               column-defs="ctrl.col_defs"
                               expand-on="ctrl.expanding_property"
 
-                              template-url="tree-dnd-template-render.html"
+                              template-url="app/pages/template/dnd-tree/program-template-render.html"
 
                               indent="30"
                               indent-plus="20"

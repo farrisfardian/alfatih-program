@@ -252,7 +252,7 @@
                 vm.dataFlat = (data === null || data.length === 0) ? [] : data;
                 console.log('vm.dataFlat', vm.dataFlat);
                 vm.tree_data = getTree(vm.dataFlat, 'id', 'id_parent');
-                vm.totalBudge = 0;
+                vm.totalBudget = 0;
                 for (var i = 0; i < vm.tree_data.length; i++) {
                     vm.totalBudget += vm.tree_data[i].budget;
                 }
