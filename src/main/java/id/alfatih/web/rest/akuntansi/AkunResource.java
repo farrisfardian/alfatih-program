@@ -144,6 +144,8 @@ public class AkunResource {
         a.setChildren(akun.getChildren());
         a.setCabang(akun.getCabang());
         a.setExpanded(akun.getExpanded());
+        a.setCreatedDate(akun.getCreatedDate());
+        a.setCreatedBy(akun.getCreatedBy());
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(a));
     }
 
@@ -207,13 +209,17 @@ public class AkunResource {
      * status 500 (Internal Server Error) if the akun couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @Timed
-    public ResponseEntity<Akun> updateAkun(@RequestBody Akun akun) throws URISyntaxException {
+    public ResponseEntity<Akun> updateAkun(@PathVariable Integer id, @RequestBody Akun akun) throws URISyntaxException {
         log.debug("REST request to update Akun : {}", akun);
-        if (akun.getId() == null) {
+        if (id == null) {
             return createAkun(akun);
         }
+        Akun x = repository.findOne(id);
+        akun.setId(x.getId());
+        akun.setCreatedBy(akun.getCreatedBy()==null? "system": akun.getCreatedBy());
+        akun.setCreatedDate(akun.getCreatedDate()==null? new Date(): akun.getCreatedDate());
         Akun result = repository.save(akun);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, akun.getId().toString()))

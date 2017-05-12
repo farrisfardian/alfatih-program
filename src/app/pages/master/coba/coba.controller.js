@@ -5,29 +5,47 @@
             .controller('CobaController', CobaController)
 
     /** @ngInject */
-    function CobaController(AkunService, $uibModal, $log) {
-        var vm = this;
-        vm.treeGridSettings = {
+    function CobaController($scope, $uibModal, $log) {
+        //// prepare the data
+        var source = {
+            dataType: "json",
+            dataFields: [
+                {name: 'id', type: 'number'},
+                {name: 'kode', type: 'string'},
+                {name: 'nama', type: 'string'},
+                {name: 'kel', map: 'kelompok>nama'},
+                {name: 'children', type: 'array'},
+                {name: 'expanded', type: 'bool'}
+            ],
+            hierarchy: {
+                root: 'children'
+            },
+            id: 'id',
+            url: 'api/akuntansi/akun/parent-children'
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        // create Tree Grid
+        $("#treeGrid").jqxTreeGrid({
             width: 1000,
-            source: new $.jqx.dataAdapter({
-                dataType: "json",
-                dataFields: [
-                    {name: 'id'},
-                    {name: 'kode'},
-                    {name: 'nama'},
-                    {name: 'kel', map: 'kelompok>nama'},
-                    {name: 'children', type: 'array'},
-                    {name: 'expanded', type: 'bool'}
-                ],
-                columnsresize: true,
-                hierarchy: {
-                    root: 'children'
-                },
-                id: 'id',
-//                localData: vm.dataAkun
-                url: 'api/akuntansi/akun/parent-children'
-            }),
+            source: dataAdapter,
             sortable: true,
+            pageable: false,
+            pagerMode: 'advanced',
+            theme: 'energyblue',
+            columns: [
+                {text: 'Kode', dataField: 'kode', width: 120},
+                {text: 'Nama', dataField: 'nama', width: 500},
+                {text: 'Kelompok', dataField: 'kel', width: 200},
+                {
+                    text: 'Edit', cellsAlign: 'center', align: "center", columnType: 'none', editable: false, sortable: false, dataField: null,
+                    cellsRenderer: function (row, column, value) {
+                        // render custom column.
+                        return "<button data-row='" + row + "' class='editButtons'>Edit</button>\n\
+                                <button style='display: none; margin-left: 5px;' data-row='" + row + "' class='cancelButtons'>Cancel</button>";
+                    }
+                }
+            ],
             rendered: function () {
                 if ($(".editButtons").length > 0) {
                     $(".cancelButtons").jqxButton();
@@ -53,21 +71,9 @@
                             }
                         });
                         modalInstance.result.then(function (selectedItem) {
-//                            loadAll()
                         }, function () {
                             $log.info('Modal dismissed at: ' + new Date());
                         });
-//                        if (value == "Edit") {
-//                            // begin edit.
-//                            $("#treeGrid").jqxTreeGrid('beginRowEdit', rowKey);
-//                            target.parent().find('.cancelButtons').show();
-//                            target.val("Save");
-//                        } else {
-//                            // end edit and save changes.
-//                            target.parent().find('.cancelButtons').hide();
-//                            target.val("Edit");
-//                            $("#treeGrid").jqxTreeGrid('endRowEdit', rowKey);
-//                        }
                     }
 
                     $(".editButtons").on('click', function (event) {
@@ -80,29 +86,13 @@
                         $("#treeGrid").jqxTreeGrid('endRowEdit', rowKey, true);
                     });
                 }
-            },
-            columns: [
-                {text: 'Kode', dataField: 'kode', width: 120},
-                {text: 'Nama', dataField: 'nama', width: 500},
-                {text: 'Kelompok', dataField: 'kel', width: 200},
-                {
-                    text: 'Edit', cellsAlign: 'center', align: "center", columnType: 'none', editable: false, sortable: false, dataField: null,
-                    cellsRenderer: function (row, column, value) {
-                        // render custom column.
-                        return "<button data-row='" + row + "' class='editButtons'>Edit</button>\n\
-                                <button style='display: none; margin-left: 5px;' data-row='" + row + "' class='cancelButtons'>Cancel</button>";
-                    }
-                }
-
-            ]
-        };
-        $('#treeGrid').on('rowSelect', function(event) {
-                var args = event.args;
-                var row = args.row;
-                console.log('rowSelect', args.row)
-                alert("The row you selected is: " + row.kode + " " + row.nama);
-//                $scope.selectedUnor={kode: row.kode, nama: row.nama};
-            });
+            }
+        });
+//        $('#treeGrid').on('rowSelect', function (event) {
+//            var args = event.args;
+//            var row = args.row;
+//            alert("The row you selected is: " + row.kode + " " + row.LastName);
+//        });
     }
 })();
 

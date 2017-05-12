@@ -1,0 +1,137 @@
+<div class="widgets">
+    <form class="form-horizontal" name="form1">
+        <div class="row">
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+                <tr >
+                    <td width="80%" style="vertical-align: top">
+                        <table width="100%" >
+                            <tr>
+                                <td width="10%">
+                                    No. Voucher 
+                                </td>
+                                <td  width="2%"> : </td>
+                                <td  width="15%">
+                                    <jqx-input jqx-width="180" jqx-height="25" id="userInput"></jqx-input>
+                                </td>
+                                <td  width="15%" style="text-align:right">
+                                    Tanggal 
+                                </td>
+                                <td  width="2%"> : </td>
+                                <td width="66%">
+                                    <jqx-date-time-input jqx-width="150" jqx-height="25" id="birthInput"></jqx-date-time-input>
+                                </td>
+                            </tr>
+                <tr>
+                    <td>
+                        Terima Dari
+                    </td>
+                    <td> : </td>
+                    <td colspan="4">
+                        <jqx-input jqx-width="600" jqx-height="25" id="userInput"></jqx-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Keterangan
+                    </td>
+                    <td> : </td>
+                    <td colspan="4">
+                <jqx-input jqx-width="600" jqx-height="25" id="userInput"></jqx-input>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kurs Transaksi
+                    </td>
+                    <td> : </td>
+                    <td>
+                <jqx-input jqx-width="100" jqx-height="25" id="userInput"></jqx-input>
+                <jqx-button jqx-instance="buttonInstance" >...</jqx-button>
+                </td>
+                <td style="text-align:right">
+                    Akun Kas/ Bank
+                </td>
+                <td> : </td>
+                <td>
+                <jqx-combo-box jqx-settings="comboboxSettings"></jqx-combo-box>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mata Uang
+                    </td>
+                    <td> : </td>
+                    <td>
+                <jqx-input jqx-width="100" jqx-height="25" id="userInput"></jqx-input>
+                </td>
+                <td style="text-align:right">
+                    Sumber Dana
+                </td>
+                <td> : </td>
+                <td>
+                <jqx-combo-box jqx-settings="comboboxSettings"></jqx-combo-box>
+                </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                    </td>
+                </tr>
+            </table>
+            </td>
+            <td style="vertical-align: top">
+                <table width="100%" border="1" style="font-size: 80%">
+                    <tr>
+                        <td width="65%">
+                            Saldo Awal 
+                        </td>
+                        <td style="text-align: right" width="35%">
+                            <b>45,000,000.00</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Saldo Awal Sumber Dana
+                        </td>
+                        <td style="text-align: right" >
+                            <b>45,000,000.00</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Total Terima</b>
+                        </td>
+                        <td style="text-align: right" >
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Saldo Akhir Sumber Dana
+                        </td>
+                        <td style="text-align: right" >
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Saldo Akhir</b>
+                        </td>
+                        <td style="text-align: right" >
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            </tr>
+            </table>
+
+        </div>
+        <br>
+        <div class="row">
+            <!--<jqx-grid jqx-columns="columns" jqx-sortable="true" jqx-source="people" jqx-width="1000" jqx-height="200" jqx-alt-rows="true"></jqx-grid>-->
+            <div id="jqxgrid">
+            </div>
+        </div>
+
+    </form>
+</div>
+
