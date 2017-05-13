@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('Alfatih.pages.master')
-            .controller('DonaturDialogController', DonaturDialogController);
+            .controller('SumberDanaDialogController', SumberDanaDialogController);
 
-    function DonaturDialogController($timeout, $scope, $stateParams, $uibModalInstance, entity, DonaturService) {
+    function SumberDanaDialogController($timeout, $scope, $stateParams, $uibModalInstance, entity, SumberDanaService) {
         var vm = this;
         
         vm.akun = entity;
@@ -19,18 +19,18 @@
             $uibModalInstance.dismiss('cancel');
         }
         if (entity.id === null) {
-            $scope.modalTitle = "Tambah Donatur"
+            $scope.modalTitle = "Tambah Sumber Dana"
         } else {
-            $scope.modalTitle = "Edit Donatur"
+            $scope.modalTitle = "Edit Sumber Dana"
         }
 
         function save () {
             console.log('vm.akun', vm.akun);
             vm.isSaving = true;
             if (vm.akun.id !== null) {
-                DonaturService.update(vm.akun, onSaveSuccess, onSaveError);
+                SumberDanaService.update(vm.akun, onSaveSuccess, onSaveError);
             } else {
-                DonaturService.save(vm.akun, onSaveSuccess, onSaveError);
+                SumberDanaService.save(vm.akun, onSaveSuccess, onSaveError);
             }
         }
 

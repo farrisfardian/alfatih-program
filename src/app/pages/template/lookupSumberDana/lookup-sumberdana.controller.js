@@ -1,8 +1,8 @@
 (function () {
     'use strict';
     angular.module('Alfatih')
-            .controller('LookupDonaturController', LookupDonaturController);
-    function LookupDonaturController($timeout, $stateParams, $uibModalInstance, $scope, $uibModal, $log, toastr, ParseLinks, AlertService, paginationConstants, lookupPagingParams, $state, DonaturService) {
+            .controller('LookupSumberDanaController', LookupSumberDanaController);
+    function LookupSumberDanaController($timeout, $stateParams, $uibModalInstance, $scope, $uibModal, $log, toastr, ParseLinks, AlertService, paginationConstants, lookupPagingParams, $state, SumberDanaService) {
 
         var ctrl = this;
         ctrl.search = '';
@@ -13,10 +13,10 @@
         ctrl.transition = transition;
         ctrl.itemsPerPage = paginationConstants.itemsPerPage;
         ctrl.select = select;
-        $scope.modalTitle = "Cari Donatur";
+        $scope.modalTitle = "Cari Sumber Dana";
         loadAll();
         function loadAll() {
-            DonaturService.query({
+            SumberDanaService.query({
                 id: (ctrl.search === null || ctrl.search === undefined || ctrl.search === '') ? '' : 'filter',
                 cari: (ctrl.search === null || ctrl.search === undefined || ctrl.search === '') ? '' : ctrl.search,
                 page: lookupPagingParams.page - 1,
@@ -58,7 +58,6 @@
 //                search: ctrl.currentSearch
 //            });
         }
-        console.log('ctrl.akun', ctrl.akun);
         $timeout(function () {
             angular.element('.form-group:eq(1)>input').focus();
         });

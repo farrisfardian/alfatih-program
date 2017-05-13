@@ -51,11 +51,11 @@
 //                        "stateRef": "master.sumberdana"
 //                    }, 
                     {
-                        "name": "master.donatur",
-                        "title": "Donatur",
+                        "name": "master.sumberdana",
+                        "title": "Sumber Dana",
                         "level": 1,
                         "order": 300,
-                        "stateRef": "master.donatur"
+                        "stateRef": "master.sumberdana"
                    },
                     {
                         "name": "master.tahunajaran",
@@ -120,11 +120,11 @@
                         "stateRef": "transaksi.jurnal"
                     },
                     {
-                        "name": "transaksi.akad-donatur",
-                        "title": "Akad Donatur",
+                        "name": "transaksi.akad-sumberdana",
+                        "title": "Akad Sumber Dana",
                         "level": 1,
                         "order": 150,
-                        "stateRef": "transaksi.akad-donatur"
+                        "stateRef": "transaksi.akad-sumberdana"
                     },
                     {
                         "name": "transaksi.um",

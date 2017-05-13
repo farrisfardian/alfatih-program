@@ -24,8 +24,8 @@ import org.hibernate.annotations.GenericGenerator;
  * @author faheem
  */
 @Entity
-@Table(name = "acc_akad_donatur")
-public class AkadDonatur {
+@Table(name = "acc_akad_sumber_dana")
+public class AkadSumberDana {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -40,10 +40,10 @@ public class AkadDonatur {
     @Column
     private String batasan;
     @Column
-    private BigDecimal donasi;
+    private BigDecimal jumlah;
     @ManyToOne
-    @JoinColumn(name = "id_donatur")
-    private Donatur donatur;
+    @JoinColumn(name = "id_sumber_dana")
+    private SumberDana sumberDana;
     @ManyToOne
     @JoinColumn(name = "id_program")
     private Program program;
@@ -72,20 +72,21 @@ public class AkadDonatur {
         this.tanggal = tanggal;
     }
 
-    public BigDecimal getDonasi() {
-        return donasi;
+    public BigDecimal getJumlah() {
+        return jumlah;
     }
 
-    public void setDonasi(BigDecimal donasi) {
-        this.donasi = donasi;
+    public void setJumlah(BigDecimal jumlah) {
+        this.jumlah = jumlah;
     }
 
-    public Donatur getDonatur() {
-        return donatur;
+
+    public SumberDana getSumberDana() {
+        return sumberDana;
     }
 
-    public void setDonatur(Donatur donatur) {
-        this.donatur = donatur;
+    public void setSumberDana(SumberDana sumberDana) {
+        this.sumberDana = sumberDana;
     }
 
     public Program getProgram() {

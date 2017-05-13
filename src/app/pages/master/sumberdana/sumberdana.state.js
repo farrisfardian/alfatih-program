@@ -9,15 +9,15 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-                .state('master.donatur', {
+                .state('master.sumberdana', {
                     parent: 'master',
-                    url: '/donatur',
+                    url: '/sumberdana',
                     data: {
                         authorities: ['ROLE_ADMIN'],
-                        pageTitle: 'Daftar Donatur'
+                        pageTitle: 'Daftar Sumberdana'
                     },
-                    templateUrl: 'app/pages/master/donatur/donatur.html',
-                    controller: 'DonaturController',
+                    templateUrl: 'app/pages/master/sumberdana/sumberdana.html',
+                    controller: 'SumberDanaController',
                     controllerAs: 'vm',
                     params: {
                         page: {

@@ -65,7 +65,7 @@ public class UangMuka {
     private Akun akunUangMuka;
     @ManyToOne
     @JoinColumn(name = "id_sumberDana")
-    private Donatur sumberDana;
+    private SumberDana sumberDana;
     @Column
     private String divisi;
     @OneToMany(mappedBy = "uangMuka", cascade = {javax.persistence.CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -184,11 +184,11 @@ public class UangMuka {
         this.akunUangMuka = akunUangMuka;
     }
 
-    public Donatur getSumberDana() {
+    public SumberDana getSumberDana() {
         return sumberDana;
     }
 
-    public void setSumberDana(Donatur sumberDana) {
+    public void setSumberDana(SumberDana sumberDana) {
         this.sumberDana = sumberDana;
     }
 }

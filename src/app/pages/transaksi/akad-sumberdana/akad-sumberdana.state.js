@@ -6,14 +6,14 @@
     stateConfig.$inject = ['$stateProvider'];
     function stateConfig($stateProvider) {
         $stateProvider
-                .state('transaksi.akad-donatur', {
-                    url: '/akad-donatur',
-                    templateUrl: 'app/pages/transaksi/akad-donatur/akad-donatur.html',
-                    controller: 'AkadDonaturController',
+                .state('transaksi.akad-sumberdana', {
+                    url: '/akad-sumberdana',
+                    templateUrl: 'app/pages/transaksi/akad-sumberdana/akad-sumberdana.html',
+                    controller: 'AkadSumberDanaController',
                     controllerAs: 'vm',
                     data: {
                         authorities: ['ROLE_ADMIN'],
-                        pageTitle: 'Unit'
+                        pageTitle: 'Sumber Dana'
                     },
                     sidebarMeta: {
                         order: 100,

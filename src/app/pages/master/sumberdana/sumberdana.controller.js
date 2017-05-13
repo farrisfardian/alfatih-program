@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('Alfatih.pages.master')
-            .controller('DonaturController', DonaturController)
+            .controller('SumberDanaController', SumberDanaController)
 
     /** @ngInject */
-    function DonaturController($scope, $uibModal, $log, toastr, DonaturService, 
+    function SumberDanaController($scope, $uibModal, $log, toastr, SumberDanaService, 
             ParseLinks, AlertService, paginationConstants, pagingParams, $state) {
         var vm = this;
         vm.search = '';vm.loadAll = loadAll;
@@ -21,7 +21,7 @@
         loadAll();
 
         function loadAll() {
-            DonaturService.query({
+            SumberDanaService.query({
                 id: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : 'filter',
                 cari: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : vm.search,
                 page: pagingParams.page - 1,
@@ -63,8 +63,8 @@
         function baru() {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/master/donatur/donatur-dialog.html',
-                controller: 'DonaturDialogController',
+                templateUrl: 'app/pages/master/sumberdana/sumberdana-dialog.html',
+                controller: 'SumberDanaDialogController',
                 controllerAs: 'vm',
                 size: 'lg',
                 resolve: {
@@ -85,13 +85,13 @@
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/master/donatur/donatur-dialog.html',
-                controller: 'DonaturDialogController',
+                templateUrl: 'app/pages/master/sumberdana/sumberdana-dialog.html',
+                controller: 'SumberDanaDialogController',
                 controllerAs: 'vm',
                 size: 'lg',
                 resolve: {
-                    entity: ['DonaturService', function (DonaturService) {
-                            return DonaturService.get({id: x.id}).$promise;
+                    entity: ['SumberDanaService', function (SumberDanaService) {
+                            return SumberDanaService.get({id: x.id}).$promise;
                         }],
                 }
             });
@@ -103,7 +103,7 @@
         }
 
         function hapus(x) {
-            DonaturService.delete({id: x.id},function () {
+            SumberDanaService.delete({id: x.id},function () {
                 toastr.success('Hapus data sukses!');
                 loadAll();
             });

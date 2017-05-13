@@ -45,9 +45,9 @@
                     </td>
                     <td> : </td>
                     <td>
-                <jqx-input jqx-width="100" jqx-height="25" id="userInput"></jqx-input>
-                <jqx-button jqx-instance="buttonInstance" >...</jqx-button>
-                </td>
+                        <jqx-input jqx-width="100" jqx-height="25" id="userInput"></jqx-input>
+                        <jqx-button jqx-instance="buttonInstance" >...</jqx-button>
+                    </td>
                 <td style="text-align:right">
                     Akun Kas/ Bank
                 </td>
@@ -69,7 +69,12 @@
                 </td>
                 <td> : </td>
                 <td>
-                <jqx-combo-box jqx-settings="comboboxSettings"></jqx-combo-box>
+                    
+                    <div><jqx-input jqx-width="430" jqx-height="25" id="txtAkad" ng-model="vm.data.akad" ></jqx-input>
+                        <jqx-button jqx-on-click="vm.lookupAkad()" >
+                            <img alt='search' width='16' height='16' src='../bower_components/jqwidgets/images/search_lg.png' />
+                        </jqx-button>
+                    </div>
                 </td>
                 </tr>
                 <tr>
