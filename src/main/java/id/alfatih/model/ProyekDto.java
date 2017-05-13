@@ -7,7 +7,7 @@ package id.alfatih.model;
 
 import id.alfatih.domain.akuntansi.*;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -19,7 +19,7 @@ public class ProyekDto {
     private Double budget;
     private String keterangan;
     private Proyek parent;
-    private List<Proyek> children;
+    private Set<Proyek> children;
     private Program program;
     private Date durasiAwal;
     private Date durasiAkhir;
@@ -92,11 +92,11 @@ public class ProyekDto {
         this.durasiAkhir = durasiAkhir;
     }
 
-    public List<Proyek> getChildren() {
+    public Set<Proyek> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Proyek> children) {
+    public void setChildren(Set<Proyek> children) {
         this.children = children;
     }
 

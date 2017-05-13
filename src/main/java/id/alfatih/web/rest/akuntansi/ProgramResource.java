@@ -135,7 +135,7 @@ public class ProgramResource {
         a.setAktif(akun.getAktif());
         a.setBudget(akun.getBudget());
         a.setCabang(akun.getCabang());
-//        a.setChildren(akun.getChildren());
+        a.setChildren(akun.getChildren());
         a.setExpanded(akun.isExpanded());
         a.setId(akun.getId());
         a.setKode(akun.getKode());

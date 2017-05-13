@@ -138,7 +138,7 @@ public class ProyekResource {
         Proyek akun = repository.findOne(id);
         ProyekDto a = new ProyekDto();
         a.setBudget(akun.getBudget());
-//        a.setChildren(akun.getChildren());
+        a.setChildren(akun.getChildren());
         a.setDurasiAkhir(akun.getDurasiAkhir());
         a.setDurasiAwal(akun.getDurasiAwal());
         a.setExpanded(akun.isExpanded());

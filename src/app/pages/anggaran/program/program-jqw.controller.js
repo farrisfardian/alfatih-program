@@ -5,7 +5,7 @@
             .controller('ProgramJqwController', ProgramJqwController)
 
     /** @ngInject */
-    function ProgramJqwController($scope, $uibModal, $log, $timeout, ProgramService) {
+    function ProgramJqwController($scope, $uibModal, $log, $timeout, ProgramService, $ngBootbox, toastr) {
         //// prepare the data
         var source = {
             dataType: "json",
@@ -40,8 +40,11 @@
                 {text: 'Budget', dataField: 'budget', width: 150},
                 {text: 'Tahun Ajaran', dataField: 'tahunAjaran', width: 100},
                 {
-                    text: '<button style="margin-left: 5px;" class="btn btn-xs btn-info" id="addButton">Tambah</button>', cellsAlign: 'center', align: "center", columnType: 'none', editable: false, sortable: false, dataField: null,
+                    text: '<button style="margin-left: 5px;" class="btn btn-xs btn-info" id="addButton">Tambah</button>', cellsAlign: 'center', align: "center", columnType: 'none', editable: false, sortable: false, dataField: 'id',
                     cellsRenderer: function (row, column, value) {
+                        console.log('row', row);
+                        console.log('column', column);
+                        console.log('value', value);
                         // render custom column.
                         return "<button data-row='" + row + "' class='editButtons'>Edit</button>\n\
                                 <button data-row='" + row + "' class='addSubButtons'>Sub</button>\n\
@@ -73,6 +76,7 @@
                 if ($(".editButtons").length > 0) {
                     $(".editButtons").jqxButton();
                     $(".addSubButtons").jqxButton();
+                    $(".delButtons").jqxButton();
 
                     var editClick = function (event) {
                         var target = $(event.target);
@@ -99,7 +103,7 @@
                         });
                     };
                     var addSubClick = function (event) {
-                        console.log('event',event);
+                        console.log('event', event);
                         var target = $(event.target);
                         // get button's value.
                         var value = target.val();
@@ -132,12 +136,51 @@
                             });
                         }, 300);
                     };
+                    var delClick = function (event) {
+                        console.log('event', event);
+                        var target = $(event.target);
+                        // get button's value.
+                        var value = target.val();
+                        // get clicked row.
+                        var rowKey = event.target.getAttribute('data-row');
+                        console.log('rowKey', rowKey);
+
+                        var selected = null;
+                        ProgramService.get({id: rowKey}, function (data) {
+                            selected = data;
+                            console.log('success', data);
+                        }, function (data) {
+                            console.log('error', data);
+                        });
+                        $timeout(function () {
+                            if (selected.children === null || selected.children === undefined|| selected.children.length === 0) {
+                                $ngBootbox.confirm({message: "<b>Anda yakin akan menghapus Program '" + selected.nama + "' ??</b>", title: 'Perhatian!!!'})
+                                        .then(function () {
+                                            ProgramService.delete({id: rowKey},
+                                                    function () {
+                                                        toastr.success('Hapus data sukses!');
+                                                    },
+                                                    function () {
+                                                        toastr.error('Hapus data gagal! Mungkin data masih dibutuhkan program lain.');
+                                                    }
+                                            );
+                                        }, function () {
+                                            console.log('Confirm dismissed!');
+                                        });
+                            } else {
+                                toastr.error('Parent tidak boleh dihapus');
+                            }
+                        }, 300);
+                    };
 
                     $(".editButtons").on('click', function (event) {
                         editClick(event);
                     });
                     $(".addSubButtons").on('click', function (event) {
                         addSubClick(event);
+                    });
+                    $(".delButtons").on('click', function (event) {
+                        delClick(event);
                     });
 
                     $(".cancelButtons").click(function (event) {

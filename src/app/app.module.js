@@ -27,6 +27,7 @@
         'ntt.TreeDnD',
         'jqwidgets',
         'treeGrid',
+        'ngBootbox',
         'Alfatih.theme',
         'Alfatih.pages'
     ])

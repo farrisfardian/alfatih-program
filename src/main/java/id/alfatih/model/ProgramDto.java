@@ -11,6 +11,7 @@ import id.alfatih.domain.akuntansi.Program;
 import id.alfatih.domain.akuntansi.SkemaBudget;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -33,7 +34,7 @@ public class ProgramDto {
     private TahunAjaran tahunAjaran;
     private Cabang cabang;
     private SkemaBudget skemaBudget;
-    private List<Program> children;
+    private Set<Program> children;
 
     public ProgramDto(){}
     public ProgramDto(Integer id,
@@ -93,11 +94,11 @@ public class ProgramDto {
         this.nama = nama;
     }
 
-    public List<Program> getChildren() {
+    public Set<Program> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Program> children) {
+    public void setChildren(Set<Program> children) {
         this.children = children;
     }
 
