@@ -8,10 +8,7 @@ package id.alfatih.domain.model;
 import id.alfatih.domain.akuntansi.*;
 import id.alfatih.domain.akademik.Cabang;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.Set;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -38,7 +35,7 @@ public class AkunVM {
 
     private Akun parent;
 
-    private List<Akun> children;
+    private Set<Akun> children;
 
     private Cabang cabang;
 
@@ -122,11 +119,11 @@ public class AkunVM {
         this.parent = parent;
     }
 
-    public List<Akun> getChildren() {
+    public Set<Akun> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Akun> children) {
+    public void setChildren(Set<Akun> children) {
         this.children = children;
     }
 

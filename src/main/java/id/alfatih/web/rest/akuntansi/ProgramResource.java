@@ -7,6 +7,7 @@ package id.alfatih.web.rest.akuntansi;
 
 import com.codahale.metrics.annotation.Timed;
 import id.alfatih.domain.akuntansi.Program;
+import id.alfatih.model.ProgramDto;
 import id.alfatih.repository.akuntansi.ProgramRepository;
 import id.alfatih.repository.jdbc.ProgramRepositoryJdbc;
 import id.alfatih.service.util.HeaderUtil;
@@ -49,6 +50,14 @@ public class ProgramResource {
         this.repositoryJdbc = repositoryJdbc;
     }
 
+    @RequestMapping("/parent-children")
+    @Timed
+    public List<Program> listParentChildren() {
+        log.debug("REST request to get parent children");
+        List<Program> x = repository.listParentChildren();
+        return x;
+    }
+
     @RequestMapping(value = "/list-flat", method = RequestMethod.GET)
     public Object ambilSemuaFlat() {
         return repositoryJdbc.filterProgram(null);
@@ -81,7 +90,7 @@ public class ProgramResource {
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
-    
+
     @RequestMapping("/filter-endpoint-all")
     @Timed
     public ResponseEntity<List<Program>> filterEndpointAll(Pageable p) throws URISyntaxException {
@@ -91,7 +100,7 @@ public class ProgramResource {
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
-    
+
     @RequestMapping("/filter-endpoint/{s}")
     @Timed
     public ResponseEntity<List<Program>> filterEndpointByKey(@PathVariable String s, Pageable p) throws URISyntaxException {
@@ -101,6 +110,7 @@ public class ProgramResource {
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
+
     @RequestMapping("/find-by-unit/{id}")
     @Timed
     public List<Program> findByUnit(@PathVariable Integer id) throws URISyntaxException {
@@ -118,10 +128,27 @@ public class ProgramResource {
      */
     @RequestMapping("{id}")
     @Timed
-    public ResponseEntity<Program> getProgram(@PathVariable Integer id) {
+    public ResponseEntity<ProgramDto> getProgram(@PathVariable Integer id) {
         log.debug("REST request get Program : {}", id);
         Program akun = repository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(akun));
+        ProgramDto a = new ProgramDto();
+        a.setAktif(akun.getAktif());
+        a.setBudget(akun.getBudget());
+        a.setCabang(akun.getCabang());
+        a.setChildren(akun.getChildren());
+        a.setExpanded(akun.isExpanded());
+        a.setId(akun.getId());
+        a.setKode(akun.getKode());
+        a.setNama(akun.getNama());
+        a.setParent(akun.getParent());
+        a.setPelaksana(akun.getPelaksana());
+        a.setSkemaBudget(akun.getSkemaBudget());
+        a.setStatus(akun.getStatus());
+        a.setTahunAjaran(akun.getTahunAjaran());
+        a.setTglMulai(akun.getTglMulai());
+        a.setTglPerencanaan(akun.getTglPerencanaan());
+        a.setTglSelesai(akun.getTglSelesai());
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(a));
     }
 
     /**
@@ -142,10 +169,10 @@ public class ProgramResource {
         Optional<Program> existingProgram = repository.findOneByKode(akun.getKode());
         if (existingProgram.isPresent() && (!existingProgram.get().getId().equals(akun.getId()))) {
             return ResponseEntity.badRequest()
-                .headers(HeaderUtil.createFailureAlert("program", "kodeExists", "Kode sudah digunakan"))
-                .body(null);
+                    .headers(HeaderUtil.createFailureAlert("program", "kodeExists", "Kode sudah digunakan"))
+                    .body(null);
         }
-        
+
         Program result = repository.save(akun);
         return ResponseEntity.created(new URI("/api/akuntansi/program/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -173,8 +200,8 @@ public class ProgramResource {
         Optional<Program> existingProgram = repository.findOneByKode(akun.getKode());
         if (existingProgram.isPresent() && (!existingProgram.get().getId().equals(akun.getId()))) {
             return ResponseEntity.badRequest()
-                .headers(HeaderUtil.createFailureAlert("program", "kodeExists", "Kode sudah digunakan"))
-                .body(null);
+                    .headers(HeaderUtil.createFailureAlert("program", "kodeExists", "Kode sudah digunakan"))
+                    .body(null);
         }
         Program result = repository.save(akun);
         return ResponseEntity.ok()

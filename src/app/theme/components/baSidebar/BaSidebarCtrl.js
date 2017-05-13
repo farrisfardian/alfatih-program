@@ -82,6 +82,13 @@
                         "stateRef": "anggaran.program"
                     },
                     {
+                        "name": "anggaran.program-jqw",
+                        "title": "Program Jqw",
+                        "level": 1,
+                        "order": 0,
+                        "stateRef": "anggaran.program-jqw"
+                    },
+                    {
                         "name": "anggaran.proyek",
                         "title": "Proyek",
                         "level": 1,

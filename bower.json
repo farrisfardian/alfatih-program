@@ -73,7 +73,8 @@
     "angular-eonasdan-datetimepicker": "^0.3.9",
     "angular-tree-dnd": "^3.0.4",
     "jqwidgets": "^4.6.1",
-    "angular-bootstrap-grid-tree": "^0.4.0"
+    "angular-bootstrap-grid-tree": "^0.4.0",
+    "ngBootbox": "^0.2.0"
   },
   "resolutions": {
     "angular": "~1.5.9",
@@ -103,6 +104,7 @@
       "main": [
         "dist/css/bootstrap.css",
         "js/dropdown.js",
+        "js/modal.js",
         "./dist/fonts/**.*"
       ]
     },

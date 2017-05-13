@@ -45,6 +45,9 @@ public class JurnalDetail {
     @JoinColumn(name = "id_proyek")
     private Proyek proyek;    
     @ManyToOne
+    @JoinColumn(name = "id_program")
+    private Program program;    
+    @ManyToOne
     @JoinColumn(name = "id_akad_donatur")
     private AkadSumberDana akadDonatur;
     @ManyToOne
@@ -122,5 +125,13 @@ public class JurnalDetail {
 
     public void setJurnal(Jurnal jurnal) {
         this.jurnal = jurnal;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 }

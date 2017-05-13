@@ -3,91 +3,72 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.alfatih.domain.akuntansi;
+package id.alfatih.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import id.alfatih.domain.akademik.TahunAjaran;
 import id.alfatih.domain.akademik.Cabang;
+import id.alfatih.domain.akademik.TahunAjaran;
+import id.alfatih.domain.akuntansi.Program;
+import id.alfatih.domain.akuntansi.SkemaBudget;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author ustadho
  */
-@Entity
-@Table(name = "acc_program")
-public class Program {
+public class ProgramDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @NotNull
-    @NotEmpty
-    @Column(unique = true, nullable = false)
     private String nama;
-
-    @Column(unique = true, length = 20)
     private String kode;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "tgl_mulai")
     private Date tglMulai;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "tgl_selesai")
     private Date tglSelesai;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "tgl_perencanaan")
     private Date tglPerencanaan;
-    @Column
     private Boolean aktif;
-    @Column
+    private Boolean expanded;
     private Double budget;
     private String pelaksana;
     private String status;
-
-    @ManyToOne
-    @JoinColumn(name = "id_parent")
-    @JsonBackReference
     private Program parent;
-
-    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
-    @JsonManagedReference
+    private TahunAjaran tahunAjaran;
+    private Cabang cabang;
+    private SkemaBudget skemaBudget;
     private Set<Program> children;
 
-    @ManyToOne
-    @JoinColumn(name = "id_tahun_ajaran")
-    private TahunAjaran tahunAjaran;
-
-    @ManyToOne
-    @JoinColumn(name = "id_cabang")
-    private Cabang cabang;
-
-    @ManyToOne
-    @JoinColumn(name = "id_skema_budget")
-    private SkemaBudget skemaBudget;
-    
-    @ColumnDefault(value = "true")
-    private boolean expanded;
+    public ProgramDto(){}
+    public ProgramDto(Integer id,
+            String nama,
+            String kode,
+            Date tglMulai,
+            Date tglSelesai,
+            Date tglPerencanaan,
+            Boolean aktif,
+            Boolean expanded,
+            Double budget,
+            String pelaksana,
+            String status,
+            Program parent,
+            TahunAjaran tahunAjaran,
+            Cabang cabang,
+            SkemaBudget skemaBudget,
+            List<Program> children) {
+        this.id = id;
+        this.nama = nama;
+        this.kode = kode;
+        this.tglMulai = tglMulai;
+        this.tglSelesai = tglSelesai;
+        this.tglPerencanaan = tglPerencanaan;
+        this.aktif = aktif;
+        this.expanded = expanded;
+        this.budget = budget;
+        this.pelaksana = pelaksana;
+        this.status = status;
+        this.parent = parent;
+        this.tahunAjaran = tahunAjaran;
+        this.cabang = cabang;
+        this.skemaBudget = skemaBudget;
+    }
 
     public Integer getId() {
         return id;
@@ -95,6 +76,14 @@ public class Program {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getKode() {
+        return kode;
+    }
+
+    public void setKode(String kode) {
+        this.kode = kode;
     }
 
     public String getNama() {
@@ -105,12 +94,12 @@ public class Program {
         this.nama = nama;
     }
 
-    public String getKode() {
-        return kode;
+    public Set<Program> getChildren() {
+        return children;
     }
 
-    public void setKode(String kode) {
-        this.kode = kode;
+    public void setChildren(Set<Program> children) {
+        this.children = children;
     }
 
     public Date getTglMulai() {
@@ -165,8 +154,8 @@ public class Program {
         return status;
     }
 
-    public void setStatus(String satus) {
-        this.status = satus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Program getParent() {
@@ -189,8 +178,8 @@ public class Program {
         return cabang;
     }
 
-    public void setCabang(Cabang unit) {
-        this.cabang = unit;
+    public void setCabang(Cabang cabang) {
+        this.cabang = cabang;
     }
 
     public SkemaBudget getSkemaBudget() {
@@ -201,20 +190,11 @@ public class Program {
         this.skemaBudget = skemaBudget;
     }
 
-
-    public Set<Program> getChildren() {
-        return children;
-    }
-
-    public void setChildren(Set<Program> children) {
-        this.children = children;
-    }
-
-    public boolean isExpanded() {
+    public Boolean getExpanded() {
         return expanded;
     }
 
-    public void setExpanded(boolean expanded) {
+    public void setExpanded(Boolean expanded) {
         this.expanded = expanded;
     }
 

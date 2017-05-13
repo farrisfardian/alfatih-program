@@ -43,4 +43,7 @@ public interface ProyekRepository extends JpaRepository<Proyek, Integer> {
             + "where a.program.id=:id "
     )
     public List<Proyek> findByProgram(@Param("id") Integer id);
+    
+    @Query("from Proyek a where parent is null order by a.kode")
+    public List<Proyek> listParentChildren();
 }
