@@ -32,6 +32,10 @@ public class AkadSumberDana {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(length = 36)
     private String id;
+    
+    @Column(length = 15)
+    private String kode;
+    
     @Temporal(TemporalType.DATE)
     @Column
     private Date tanggal;
@@ -56,6 +60,15 @@ public class AkadSumberDana {
         this.id = id;
     }
 
+    public String getKode() {
+        return kode;
+    }
+
+    public void setKode(String kode) {
+        this.kode = kode;
+    }
+
+    
     public String getKeterangan() {
         return keterangan;
     }

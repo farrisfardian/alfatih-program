@@ -5,16 +5,9 @@
             .controller('BuktiKasController', BuktiKasController)
 
     /** @ngInject */
-    function BuktiKasController($scope, $uibModal, $log, toastr, BuktiKasService, MataUangService, EnumService, 
-        AkunService, ParseLinks, AlertService, paginationConstants, pagingParams, UnitService, $state, $stateParams) {
+    function BuktiKasController($scope, $uibModal, $log, toastr, BuktiKasService, MataUangService, EnumService,
+            AkunService, ParseLinks, AlertService, UnitService, $state, $stateParams) {
         var vm = this;
-        vm.search = '';
-        vm.loadAll = loadAll;
-        vm.loadPage = loadPage;
-        vm.predicate = pagingParams.predicate;
-        vm.reverse = pagingParams.ascending;
-        vm.transition = transition;
-        vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.clear = clear;
         vm.tambahDetail = tambahDetail;
         vm.lookupAkun = lookupAkun;
@@ -26,6 +19,17 @@
         vm.save = save;
         vm.hapusItem = hapusItem;
 
+        var dataFields = [
+            {name: 'idAkun', map: 'akun>id'},
+            {name: 'kode', map: 'akun>kode'},
+            {name: 'keterangan', type: 'string'},
+            {name: 'debet', type: 'number'},
+            {name: 'kredit', type: 'number'},
+            {name: 'akadSumberDana', map: 'akadSumberDana>kode'},
+            {name: 'program', type: 'string'},
+            {name: 'proyek', type: 'string'},
+            {name: 'namaAkun', map: 'akun>nama'},
+        ];
         $scope.dateOptions = {format: 'DD/MM/YYYY', showClear: false};
         MataUangService.cariSemua({id: 'all'}, function (d) {
             console.log('vm.listMataUang', d);
@@ -43,46 +47,6 @@
             console.log('vm.listTipeBuktiKas', d);
             vm.listTipeBuktiKas = d;
         });
-
-        function loadAll() {
-            BuktiKasService.query({
-                id: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : 'filter',
-                cari: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : vm.search,
-                page: pagingParams.page - 1,
-                size: vm.itemsPerPage,
-                sort: sort()
-            }, onSuccess, onError);
-            function sort() {
-                var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
-                if (vm.predicate !== 'id') {
-                    result.push('id');
-                }
-                return result;
-            }
-            function onSuccess(data, headers) {
-                vm.links = ParseLinks.parse(headers('link'));
-                vm.totalItems = headers('X-Total-Count');
-                vm.queryCount = vm.totalItems;
-                vm.data = data;
-                vm.page = pagingParams.page;
-            }
-            function onError(error) {
-                AlertService.error(error.data.message);
-            }
-        }
-
-        function loadPage(page) {
-            vm.page = page;
-            vm.transition();
-        }
-
-        function transition() {
-            $state.transitionTo($state.$current, {
-                page: vm.page,
-                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
-            });
-        }
 
         function onSaveSuccess(result) {
             console.log('onSaveSuccess', result);
@@ -108,10 +72,41 @@
             }
         }
 
+        function bindingGrid() {
+            var source =
+                    {
+                        localData: vm.data.detail,
+                        dataType: "json",
+                        updaterow: function (rowid, rowdata, commit) {
+                            // synchronize with the server - send update command
+                            // call commit with parameter true if the synchronization with the server is successful 
+                            // and with parameter false if the synchronization failed.
+                            commit(true);
+                        },
+                        dataFields: dataFields
+                    };
+
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            // update data source.
+            $("#jqxgrid").jqxGrid({source: dataAdapter});
+//                            $("#popupWindow").jqxWindow('hide');
+        }
+
         function clear() {
             vm.data = {
                 id: null,
-                tanggal: new Date()
+                tanggal: new Date(),
+                detail: [
+                    {
+                        akun: null,
+                        keterangan: '',
+                        debet: 0,
+                        kredit: 0,
+                        akadSumberDana: null,
+                        program: null,
+                        proyek: null
+                    }
+                ]
             };
         }
 
@@ -134,7 +129,7 @@
                 akun: null, jumlah: 0.0, rate: null, mataUang: null
             });
         }
-        function lookupAkun(editor) {
+        function lookupAkun(editor, editrow) {
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -149,45 +144,23 @@
                 console.log('editrow', editrow);
                 AkunService.get({id: selectedItem},
                         function (d) {
-                            console.log('success ', d);
-                            var row = {
-                                id : d.id,
-                                kode: d.kode,
-                                keterangan: 'keterangan',
-                                debet: 1000000,
-                                kredit: 0,
-                                sumberDana: '',
-                                program: '',
-                                proyek: '',
-                                namaAkun: d.nama,
-                            };
+                            console.log('editor', editor);
+                            vm.data.detail[editrow].akun = d;
                             var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
-                            $('#jqxgrid').jqxGrid('updaterow', rowID, row);
+                            $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
                             var inputField = editor.find('input');
                             inputField.jqxInput('val', d.kode);
-//                            $("#popupWindow").jqxWindow('hide');
+                            bindingGrid();
                         },
                         function (d) {
 
                         }
                 );
-//                var row = { 
-//                    kode: $("#firstName").val(), 
-//                    lastname: $("#lastName").val(), 
-//                    productname: $("#product").val(),
-//                    quantity: parseInt($("#quantity").jqxNumberInput('decimal')), 
-//                    price: parseFloat($("#price").jqxNumberInput('decimal'))
-//                };
-//                var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
-//                $('#jqxgrid').jqxGrid('updaterow', rowID, row);
-//                $("#popupWindow").jqxWindow('hide');
-
-
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
         }
-        
+
         function lookupAkunMaster() {
             console.log('Open modal');
             var modalInstance = $uibModal.open({
@@ -214,8 +187,8 @@
                 $log.info('Modal dismissed at: ' + new Date());
             });
         }
-        
-        function lookupAkad() {
+
+        function lookupAkad(editor, editrow) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'app/pages/template/lookupAkad/lookupAkad.html',
@@ -223,15 +196,26 @@
                 controllerAs: 'ctrl',
                 size: 'lg',
             });
-            modalInstance.result.then(function (selectedItem) {
+            modalInstance.result.then(function (akad) {
 //                vm.akun.parent = selectedItem;
 //                console.log('selectedItem', selectedItem);
-                
+                if (editor!=null && editrow >= 0) {
+                    console.log('akad', akad);
+                    console.log('editor', editor);
+                    vm.data.detail[editrow].akadSumberDana = akad;
+                    var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
+                    $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
+                    var inputField = editor.find('input');
+                    inputField.jqxInput('val', akad.kode);
+                    bindingGrid();
+                }else{
+                    vm.data.akadSumberDana = akad;
+                }
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
         }
-        
+
         function isBalance() {
             var d = vm.data.multiCurrency === true ? vm.data.jumlah * vm.data.rate : vm.data.jumlah;
             var k = 0;
@@ -306,73 +290,28 @@
         // Create a jqxComboBox
         $scope.comboboxSettings = {selectedIndex: 0, source: dataAdapter, displayMember: "nama", valueMember: "id", width: "98%", height: 25};
 
-        // prepare the data
-        var data = [
-            {
-                kode: '001',
-                keterangan: 'keterangan',
-                debet: 1000000,
-                kredit: 0,
-                sumberDana: '',
-                program: '',
-                proyek: '',
-                namaAkun: 'Pendapatan Penerimaan',
-            },
-            {
-                kode: '002',
-                keterangan: 'keterangan',
-                debet: 1000000,
-                kredit: 0,
-                sumberDana: '',
-                program: '',
-                proyek: '',
-                namaAkun: 'Pendapatan Penerimaan',
-            }
-        ];
-
-
         var source =
                 {
-                    localData: data,
+                    localData: vm.data.detail,
                     dataType: "json",
                     updaterow: function (rowid, rowdata, commit) {
                         // synchronize with the server - send update command
                         // call commit with parameter true if the synchronization with the server is successful 
                         // and with parameter false if the synchronization failed.
+                        console.log('updaterow', rowdata);
                         commit(true);
                     },
-                    dataFields:
-                            [
-                                {name: 'id', type: 'number'},
-                                {name: 'kode', type: 'string'},
-                                {name: 'keterangan', type: 'string'},
-                                {name: 'debet', type: 'number'},
-                                {name: 'kredit', type: 'number'},
-                                {name: 'sumberDana', type: 'string'},
-                                {name: 'program', type: 'string'},
-                                {name: 'proyek', type: 'string'},
-                                {name: 'namaAkun', type: 'string'},
-                            ]
+                    dataFields: dataFields
                 };
 
         var dataAdapter = new $.jqx.dataAdapter(source);
+        dataAdapter.dataBind();
         var getEditorDataAdapter = function (datafield) {
             var source =
                     {
-                        localdata: data,
+                        localdata: vm.data.detail,
                         datatype: "json",
-                        datafields:
-                                [
-                                    {name: 'id', type: 'number'},
-                                    {name: 'kode', type: 'string'},
-                                    {name: 'keterangan', type: 'string'},
-                                    {name: 'debet', type: 'number'},
-                                    {name: 'kredit', type: 'number'},
-                                    {name: 'sumberDana', type: 'string'},
-                                    {name: 'program', type: 'string'},
-                                    {name: 'proyek', type: 'string'},
-                                    {name: 'namaAkun', type: 'string'},
-                                ]
+                        datafields: dataFields
                     };
             var dataAdapter = new $.jqx.dataAdapter(source, {uniqueDataFields: [datafield]});
             return dataAdapter;
@@ -392,7 +331,6 @@
                         {text: 'Nomor Akun', editable: true, columntype: 'template', dataField: 'kode', width: 100,
                             createeditor: function (row, cellvalue, editor, cellText, width, height) {
                                 // construct the editor.
-                                console.log('createeditor->row', row);
                                 var inputElement = $("<div><input type='text'  /><button data-row='" + row + "' class='cariAkun'><img alt='search' width='16' height='16' src='../bower_components/jqwidgets/images/search_lg.png' /></button></div>").prependTo(editor);
                                 inputElement.jqxInput({source: getEditorDataAdapter('kode'), displayMember: "kode", width: width, height: height});
                                 $(".cariAkun").on('click', function (event) {
@@ -401,16 +339,10 @@
 
                                 var editClick = function (event, row) {
                                     var target = $(event.target);
-                                    console.log('cellvalue', cellvalue);
-                                    // get button's value.
-                                    var value = target.val();
-                                    // get clicked row.
-                                    var rowKey = event.target.getAttribute('data-row');
-                                    lookupAkun(editor);
+                                    lookupAkun(editor, editrow);
                                 }
                             },
                             initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
-                                console.log('initeditor->row', row);
                                 editrow = row;
                                 // set the editor's current value. The callback is called each time the editor is displayed.
                                 var inputField = editor.find('input');
@@ -432,10 +364,42 @@
                         {text: 'Keterangan', editable: true, dataField: 'keterangan', width: 250},
                         {text: 'Debet', columntype: 'textbox', columngroup: 'jumlah', editable: true, dataField: 'debet', width: 100, cellsAlign: 'right', align: 'right', cellsFormat: 'n'}, //c2
                         {text: 'Kredit', columntype: 'textbox', columngroup: 'jumlah', editable: true, dataField: 'kredit', width: 100, cellsAlign: 'right', align: 'right', cellsFormat: 'n'},
-                        {text: '<html>Sumber<br>Dana</html>', align: 'center', editable: true, dataField: 'sumberDana', width: 80},
+                        {text: '<html>Sumber<br>Dana</html>', align: 'center', editable: true, dataField: 'akadSumberDana', width: 80, columntype: 'template',
+                            createeditor: function (row, cellvalue, editor, cellText, width, height) {
+                                // construct the editor.
+                                var inputElement = $("<div><input type='text'  /><button data-row='" + row + "' class='cariAkad'><img alt='search' width='16' height='16' src='../bower_components/jqwidgets/images/search_lg.png' /></button></div>").prependTo(editor);
+                                inputElement.jqxInput({source: getEditorDataAdapter('akadSumberDana'), displayMember: "akadSumberDana", width: width, height: height});
+                                $(".cariAkad").on('click', function (event) {
+                                    editClick(event, row);
+                                });
+
+                                var editClick = function (event, row) {
+                                    var target = $(event.target);
+                                    lookupAkad(editor, editrow);
+                                }
+                            },
+                            initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
+                                editrow = row;
+                                // set the editor's current value. The callback is called each time the editor is displayed.
+                                var inputField = editor.find('input');
+//                                inputField.attr("disabled", "disabled"); 
+                                if (pressedkey) {
+                                    inputField.val(pressedkey);
+                                    inputField.jqxInput('selectLast');
+                                } else {
+                                    inputField.val(cellvalue);
+                                    inputField.jqxInput('selectAll');
+                                }
+
+                            },
+                            geteditorvalue: function (row, cellvalue, editor) {
+                                // return the editor's value.
+                                return editor.find('input').val();
+                            }
+                        },
                         {text: 'Program', columngroup: 'proyekId', editable: true, dataField: 'program', width: 80},
                         {text: 'Proyek', columngroup: 'proyekId', editable: true, dataField: 'proyek', width: 80},
-                        {text: 'Nama Akun', editable: false, dataField: 'namaAkun', width: 250},
+                        {text: 'Nama Akun', editable: false, dataField: 'namaAkun', width: 300},
                     ],
                     columnGroups:
                             [
@@ -449,6 +413,23 @@
         $("#debet, #kredit, #keterangan").on('change', function (event) {
             var datafield = event.target.id;
             $("#jqxgrid").jqxGrid('setcolumnproperty', datafield, 'editable', event.args.checked);
+        });
+        $("#btnAddRow").on('click', function () {
+            vm.data.detail.push({
+                akun: null,
+                keterangan: '',
+                debet: 0,
+                kredit: 0,
+                akadSumberDana: null,
+                program: null,
+                proyek: null
+            });
+            bindingGrid();
+        });
+
+        $(document).ready(function () {
+            $('#txtAkad').jqxInput({disabled: true});
+            $("#btnAddRow").jqxButton({width: 120, height: 25});
         });
     }
 

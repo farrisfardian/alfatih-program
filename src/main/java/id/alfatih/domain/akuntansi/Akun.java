@@ -20,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -77,6 +78,7 @@ public class Akun implements Serializable {
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
     @JsonManagedReference
+    @OrderBy("kode ASC")
     private Set<Akun> children;
 
     @ManyToOne

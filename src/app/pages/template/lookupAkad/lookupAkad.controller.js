@@ -46,6 +46,7 @@
 //             prepare the data
             var dataFields = [
                 {name: 'id'},
+                {name: 'kode', type: 'string'},
                 {name: 'tanggal', type: 'date'},
                 {name: 'jumlah', type: 'number'},
                 {name: 'sumberdana', map: 'sumberDana>nama'},
@@ -61,6 +62,9 @@
             dataAdapter.dataBind();
             $("#sumberDanaGrid").on('rowselect', function (event) {
                 console.log('event.args', event.args);
+//                if(event.args.row==undefined){
+//                    return;
+//                }
                 var sdId = event.args.row.id;
                 var dataSource = {
                     dataType: "json",
@@ -86,6 +90,7 @@
 //                                    return "<button data-row='" + datafield + "' class='btnPilih'> Pilih </button>";
 //                                }
 //                            },
+                            {text: 'Kode', datafield: 'kode', width: 100},
                             {text: 'Tanggal', datafield: 'tanggal', cellsformat: 'dd/MM/yyyy', width: 100},
                             {text: 'Jumlah', datafield: 'jumlah', cellsAlign: 'right', align: 'right', cellsformat: 'n'},
                             {text: 'Sumber Dana', datafield: 'sumberdana', width: 200},
