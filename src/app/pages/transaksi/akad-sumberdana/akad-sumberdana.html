@@ -16,8 +16,8 @@
                         <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                             <th jh-sort-by="tanggal"><span>Tanggal</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th><span>Program</span></th>
-                            <th><span>Donatur</span></th>
-                            <th><span>Donasi</span></th>
+                            <th><span>Sumber Dana</span></th>
+                            <th><span>Jumlah</span></th>
                             <th jh-sort-by="batasan"><span>Batasan</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="keterangan"><span>Keterangan</span><span class="glyphicon glyphicon-sort"></span></th>
                             <th>
@@ -33,10 +33,10 @@
                             {{ c.program.nama}}
                         </td>
                         <td>
-                            {{ c.donatur.nama}}
+                            {{ c.sumberDana.nama}}
                         </td>
                         <td>
-                            {{ c.donasi|number}}
+                            {{ c.jumlah|number}}
                         </td>
                         <td>
                             {{ c.batasan}}

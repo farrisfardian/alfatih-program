@@ -6,7 +6,7 @@
 package id.alfatih.web.rest.akuntansi;
 
 import com.codahale.metrics.annotation.Timed;
-import id.alfatih.domain.akuntansi.AkadDonatur;
+import id.alfatih.domain.akuntansi.AkadSumberDana;
 import id.alfatih.service.util.HeaderUtil;
 import id.alfatih.service.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -26,59 +26,66 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import id.alfatih.repository.akuntansi.AkadDonaturRepository;
+import id.alfatih.repository.akuntansi.AkadSumberDanaRepository;
 
 /**
  *
  * @author ustadho
  */
 @RestController
-@RequestMapping("/api/akuntansi/akad-donatur")
-public class AkadDonaturResource {
+@RequestMapping("/api/akuntansi/akad-sumberdana")
+public class AkadSumberDanaResource {
 
-    private final Logger log = LoggerFactory.getLogger(AkadDonaturResource.class);
+    private final Logger log = LoggerFactory.getLogger(AkadSumberDanaResource.class);
 
-    private static final String ENTITY_NAME = "akad-donatur";
+    private static final String ENTITY_NAME = "AkadSumberDana";
 
-    private final AkadDonaturRepository repository;
+    private final AkadSumberDanaRepository repository;
 
-    public AkadDonaturResource(AkadDonaturRepository repository) {
+    public AkadSumberDanaResource(AkadSumberDanaRepository repository) {
         this.repository = repository;
     }
 
     @RequestMapping("/all")
     @Timed
-    public List<AkadDonatur> getAllAkadDonaturs() {
-        log.debug("REST request to get all AkadDonatur");
-        List<AkadDonatur> x = repository.findAll();
+    public List<AkadSumberDana> getAll() {
+        log.debug("REST request to get all AkadSumberDana");
+        List<AkadSumberDana> x = repository.findAll();
         return x;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     @Timed
-    public ResponseEntity<List<AkadDonatur>> filterAll(Pageable p) throws URISyntaxException {
-        log.debug("REST request to get all AkadDonatur by Page");
-        Page<AkadDonatur> x = repository.findAll(p);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akuntansi/akad-donatur");
+    public ResponseEntity<List<AkadSumberDana>> filterAll(Pageable p) throws URISyntaxException {
+        log.debug("REST request to get all AkadSumberDana by Page");
+        Page<AkadSumberDana> x = repository.findAll(p);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akuntansi/AkadSumberDana");
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
 
     @RequestMapping("/filter-by-program/{idProgram}/{s}")
     @Timed
-    public ResponseEntity<List<AkadDonatur>> filterByProgram(@PathVariable Integer idProgram, @PathVariable String s, Pageable p) throws URISyntaxException {
-        log.debug("REST request to filter AkadDonatur by key per page");
-        Page<AkadDonatur> x = repository.filterByIdProgram("%" + s + "%", idProgram, p);
+    public ResponseEntity<List<AkadSumberDana>> filterByProgram(@PathVariable Integer idProgram, @PathVariable String s, Pageable p) throws URISyntaxException {
+        log.debug("REST request to filter AkadSumberDana by key per page");
+        Page<AkadSumberDana> x = repository.filterByIdProgram("%" + s + "%", idProgram, p);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akuntansi/akad-donatur");
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
 
-    @RequestMapping("/filter-by-donatur/{idDonatur}/{s}")
+    @RequestMapping("/filter-by-sumberdana/{idSd}")
     @Timed
-    public ResponseEntity<List<AkadDonatur>> filterByDonatur(@PathVariable Integer idDonatur, @PathVariable String s, Pageable p) throws URISyntaxException {
-        log.debug("REST request to filter AkadDonatur by key per page");
-        Page<AkadDonatur> x = repository.filterByIdDonatur("%" + s + "%", idDonatur, p);
+    public List<AkadSumberDana> filterBySumberDanaAll(@PathVariable Integer idSd) throws URISyntaxException {
+        log.debug("REST request to filter AkadSumberDana by key per page");
+        return repository.listBySumberDana(idSd);
+    }
+    
+    @RequestMapping("/filter-by-sumberdana/{idSd}/{s}")
+    @Timed
+    public ResponseEntity<List<AkadSumberDana>> filterBySumberDana(@PathVariable Integer idSd, @PathVariable String s, Pageable p) throws URISyntaxException {
+        log.debug("REST request to filter AkadSumberDana by key per page");
+        Page<AkadSumberDana> x = repository.filterByIdSumberDana("%" + s + "%", idSd, p);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akuntansi/akad-donatur");
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
@@ -93,9 +100,9 @@ public class AkadDonaturResource {
      */
     @RequestMapping("{id}")
     @Timed
-    public ResponseEntity<AkadDonatur> getAkadDonatur(@PathVariable String id) {
-        log.debug("REST request get AkadDonatur : {}", id);
-        AkadDonatur akun = repository.findOne(id);
+    public ResponseEntity<AkadSumberDana> getAkadSumberDana(@PathVariable String id) {
+        log.debug("REST request get AkadSumberDana : {}", id);
+        AkadSumberDana akun = repository.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(akun));
     }
 
@@ -109,12 +116,12 @@ public class AkadDonaturResource {
      */
     @RequestMapping(method = RequestMethod.POST)
     @Timed
-    public ResponseEntity<AkadDonatur> createAkadDonatur(@RequestBody AkadDonatur akun) throws URISyntaxException {
+    public ResponseEntity<AkadSumberDana> createAkadSumberDana(@RequestBody AkadSumberDana akun) throws URISyntaxException {
         log.debug("REST request to save akun : {}", akun);
         if (akun.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new akun cannot already have an ID")).body(null);
         }
-        AkadDonatur result = repository.save(akun);
+        AkadSumberDana result = repository.save(akun);
         return ResponseEntity.created(new URI("/api/akuntansi/akad-donatur/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
@@ -131,12 +138,12 @@ public class AkadDonaturResource {
      */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @Timed
-    public ResponseEntity<AkadDonatur> updateAkadDonatur(@PathVariable String id, @RequestBody AkadDonatur akun) throws URISyntaxException {
-        log.debug("REST request to update AkadDonatur : {}", akun);
+    public ResponseEntity<AkadSumberDana> updateAkadSumberDana(@PathVariable String id, @RequestBody AkadSumberDana akun) throws URISyntaxException {
+        log.debug("REST request to update AkadSumberDana : {}", akun);
         if (akun.getId() == null) {
-            return createAkadDonatur(akun);
+            return createAkadSumberDana(akun);
         }
-        AkadDonatur result = repository.save(akun);
+        AkadSumberDana result = repository.save(akun);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, akun.getId().toString()))
                 .body(result);
@@ -150,8 +157,8 @@ public class AkadDonaturResource {
      */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @Timed
-    public ResponseEntity<Void> deleteAkadDonatur(@PathVariable String id) {
-        log.debug("REST request to delete AkadDonatur : {}", id);
+    public ResponseEntity<Void> deleteAkadSumberDana(@PathVariable String id) {
+        log.debug("REST request to delete AkadSumberDana : {}", id);
         repository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }

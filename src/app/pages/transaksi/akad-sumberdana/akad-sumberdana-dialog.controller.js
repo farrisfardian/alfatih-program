@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('Alfatih.pages.transaksi')
-            .controller('AkadDonaturDialogController', AkadDonaturDialogController);
+            .controller('AkadSumberDanaDialogController', AkadSumberDanaDialogController);
 
-    function AkadDonaturDialogController($timeout, $scope, $uibModal, $stateParams, $log, $uibModalInstance, entity, AkadDonaturService, CabangService) {
+    function AkadSumberDanaDialogController($timeout, $scope, $uibModal, $stateParams, $log, $uibModalInstance, entity, AkadSumberDanaService, CabangService) {
         var vm = this;
 
         vm.data = entity;
@@ -12,7 +12,7 @@
         vm.clear = clear;
         vm.save = save;
         vm.lookupProgram = lookupProgram;
-        vm.lookupDonatur = lookupDonatur;
+        vm.lookupSumberDana = lookupSumberDana;
         vm.modalTitle = vm.data == undefined || vm.data.id == null ? "Tambah AkadDonatur" : "Ubah AkadDonatur";
         $scope.dateOptions = {format: 'DD/MM/YYYY', showClear: false};
         $timeout(function () {
@@ -32,9 +32,9 @@
             console.log('vm.akun', vm.data);
             vm.isSaving = true;
             if (vm.data.id !== null) {
-                AkadDonaturService.update(vm.data, onSaveSuccess, onSaveError);
+                AkadSumberDanaService.update(vm.data, onSaveSuccess, onSaveError);
             } else {
-                AkadDonaturService.save(vm.data, onSaveSuccess, onSaveError);
+                AkadSumberDanaService.save(vm.data, onSaveSuccess, onSaveError);
             }
         }
 
@@ -76,12 +76,12 @@
             });
         }
         
-        function lookupDonatur() {
+        function lookupSumberDana() {
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/template/lookupDonatur/lookup-donatur.html',
-                controller: 'LookupDonaturController',
+                templateUrl: 'app/pages/template/lookupSumberDana/lookup-sumberdana.html',
+                controller: 'LookupSumberDanaController',
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {
@@ -97,7 +97,7 @@
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                vm.data.donatur = selectedItem;
+                vm.data.sumberDana = selectedItem;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });

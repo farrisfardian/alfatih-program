@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('Alfatih.pages.transaksi')
-            .controller('AkadDonaturController', AkadDonaturController)
+            .controller('AkadSumberDanaController', AkadSumberDanaController)
 
     /** @ngInject */
-    function AkadDonaturController($scope, $uibModal, $log, toastr, AkadDonaturService, 
+    function AkadSumberDanaController($scope, $uibModal, $log, toastr, AkadSumberDanaService, 
             ParseLinks, AlertService, paginationConstants, pagingParams, $state) {
         var vm = this;
         vm.search = '';vm.loadAll = loadAll;
@@ -21,7 +21,7 @@
         loadAll();
 
         function loadAll() {
-            AkadDonaturService.query({
+            AkadSumberDanaService.query({
                 id: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : 'filter',
                 cari: (vm.search === null || vm.search === undefined || vm.search === '') ? '' : vm.search,
                 page: pagingParams.page - 1,
@@ -63,8 +63,8 @@
         function baru() {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/transaksi/akad-donatur/akad-donatur-dialog.html',
-                controller: 'AkadDonaturDialogController',
+                templateUrl: 'app/pages/transaksi/akad-sumberdana/akad-sumberdana-dialog.html',
+                controller: 'AkadSumberDanaDialogController',
                 controllerAs: 'vm',
                 size: 'md',
                 resolve: {
@@ -86,13 +86,13 @@
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/transaksi/akad-donatur/akad-donatur-dialog.html',
-                controller: 'AkadDonaturDialogController',
+                templateUrl: 'app/pages/transaksi/akad-sumberdana/akad-sumberdana-dialog.html',
+                controller: 'AkadSumberDanaDialogController',
                 controllerAs: 'vm',
                 size: 'md',
                 resolve: {
-                    entity: ['AkadDonaturService', function (AkadDonaturService) {
-                            return AkadDonaturService.get({id: x.id}).$promise;
+                    entity: ['AkadSumberDanaService', function (AkadSumberDanaService) {
+                            return AkadSumberDanaService.get({id: x.id}).$promise;
                         }],
                 }
             });
@@ -105,7 +105,7 @@
         }
 
         function hapus(x) {
-            AkadDonaturService.delete({id: x.id}, function () {
+            AkadSumberDanaService.delete({id: x.id}, function () {
                 toastr.success('Hapus data sukses!');
                 loadAll();
             });

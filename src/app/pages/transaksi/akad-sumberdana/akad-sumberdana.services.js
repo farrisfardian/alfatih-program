@@ -2,13 +2,13 @@
     'use strict';
 
     angular.module('Alfatih.pages.transaksi')
-            .factory('AkadDonaturService', AkadDonaturService);
+            .factory('AkadSumberDanaService', AkadSumberDanaService);
 
     /** @ngInject */
-    AkadDonaturService.inject = ['$http', '$resource'];
+    AkadSumberDanaService.inject = ['$http', '$resource'];
 
-    function AkadDonaturService($http, $resource) {
-        var resourceUrl =  'api/akuntansi/akad-donatur/:id/:cari';
+    function AkadSumberDanaService($http, $resource) {
+        var resourceUrl =  'api/akuntansi/akad-sumberdana/:id/:cari';
 
         return $resource(resourceUrl, {id: "@id", cari: "@cari"}, {
             'query': { method: 'GET', isArray: true},

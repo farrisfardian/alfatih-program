@@ -10,6 +10,14 @@
             <div>
                 <div class="form-group">
                     <div class="col-md-3">
+                        <label class="control-label" for="tanggal">Kode</label>
+                    </div>
+                    <div class="col-md-5" ng-class="{error: form1.kode.$invalid}">
+                        <input class="form-control" ng-model="vm.data.kode" name="kode" required>
+                    </div>
+                </div>                
+                <div class="form-group">
+                    <div class="col-md-3">
                         <label class="control-label" for="tanggal">Tanggal</label>
                     </div>
                     <div class="col-md-5" ng-class="{error: form1.tanggal.$invalid}">
@@ -32,21 +40,21 @@
                 </div>                
                 <div class="form-group">
                     <div class="col-xs-3">
-                        <label class="control-label" for="donatur">Donatur</label>
+                        <label class="control-label" for="donatur">Sumber Dana</label>
                     </div>
                     <div class="col-sm-8">
                         <div class="input-group">
-                            <input class="form-control" ng-model="vm.data.donatur.nama" name="parent"/>
-                            <span class="input-group-addon" ng-click="vm.lookupDonatur()"><span class="glyphicon glyphicon-search"></span></span>
+                            <input class="form-control" ng-model="vm.data.sumberDana.nama" name="parent"/>
+                            <span class="input-group-addon" ng-click="vm.lookupSumberDana()"><span class="glyphicon glyphicon-search"></span></span>
                         </div>
                     </div>
                 </div>                
                 <div class="form-group">
                     <div class="col-xs-3">
-                        <label class="control-label" for="donasi">Donasi</label>
+                        <label class="control-label" for="jumlah">Jumlah</label>
                     </div>
-                    <div class="col-sm-8" ng-class="{error: form1.donasi.$invalid}">
-                        <input name="donasi" type="number" class="form-control" id="donasi" ng-model="vm.data.donasi" autofocus/>
+                    <div class="col-sm-8" ng-class="{error: form1.jumlah.$invalid}">
+                        <input name="jumlah" type="number" class="form-control" id="jumlah" ng-model="vm.data.jumlah" autofocus/>
                     </div>
                 </div>                
                 <div class="form-group">

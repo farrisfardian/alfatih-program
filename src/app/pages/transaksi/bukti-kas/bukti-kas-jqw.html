@@ -11,24 +11,24 @@
                                 </td>
                                 <td  width="2%"> : </td>
                                 <td  width="15%">
-                                    <jqx-input jqx-width="180" jqx-height="25" id="userInput"></jqx-input>
-                                </td>
-                                <td  width="15%" style="text-align:right">
-                                    Tanggal 
-                                </td>
-                                <td  width="2%"> : </td>
-                                <td width="66%">
-                                    <jqx-date-time-input jqx-width="150" jqx-height="25" id="birthInput"></jqx-date-time-input>
-                                </td>
-                            </tr>
+                            <jqx-input jqx-width="180" jqx-height="25" id="userInput"></jqx-input>
+                    </td>
+                    <td  width="15%" style="text-align:right">
+                        Tanggal 
+                    </td>
+                    <td  width="2%"> : </td>
+                    <td width="66%">
+                <jqx-date-time-input ng-model="vm.data.tanggal" jqx-width="150" jqx-height="25" id="birthInput"></jqx-date-time-input>
+                </td>
+                </tr>
                 <tr>
                     <td>
                         Terima Dari
                     </td>
                     <td> : </td>
                     <td colspan="4">
-                        <jqx-input jqx-width="600" jqx-height="25" id="userInput"></jqx-input>
-                    </td>
+                <jqx-input jqx-width="600" jqx-height="25" id="userInput"></jqx-input>
+                </td>
                 </tr>
                 <tr>
                     <td>
@@ -65,11 +65,16 @@
                 <jqx-input jqx-width="100" jqx-height="25" id="userInput"></jqx-input>
                 </td>
                 <td style="text-align:right">
-                    Sumber Dana
+                    Akad - Sumber Dana
                 </td>
                 <td> : </td>
                 <td>
-                <jqx-combo-box jqx-settings="comboboxSettings"></jqx-combo-box>
+
+                    <div><jqx-input jqx-width="430" jqx-height="25" id="txtAkad" ng-value="vm.data.akadSumberDana.kode + ' -' +vm.data.akadSumberDana.sumberdana" disabled></jqx-input>
+                        <jqx-button jqx-on-click="vm.lookupAkad(null, -1)" >
+                            <img alt='search' width='16' height='16' src='../bower_components/jqwidgets/images/search_lg.png' />
+                        </jqx-button>
+                    </div>
                 </td>
                 </tr>
                 <tr>
@@ -120,6 +125,18 @@
                         </td>
                     </tr>
                 </table>
+                <br>
+                <table border="0">
+                    <tbody>
+                        <tr>&nbsp;</tr>
+                        <tr>
+                            <td>
+                                <input type="button" value="Tambah Baris" id='btnAddRow' />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </td>
             </tr>
             </table>
@@ -135,3 +152,4 @@
     </form>
 </div>
 
+{{vm.data}}

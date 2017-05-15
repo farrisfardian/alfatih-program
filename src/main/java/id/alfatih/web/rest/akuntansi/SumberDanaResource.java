@@ -6,7 +6,7 @@
 package id.alfatih.web.rest.akuntansi;
 
 import com.codahale.metrics.annotation.Timed;
-import id.alfatih.domain.akuntansi.Donatur;
+import id.alfatih.domain.akuntansi.SumberDana;
 import id.alfatih.service.util.HeaderUtil;
 import id.alfatih.service.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -26,40 +26,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import id.alfatih.repository.akuntansi.DonaturRepository;
+import id.alfatih.repository.akuntansi.SumberDanaRepository;
 
 /**
  *
  * @author ustadho
  */
 @RestController
-@RequestMapping("/api/akuntansi/donatur")
-public class DonaturResource {
+@RequestMapping("/api/akuntansi/sumberdana")
+public class SumberDanaResource {
 
-    private final Logger log = LoggerFactory.getLogger(DonaturResource.class);
+    private final Logger log = LoggerFactory.getLogger(SumberDanaResource.class);
 
-    private static final String ENTITY_NAME = "donatur";
+    private static final String ENTITY_NAME = "sumberdana";
 
-    private final DonaturRepository repository;
+    private final SumberDanaRepository repository;
 
-    public DonaturResource(DonaturRepository repository) {
+    public SumberDanaResource(SumberDanaRepository repository) {
         this.repository = repository;
     }
 
     @RequestMapping("/all")
     @Timed
-    public List<Donatur> getAllDonaturs() {
+    public List<SumberDana> getAll() {
         log.debug("REST request to get all Donatur");
-        List<Donatur> x = repository.findAll();
+        List<SumberDana> x = repository.findAll();
         return x;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     @Timed
-    public ResponseEntity<List<Donatur>> filterAll(Pageable p) throws URISyntaxException {
-        log.debug("REST request to get all Donatur by Page");
-        Page<Donatur> x = repository.findAll(p);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akuntansi/donatur");
+    public ResponseEntity<List<SumberDana>> filterAll(Pageable p) throws URISyntaxException {
+        log.debug("REST request to get all Sumber Dana by Page");
+        Page<SumberDana> x = repository.findAll(p);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akuntansi/sumberdana");
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
@@ -67,16 +67,16 @@ public class DonaturResource {
     @RequestMapping("/filter/{s}")
 //    @RequestMapping("/{s}")
     @Timed
-    public ResponseEntity<List<Donatur>> filterByKey(@PathVariable String s, Pageable p) throws URISyntaxException {
-        log.debug("REST request to filter Donatur by key per page");
-        Page<Donatur> x = repository.filterByKey("%" + s + "%", p);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akuntansi/donatur");
+    public ResponseEntity<List<SumberDana>> filterByKey(@PathVariable String s, Pageable p) throws URISyntaxException {
+        log.debug("REST request to filter Sumber Dana by key per page");
+        Page<SumberDana> x = repository.filterByKey("%" + s + "%", p);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akuntansi/sumberdana");
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET /api/akuntansi/donatur/:id : get the "id" akun.
+     * GET /api/akuntansi/sumberdana/:id : get the "id" akun.
      *
      * @param id the id of the akun to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the akun,
@@ -84,14 +84,14 @@ public class DonaturResource {
      */
     @RequestMapping("{id}")
     @Timed
-    public ResponseEntity<Donatur> getDonatur(@PathVariable Integer id) {
-        log.debug("REST request get Donatur : {}", id);
-        Donatur akun = repository.findOne(id);
+    public ResponseEntity<SumberDana> getDonatur(@PathVariable Integer id) {
+        log.debug("REST request get Sumber Dana: {}", id);
+        SumberDana akun = repository.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(akun));
     }
 
     /**
-     * POST /api/akuntansi/donatur : Create a new akun.
+     * POST /api/akuntansi/sumberdana : Create a new akun.
      *
      * @param akun the akun to create
      * @return the ResponseEntity with status 201 (Created) and with body the
@@ -100,19 +100,19 @@ public class DonaturResource {
      */
     @RequestMapping(method = RequestMethod.POST)
     @Timed
-    public ResponseEntity<Donatur> createDonatur(@RequestBody Donatur akun) throws URISyntaxException {
+    public ResponseEntity<SumberDana> createDonatur(@RequestBody SumberDana akun) throws URISyntaxException {
         log.debug("REST request to save akun : {}", akun);
         if (akun.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new akun cannot already have an ID")).body(null);
         }
-        Donatur result = repository.save(akun);
-        return ResponseEntity.created(new URI("/api/akuntansi/donatur/" + result.getId()))
+        SumberDana result = repository.save(akun);
+        return ResponseEntity.created(new URI("/api/akuntansi/sumberdana/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }
 
     /**
-     * PUT /api/akuntansi/donatur : Updates an existing akun.
+     * PUT /api/akuntansi/sumberdana : Updates an existing akun.
      *
      * @param akun the akun to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated
@@ -122,19 +122,19 @@ public class DonaturResource {
      */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @Timed
-    public ResponseEntity<Donatur> updateDonatur(@PathVariable Integer id, @RequestBody Donatur akun) throws URISyntaxException {
-        log.debug("REST request to update Donatur : {}", akun);
+    public ResponseEntity<SumberDana> updateDonatur(@PathVariable Integer id, @RequestBody SumberDana akun) throws URISyntaxException {
+        log.debug("REST request to update Sumber Dana: {}", akun);
         if (akun.getId() == null) {
             return createDonatur(akun);
         }
-        Donatur result = repository.save(akun);
+        SumberDana result = repository.save(akun);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, akun.getId().toString()))
                 .body(result);
     }
 
     /**
-     * DELETE /api/akuntansi/donatur/:id : delete the "id" akun.
+     * DELETE /api/akuntansi/sumberdana/:id : delete the "id" sumberdana.
      *
      * @param id the id of the akun to delete
      * @return the ResponseEntity with status 200 (OK)
@@ -142,7 +142,7 @@ public class DonaturResource {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @Timed
     public ResponseEntity<Void> deleteDonatur(@PathVariable Integer id) {
-        log.debug("REST request to delete Donatur : {}", id);
+        log.debug("REST request to delete Sumber Dana: {}", id);
         repository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
