@@ -5,6 +5,7 @@
  */
 package id.alfatih.repository.akuntansi;
 
+import id.alfatih.domain.akuntansi.AkadSumberDana;
 import id.alfatih.domain.akuntansi.Proyek;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -46,4 +47,9 @@ public interface ProyekRepository extends JpaRepository<Proyek, Integer> {
     
     @Query("from Proyek a where parent is null order by a.kode")
     public List<Proyek> listParentChildren();
+
+    @Query("from Proyek a "
+            + "where a.program.id=:id "
+            + "order by a.kode")
+    public List<Proyek> listByProgram(@Param("id") Integer id);
 }

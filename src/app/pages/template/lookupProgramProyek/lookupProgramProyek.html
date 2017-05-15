@@ -3,9 +3,13 @@
         <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
             <em class="ion-ios-close-empty sn-link-close"></em>
         </button>
-        <h4 class="modal-title" id="myModalLabel">Lookup Akun</h4>
+        <h4 class="modal-title" id="myModalLabel">Lookup Program</h4>
     </div>
     <div class="modal-body">
         <div id="programTreeGrid"></div>
+        <div id="proyekTreeGrid" ng-show="showProyek"></div>
+        <div id='jqxcheckbox'>
+            Detail proyek diikut sertakan {{showProyek}}
+        </div>
     </div>
 </div>

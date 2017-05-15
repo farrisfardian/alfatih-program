@@ -67,6 +67,13 @@ public class ProyekResource {
     public Object ambilSemuaFlatByProgram(@PathVariable Integer idProgram) {
         return repositoryJdbc.filterProyekByProgram(idProgram);
     }
+    
+    @RequestMapping("/filter-by-program/{id}")
+    @Timed
+    public List<Proyek> filterBySumberDanaAll(@PathVariable Integer id) throws URISyntaxException {
+        log.debug("REST request to filter Proyek by id");
+        return repository.listByProgram(id);
+    }
 
     @RequestMapping("/all")
     @Timed
