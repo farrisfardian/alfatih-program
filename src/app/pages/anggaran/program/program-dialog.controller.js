@@ -4,7 +4,7 @@
     angular.module('Alfatih.pages.anggaran')
             .controller('ProgramDialogController', ProgramDialogController);
 
-    function ProgramDialogController($http, $timeout, $scope, $stateParams, $uibModalInstance, $uibModal, $log, entity, ProgramService, TahunAjaranService, SkemaBudgetService) {
+    function ProgramDialogController($http, $timeout, $scope, $stateParams, $uibModalInstance, $uibModal, $log, entity, ProgramService, TahunAjaranService, SkemaBudgetService, AlertService) {
         var vm = this;
         console.log('entity', entity);
         vm.errorKodeExists = null;
