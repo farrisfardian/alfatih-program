@@ -161,6 +161,7 @@
         "jqwidgets/jqxcomplexinput.js",
         "jqwidgets/jqxangular.js",
         "jqwidgets/styles/jqx.base.css",
+        "jqwidgets/styles/jqx.energyblue.css",
         "jqwidgets/styles/jqx.ui-sunny.css"
       ]
     }

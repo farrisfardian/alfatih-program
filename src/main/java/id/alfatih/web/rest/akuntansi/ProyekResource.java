@@ -62,7 +62,7 @@ public class ProyekResource {
     @Timed
     public List<Proyek> listParentChildrenByProgram(@PathVariable Integer idProgram) {
         log.debug("REST request to get parent children by program");
-        List<Proyek> x = repository.listParentChildrenByProgram(idProgram);
+        List<Proyek> x = repository.listByProgram(idProgram);
         return x;
     }
 
@@ -74,6 +74,13 @@ public class ProyekResource {
     @RequestMapping(value = "/list-flat-by-program/{idProgram}", method = RequestMethod.GET)
     public Object ambilSemuaFlatByProgram(@PathVariable Integer idProgram) {
         return repositoryJdbc.filterProyekByProgram(idProgram);
+    }
+    
+    @RequestMapping("/filter-by-program/{id}")
+    @Timed
+    public List<Proyek> filterBySumberDanaAll(@PathVariable Integer id) throws URISyntaxException {
+        log.debug("REST request to filter Proyek by id");
+        return repository.listByProgram(id);
     }
 
     @RequestMapping("/all")

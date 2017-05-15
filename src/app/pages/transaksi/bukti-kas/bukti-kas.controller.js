@@ -215,6 +215,33 @@
                 $log.info('Modal dismissed at: ' + new Date());
             });
         }
+        function lookupProgram(editor, editrow) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'app/pages/template/lookupProgramProyek/lookupProgramProyek.html',
+                controller: 'LookupProgramProyekController',
+//                controllerAs: 'vm',
+                size: 'lg',
+            });
+            modalInstance.result.then(function (d) {
+//                vm.akun.parent = selectedItem;
+//                console.log('selectedItem', selectedItem);
+                if (editor!=null && editrow >= 0) {
+                    console.log('akad', d);
+                    console.log('editor', editor);
+                    vm.data.detail[editrow].program = d;
+                    var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
+                    $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
+                    var inputField = editor.find('input');
+                    inputField.jqxInput('val', d.kode);
+                    bindingGrid();
+                }else{
+                    vm.data.program = s;
+                }
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        }
 
         function isBalance() {
             var d = vm.data.multiCurrency === true ? vm.data.jumlah * vm.data.rate : vm.data.jumlah;
@@ -425,6 +452,9 @@
                 proyek: null
             });
             bindingGrid();
+        });
+        $("#btnLookupProgram").on('click', function () {
+            lookupProgram(null, -1);
         });
 
         $(document).ready(function () {
