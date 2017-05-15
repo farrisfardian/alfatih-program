@@ -1,0 +1,60 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package id.alfatih.repository.akuntansi;
+
+import id.alfatih.domain.akuntansi.AkadSumberDana;
+import id.alfatih.domain.akuntansi.Proyek;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+/**
+ *
+ * @author ustadho
+ */
+public interface ProyekRepository extends JpaRepository<Proyek, Integer> {
+
+    public Page<Proyek> findByKeteranganContainingIgnoreCase(String keterangan, Pageable pr);
+
+    @Query("from Proyek a "
+            + "where upper(a.kode) like upper(:s) "
+            + "or upper(a.keterangan) like upper(:s) ")
+    public Page<Proyek> filterByKey(@Param("s") String s, Pageable pr);
+
+    @Query("from Proyek a "
+            + "where (upper(a.keterangan) like upper(:s) "
+            + "or upper(a.kode) like upper(:s) ) "
+            + "and a.id not in (select pg.parent.id from Proyek pg where pg.parent.id is not null) "
+    )
+    public Page<Proyek> filterEndpointByKey(@Param("s") String s, Pageable pr);
+
+    @Query("from Proyek a "
+            + "where a.program.id=:id "
+            + "and a.id not in (select pg.parent.id from Proyek pg where pg.parent.id is not null) "
+    )
+    public List<Proyek> findEndpointByProgram(@Param("id") Integer id);
+
+    @Query("from Proyek a "
+            + "where a.program.id=:id "
+    )
+    public List<Proyek> findByProgram(@Param("id") Integer id);
+
+    @Query("from Proyek a where parent is null order by a.kode")
+    public List<Proyek> listParentChildren();
+
+<<<<<<< HEAD
+    @Query("from Proyek a where parent is null and a.program.id = :idProgram order by a.kode")
+    public List<Proyek> listParentChildrenByProgram(@Param("idProgram") Integer idProgram);
+=======
+    @Query("from Proyek a "
+            + "where a.program.id=:id "
+            + "order by a.kode")
+    public List<Proyek> listByProgram(@Param("id") Integer id);
+>>>>>>> a0a95c7765b987344f680efe298f3e7544540885
+}

@@ -57,6 +57,14 @@ public class ProyekResource {
         List<Proyek> x = repository.listParentChildren();
         return x;
     }
+    
+    @RequestMapping("/parent-children/{idProgram}")
+    @Timed
+    public List<Proyek> listParentChildrenByProgram(@PathVariable Integer idProgram) {
+        log.debug("REST request to get parent children by program");
+        List<Proyek> x = repository.listByProgram(idProgram);
+        return x;
+    }
 
     @RequestMapping(value = "/list-flat", method = RequestMethod.GET)
     public Object ambilSemuaFlat() {

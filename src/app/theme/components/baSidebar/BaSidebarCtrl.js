@@ -95,6 +95,13 @@
                         "order": 100,
                         "stateRef": "anggaran.proyek"
                     },
+                    {
+                        "name": "anggaran.proyek-jqw",
+                        "title": "Proyek Jqw",
+                        "level": 1,
+                        "order": 100,
+                        "stateRef": "anggaran.proyek-jqw"
+                    },
                 ]
             },
             {
