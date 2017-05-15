@@ -26,27 +26,27 @@
             {name: 'debet', type: 'number'},
             {name: 'kredit', type: 'number'},
             {name: 'akadSumberDana', map: 'akadSumberDana>kode'},
-            {name: 'program', type: 'string'},
-            {name: 'proyek', type: 'string'},
+            {name: 'idProgram', map: 'program>id', type: 'string'},
+            {name: 'kodeProgram', map: 'program>kode', type: 'string'},
+            {name: 'idProyek', map: 'proyek>id', type: 'string'},
+            {name: 'kodeProyek', map: 'proyek>kode', type: 'string'},
             {name: 'namaAkun', map: 'akun>nama'},
         ];
         $scope.dateOptions = {format: 'DD/MM/YYYY', showClear: false};
         MataUangService.cariSemua({id: 'all'}, function (d) {
-            console.log('vm.listMataUang', d);
             vm.listMataUang = d;
         });
         AkunService.cariSemua({id: 'kas-bank'}, function (d) {
-            console.log('vm.listKasBank', d);
             vm.listKasBank = d;
         });
-        UnitService.cariSemua({id: 'all'}, function (d) {
-            console.log('vm.listUnit', d);
-            vm.listUnit = d;
-        });
-        EnumService.tipeBuktiKas().success(function (d) {
-            console.log('vm.listTipeBuktiKas', d);
-            vm.listTipeBuktiKas = d;
-        });
+//        UnitService.cariSemua({id: 'all'}, function (d) {
+//            console.log('vm.listUnit', d);
+//            vm.listUnit = d;
+//        });
+//        EnumService.tipeBuktiKas().success(function (d) {
+//            console.log('vm.listTipeBuktiKas', d);
+//            vm.listTipeBuktiKas = d;
+//        });
 
         function onSaveSuccess(result) {
             console.log('onSaveSuccess', result);
@@ -63,7 +63,7 @@
         }
 
         function save() {
-            console.log('vm.akun', vm.data);
+            console.log('vm.data', vm.data);
             vm.isSaving = true;
             if (vm.data.id !== null && vm.data.id !== undefined) {
                 BuktiKasService.update(vm.data, onSaveSuccess, onSaveError);
@@ -73,18 +73,17 @@
         }
 
         function bindingGrid() {
-            var source =
-                    {
-                        localData: vm.data.detail,
-                        dataType: "json",
-                        updaterow: function (rowid, rowdata, commit) {
-                            // synchronize with the server - send update command
-                            // call commit with parameter true if the synchronization with the server is successful 
-                            // and with parameter false if the synchronization failed.
-                            commit(true);
-                        },
-                        dataFields: dataFields
-                    };
+            var source = {
+                localData: vm.data.detail,
+                dataType: "json",
+                updaterow: function (rowid, rowdata, commit) {
+                    // synchronize with the server - send update command
+                    // call commit with parameter true if the synchronization with the server is successful 
+                    // and with parameter false if the synchronization failed.
+                    commit(true);
+                },
+                dataFields: dataFields
+            };
 
             var dataAdapter = new $.jqx.dataAdapter(source);
             // update data source.
@@ -199,7 +198,7 @@
             modalInstance.result.then(function (akad) {
 //                vm.akun.parent = selectedItem;
 //                console.log('selectedItem', selectedItem);
-                if (editor!=null && editrow >= 0) {
+                if (editor != null && editrow >= 0) {
                     console.log('akad', akad);
                     console.log('editor', editor);
                     vm.data.detail[editrow].akadSumberDana = akad;
@@ -208,7 +207,7 @@
                     var inputField = editor.find('input');
                     inputField.jqxInput('val', akad.kode);
                     bindingGrid();
-                }else{
+                } else {
                     vm.data.akadSumberDana = akad;
                 }
             }, function () {
@@ -226,17 +225,19 @@
             modalInstance.result.then(function (d) {
 //                vm.akun.parent = selectedItem;
 //                console.log('selectedItem', selectedItem);
-                if (editor!=null && editrow >= 0) {
-                    console.log('akad', d);
+                if (editor != null && editrow >= 0) {
+                    console.log('result', d);
                     console.log('editor', editor);
-                    vm.data.detail[editrow].program = d;
+                    vm.data.detail[editrow].program = d.program;
+                    vm.data.detail[editrow].proyek = d.proyek;
                     var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
                     $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
                     var inputField = editor.find('input');
-                    inputField.jqxInput('val', d.kode);
+                    inputField.jqxInput('val', d.program.kode);
                     bindingGrid();
-                }else{
-                    vm.data.program = s;
+                } else {
+                    console.log('bkm lookup result', d);
+//                    vm.data.program = d;
                 }
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
@@ -424,8 +425,41 @@
                                 return editor.find('input').val();
                             }
                         },
-                        {text: 'Program', columngroup: 'proyekId', editable: true, dataField: 'program', width: 80},
-                        {text: 'Proyek', columngroup: 'proyekId', editable: true, dataField: 'proyek', width: 80},
+                        {text: 'Program', columngroup: 'proyekId', editable: true, dataField: 'kodeProgram', width: 80,
+                            columntype: 'template',
+                            createeditor: function (row, cellvalue, editor, cellText, width, height) {
+                                // construct the editor.
+                                var inputElement = $("<div><input type='text'  /><button data-row='" + row + "' class='cariProgram'><img alt='search' width='16' height='16' src='../bower_components/jqwidgets/images/search_lg.png' /></button></div>").prependTo(editor);
+                                inputElement.jqxInput({source: getEditorDataAdapter('kodeProgram'), displayMember: "kodeProgram", width: width, height: height});
+                                $(".cariProgram").on('click', function (event) {
+                                    editClick(event, row);
+                                });
+
+                                var editClick = function (event, row) {
+                                    var target = $(event.target);
+                                    lookupProgram(editor, editrow);
+                                }
+                            },
+                            initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
+                                editrow = row;
+                                // set the editor's current value. The callback is called each time the editor is displayed.
+                                var inputField = editor.find('input');
+//                                inputField.attr("disabled", "disabled"); 
+                                if (pressedkey) {
+                                    inputField.val(pressedkey);
+                                    inputField.jqxInput('selectLast');
+                                } else {
+                                    inputField.val(cellvalue);
+                                    inputField.jqxInput('selectAll');
+                                }
+
+                            },
+                            geteditorvalue: function (row, cellvalue, editor) {
+                                // return the editor's value.
+                                return editor.find('input').val();
+                            }
+                        },
+                        {text: 'Proyek', columngroup: 'proyekId', editable: false, dataField: 'kodeProyek', width: 80},
                         {text: 'Nama Akun', editable: false, dataField: 'namaAkun', width: 300},
                     ],
                     columnGroups:
@@ -452,9 +486,6 @@
                 proyek: null
             });
             bindingGrid();
-        });
-        $("#btnLookupProgram").on('click', function () {
-            lookupProgram(null, -1);
         });
 
         $(document).ready(function () {

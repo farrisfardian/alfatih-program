@@ -24,13 +24,13 @@
             id: 'id',
             url: 'api/anggaran/program/parent-children'
         };
-        var dataAdapter = new $.jqx.dataAdapter(srcProgram);
+        var daProgram = new $.jqx.dataAdapter(srcProgram);
         $(document).ready(function () {
             // create Tree Grid
             $("#programTreeGrid").jqxTreeGrid({
                 width: 850,
                 height: 300,
-                source: dataAdapter,
+                source: daProgram,
                 sortable: true,
                 pageable: false,
                 pagerMode: 'advanced',
@@ -41,17 +41,28 @@
                 ]
             });
             var dfProyek = [
-                {name: 'id'},
+                {name: 'id', type: 'number'},
                 {name: 'kode', type: 'string'},
-                {name: 'nama', type: 'string'},
-                {name: 'budget', type: 'number'}
+                {name: 'keterangan', type: 'string'},
+                {name: 'budget', type: 'number'},
+                {name: 'idProgram', map: 'program>id', type: 'number'},
+                {name: 'kodeProgram', map: 'program>kode', type: 'string'},
+                {name: 'namaProgram', map: 'program>nama', type: 'string'},
+                {name: 'children', type: 'array'},
+                {name: 'expanded', type: 'bool'}
             ];
             var srcProyek = {
-                datafields: dfProyek,
-                localdata: []
+                dataType: "json",
+                dataFields: dfProyek,
+                localdata: null,
+                hierarchy: {
+                    root: 'children'
+                },
+                id: 'id',
             };
             var daProyek = new $.jqx.dataAdapter(srcProyek);
             daProyek.dataBind();
+
             $("#programTreeGrid").on('rowSelect', function (event) {
                 console.log('event.args', event.args);
 //                if(event.args.row==undefined){
@@ -60,46 +71,46 @@
                 var sdId = event.args.row.id;
                 var dataSource = {
                     dataType: "json",
-                    datafields: dfProyek,
+                    dataFields: dfProyek,
+                    hierarchy: {
+                        root: 'children'
+                    },
+                    id: 'id',
                     url: '/api/anggaran/proyek/filter-by-program/' + sdId,
                 };
                 var adapter = new $.jqx.dataAdapter(dataSource);
-
                 // update data source.
                 $("#proyekTreeGrid").jqxTreeGrid({source: adapter});
             });
 
-            $("#proyekTreeGrid").jqxTreeGrid(
-                    {
-                        width: 850,
-                        height: 250,
-                        theme: 'energyblue',
-                        columns: [
-                            {text: 'Kode', datafield: 'kode', width: 100},
-                            {text: 'Detail Proyek', datafield: 'nama', width: 400},
-                            {text: 'Budget', datafield: 'budget', cellsAlign: 'right', align: 'right', cellsformat: 'n', width: 100},
-                        ]
-                    });
+            $("#proyekTreeGrid").jqxTreeGrid({
+                source: daProyek,
+                sortable: true,
+                pageable: false,
+                pagerMode: 'advanced',
+                theme: 'energyblue',
+                columns: [
+                    {text: 'Kode', datafield: 'kode', width: 100},
+                    {text: 'Detail Proyek', datafield: 'keterangan', width: 400},
+                    {text: 'Budget', datafield: 'budget', cellsAlign: 'right', align: 'right', cellsformat: 'n', width: 100},
+                ]
+            });
             $('#proyekTreeGrid').on('rowDoubleClick', function (event) {
                 var args = event.args;
                 var row = args.row;
-                console.log('row.bounddata', row.bounddata);
-                $uibModalInstance.close(row.bounddata);
+//                if (!$scope.showProyek) {
+//                    row.id = null;
+//                }
+                var obj = {
+                    program: {id: row.idProgram, kode: row.kodeProgram, nama: row.namaProgram},
+                    proyek: $scope.showProyek? {id: row.id, kode: row.kode, keterangan: row.keterangan}: null
+                }
+                $uibModalInstance.close(obj);
 
             });
 //            $("#programTreeGrid").jqxTreeGrid('selectRow', 0);
-            $("#jqxcheckbox").jqxCheckBox({width: 400, height: 25});
-            $("#jqxcheckbox").on('change', function (event) {
-                var checked = event.args.checked;
-                $scope.showProyek = checked;
-                console.log('checkbox', $scope.showProyek);
-//                if (checked) {
-//                    $("#proyekTreeGrid").show();
-//                } else {
-//                    $("#proyekTreeGrid").hide();
-//                }
-            });
         });
+        
     }
 })();
 
