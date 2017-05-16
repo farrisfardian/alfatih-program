@@ -9,7 +9,7 @@
                         </div>
                         <div class="col-md-5" ng-class="{error: form1.status.$invalid}">
                             <div class="input-group">
-                                <input class="form-control" ng-model="vm.data.program.nama" name="program"/>
+                                <input class="form-control input-sm" ng-model="vm.data.program.nama" name="program"/>
                                 <span class="input-group-addon" ng-click="vm.lookupProgram()"><span class="glyphicon glyphicon-search"></span></span>
                             </div>
                         </div>                        
@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-md-3" ng-class="{error: form1.durasiMulai.$invalid}">
                             <div class="input-group">
-                                <input class="form-control" datetimepicker ng-model="vm.data.durasiAwal" options="vm.dateOptions" name="tglMasuk"/>
+                                <input class="form-control input-sm" datetimepicker ng-model="vm.data.durasiAwal" options="vm.dateOptions" name="tglMasuk"/>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                         </div>                   
                         <div class="col-md-3" ng-class="{error: form1.durasiAkhir.$invalid}">
                             <div class="input-group">
-                                <input class="form-control" datetimepicker ng-model="vm.data.durasiAkhir" options="vm.dateOptions" name="tglMasuk"/>
+                                <input class="form-control input-sm" datetimepicker ng-model="vm.data.durasiAkhir" options="vm.dateOptions" name="tglMasuk"/>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>

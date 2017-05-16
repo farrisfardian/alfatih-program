@@ -11,7 +11,7 @@
         ctrl.listJenis = [];
         ctrl.clear = clear;
         ctrl.save = save;
-        ctrl.lookupAkadDonatur = lookupAkadDonatur;
+        ctrl.lookupAkadSumberDana = lookupAkadSumberDana;
         ctrl.lookupProyek = lookupProyek;
         ctrl.lookupAkun = lookupAkun;
         ctrl.cariAkunByKode = cariAkunByKode;
@@ -143,12 +143,12 @@
             });
         }
 
-        function lookupAkadDonatur() {
+        function lookupAkadSumberDana() {
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/template/lookupAkadDonatur/lookup-akad-donatur.html',
-                controller: 'LookupAkadDonaturController',
+                templateUrl: 'app/pages/template/lookupAkadSumberDana/lookup-akad-sumber-dana.html',
+                controller: 'LookupAkadSumberDanaController',
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {
