@@ -11,7 +11,7 @@
                                 </td>
                                 <td  width="2%"> : </td>
                                 <td  width="15%">
-                            <jqx-input jqx-width="180" jqx-height="25" id="userInput"></jqx-input>
+                            <jqx-input jqx-width="180" jqx-height="25" id="txtNoVoucher" ng-model="vm.data.noVoucher"></jqx-input>
                     </td>
                     <td  width="15%" style="text-align:right">
                         Tanggal 
@@ -27,7 +27,7 @@
                     </td>
                     <td> : </td>
                     <td colspan="4">
-                <jqx-input jqx-width="600" jqx-height="25" id="userInput"></jqx-input>
+                <jqx-input jqx-width="600" jqx-height="25" id="txtTerimaDari" ng-model="vm.data.terimaDari"></jqx-input>
                 </td>
                 </tr>
                 <tr>
@@ -36,8 +36,8 @@
                     </td>
                     <td> : </td>
                     <td colspan="4">
-                <jqx-input jqx-width="600" jqx-height="25" id="userInput"></jqx-input>
-                </td>
+                        <jqx-input jqx-width="600" jqx-height="25" id="txtKeterangan" ng-model="vm.data.keterangan"></jqx-input>
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -45,8 +45,8 @@
                     </td>
                     <td> : </td>
                     <td>
-                <jqx-input jqx-width="100" jqx-height="25" id="userInput"></jqx-input>
-                <jqx-button jqx-instance="buttonInstance" >...</jqx-button>
+                        <jqx-input jqx-width="100" jqx-height="25" id="txtKurs"></jqx-input>
+                        <jqx-button jqx-instance="buttonInstance" >...</jqx-button>
                 </td>
                 <td style="text-align:right">
                     Akun Kas/ Bank
@@ -62,7 +62,7 @@
                     </td>
                     <td> : </td>
                     <td>
-                <jqx-input jqx-width="100" jqx-height="25" id="userInput"></jqx-input>
+                <jqx-input jqx-width="100" jqx-height="25" id="userInput" ng-disabled="true"></jqx-input>
                 </td>
                 <td style="text-align:right">
                     Akad - Sumber Dana
@@ -132,6 +132,7 @@
                         <tr>
                             <td>
                                 <input type="button" value="Tambah Baris" id='btnAddRow' />
+                                <input type="button" value="Hapus Baris" id='btnDelRow' />
                             </td>
                         </tr>
                     </tbody>
@@ -150,6 +151,13 @@
         </div>
 
     </form>
+    <div>
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+            <input type="button" value="Batal" id='btnBatal' />
+            <input type="button" value="Simpan" id='btnSimpan' />
+        </div>
+    </div>
 </div>
 
 {{vm.data}}

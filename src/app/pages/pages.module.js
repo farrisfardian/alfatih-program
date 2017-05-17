@@ -11,12 +11,12 @@
         'Alfatih.pages.anggaran',
         'Alfatih.pages.pengaturan',
         'Alfatih.pages.transaksi',
-        'Alfatih.pages.percobaan',
+        'Alfatih.pages.percobaan'
     ])
       .config(routeConfig);
 //
 //  /** @ngInject */
-  function routeConfig($urlRouterProvider, baSidebarServiceProvider) {
+  function routeConfig($urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
 //
 //    baSidebarServiceProvider.addStaticItem({

@@ -35,7 +35,7 @@
 
     run.$inject = ['stateHandler', '$rootScope', '$location', 'Auth'];
 
-    function run(stateHandler, $rootScope, $location, Auth) {
+    function run(stateHandler) {
         stateHandler.initialize();
     }
 

@@ -88,7 +88,7 @@
 //                            },
                     {text: 'Kode', datafield: 'kode', width: 100},
                     {text: 'Tanggal', datafield: 'tanggal', cellsformat: 'dd/MM/yyyy', width: 100},
-                    {text: 'Jumlah', datafield: 'jumlah', cellsAlign: 'right', align: 'right', cellsformat: 'n'},
+                    {text: 'Jumlah', datafield: 'jumlah', cellsAlign: 'right', align: 'right', cellsformat: 'n', width: 100},
                     {text: 'Sumber Dana', datafield: 'sumberdana', width: 200},
                     {text: 'Program', datafield: 'program', width: 200},
                     {text: 'Keterangan', datafield: 'keterangan', width: 200}

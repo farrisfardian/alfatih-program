@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('Alfatih.pages.transaksi')
-            .controller('BuktiKasController', BuktiKasController)
+            .controller('BuktiKasControllerJqw', BuktiKasControllerJqw)
 
     /** @ngInject */
-    function BuktiKasController($scope, $uibModal, $log, toastr, BuktiKasService, MataUangService, EnumService,
+    function BuktiKasControllerJqw($scope, $uibModal, $log, toastr, BuktiKasService, MataUangService, EnumService,
             AkunService, ParseLinks, AlertService, UnitService, $state, $stateParams) {
         var vm = this;
         vm.clear = clear;
@@ -18,14 +18,15 @@
         vm.cariAkunMasterByKode = cariAkunMasterByKode;
         vm.save = save;
         vm.hapusItem = hapusItem;
-
+        vm.selectedRow =-1;
         var dataFields = [
             {name: 'idAkun', map: 'akun>id'},
             {name: 'kode', map: 'akun>kode'},
             {name: 'keterangan', type: 'string'},
             {name: 'debet', type: 'number'},
             {name: 'kredit', type: 'number'},
-            {name: 'akadSumberDana', map: 'akadSumberDana>kode'},
+            {name: 'idAkad', map: 'akadSumberDana>id'},
+            {name: 'kodeAkad', map: 'akadSumberDana>kode'},
             {name: 'idProgram', map: 'program>id', type: 'string'},
             {name: 'kodeProgram', map: 'program>kode', type: 'string'},
             {name: 'idProyek', map: 'proyek>id', type: 'string'},
@@ -82,6 +83,19 @@
                     // and with parameter false if the synchronization failed.
                     commit(true);
                 },
+                addrow: function (rowid, rowdata, position, commit) {
+                    // synchronize with the server - send insert command
+                    // call commit with parameter true if the synchronization with the server is successful 
+                    //and with parameter false if the synchronization failed.
+                    // you can pass additional argument to the commit callback which represents the new ID if it is generated from a DB.
+                    commit(true);
+                },
+                deleterow: function (rowid, commit) {
+                    // synchronize with the server - send delete command
+                    // call commit with parameter true if the synchronization with the server is successful 
+                    //and with parameter false if the synchronization failed.
+                    commit(true);
+                },
                 dataFields: dataFields
             };
 
@@ -124,9 +138,15 @@
             if (vm.data.listDetail == null) {
                 vm.data.listDetail = [];
             }
-            vm.data.listDetail.push({
-                akun: null, jumlah: 0.0, rate: null, mataUang: null
+//            vm.data.listDetail.push({
+//                akun: null, jumlah: 0.0, rate: null, mataUang: null
+//            });
+            var commit = $("#jqxgrid").jqxGrid('addrow', null, {
+                akun: null,
+                debet: 0,
+                kredit: 0,
             });
+
         }
         function lookupAkun(editor, editrow) {
             console.log('Open modal');
@@ -144,12 +164,28 @@
                 AkunService.get({id: selectedItem},
                         function (d) {
                             console.log('editor', editor);
-                            vm.data.detail[editrow].akun = d;
+//                            vm.data.detail[editrow].akun = d;
                             var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
-                            $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
+                            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+
+//                            $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
+                            $('#jqxgrid').jqxGrid('updaterow', rowID, {
+                                idAkun: d.id,
+                                namaAkun: d.nama,
+                                kode: d.kode,
+                                keterangan: dataRecord.keterangan,
+                                debet: dataRecord.debet,
+                                kredit: dataRecord.kredit,
+                                idAkad: dataRecord.idAkad,
+                                kodeAkad: dataRecord.kodeAkad,
+                                idProgram: dataRecord.idProgram,
+                                kodeProgram: dataRecord.kodeProgram,
+                                idProyek: dataRecord.idProyek,
+                                kodeProyek: dataRecord.kodeProyek,
+                            });
                             var inputField = editor.find('input');
                             inputField.jqxInput('val', d.kode);
-                            bindingGrid();
+//                            bindingGrid();
                         },
                         function (d) {
 
@@ -201,12 +237,27 @@
                 if (editor != null && editrow >= 0) {
                     console.log('akad', akad);
                     console.log('editor', editor);
-                    vm.data.detail[editrow].akadSumberDana = akad;
+//                    vm.data.detail[editrow].akadSumberDana = akad;
                     var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
-                    $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
+//                    $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
+                    var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+                    $('#jqxgrid').jqxGrid('updaterow', rowID, {
+                        idAkun: dataRecord.idAkun,
+                        namaAkun: dataRecord.namaAkun,
+                        kode: dataRecord.kode,
+                        keterangan: dataRecord.keterangan,
+                        debet: dataRecord.debet,
+                        kredit: dataRecord.kredit,
+                        idAkad: akad.id,
+                        kodeAkad: akad.kode,
+                        idProgram: dataRecord.idProgram,
+                        kodeProgram: dataRecord.kodeProgram,
+                        idProyek: dataRecord.idProyek,
+                        kodeProyek: dataRecord.kodeProyek,
+                    });
                     var inputField = editor.find('input');
                     inputField.jqxInput('val', akad.kode);
-                    bindingGrid();
+//                    bindingGrid();
                 } else {
                     vm.data.akadSumberDana = akad;
                 }
@@ -223,18 +274,35 @@
                 size: 'lg',
             });
             modalInstance.result.then(function (d) {
+                console.log('d', d);
 //                vm.akun.parent = selectedItem;
 //                console.log('selectedItem', selectedItem);
                 if (editor != null && editrow >= 0) {
-                    console.log('result', d);
-                    console.log('editor', editor);
-                    vm.data.detail[editrow].program = d.program;
-                    vm.data.detail[editrow].proyek = d.proyek;
+//                    console.log('result', d);
+//                    console.log('editor', editor);
+//                    vm.data.detail[editrow].program = d.program;
+//                    vm.data.detail[editrow].proyek = d.proyek;
                     var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
-                    $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
+//                    $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
+                    var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
+                    $('#jqxgrid').jqxGrid('updaterow', rowID, {
+                        idAkun: dataRecord.idAkun,
+                        namaAkun: dataRecord.namaAkun,
+                        kode: dataRecord.kode,
+                        keterangan: dataRecord.keterangan,
+                        debet: dataRecord.debet,
+                        kredit: dataRecord.kredit,
+                        idAkad: dataRecord.id,
+                        kodeAkad: dataRecord.kode,
+                        idProgram: d.program.id,
+                        kodeProgram: d.program.kode,
+                        idProyek: d.proyek == null ? null : d.proyek.id,
+                        kodeProyek: d.proyek == null ? null : d.proyek.kode,
+                    });
+
                     var inputField = editor.find('input');
                     inputField.jqxInput('val', d.program.kode);
-                    bindingGrid();
+//                    bindingGrid();
                 } else {
                     console.log('bkm lookup result', d);
 //                    vm.data.program = d;
@@ -291,8 +359,10 @@
             }
         }
 
-        function hapusItem(idx) {
-            $scope.vm.data.listDetail.splice(idx, 1);
+        function hapusItem() {
+            var rowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+            console.log('rowindex', rowindex);
+            $('#jqxgrid').jqxGrid('deleterow', rowindex);
         }
 
         console.log('data edit', $stateParams);
@@ -326,7 +396,6 @@
                         // synchronize with the server - send update command
                         // call commit with parameter true if the synchronization with the server is successful 
                         // and with parameter false if the synchronization failed.
-                        console.log('updaterow', rowdata);
                         commit(true);
                     },
                     dataFields: dataFields
@@ -355,6 +424,7 @@
                     editable: true,
                     editmode: 'click',
                     columnsResize: true,
+                    keyboardnavigation: false,
                     columns: [
                         {text: 'Nomor Akun', editable: true, columntype: 'template', dataField: 'kode', width: 100,
                             createeditor: function (row, cellvalue, editor, cellText, width, height) {
@@ -429,11 +499,11 @@
                         },
                         {text: 'Debet', columntype: 'textbox', columngroup: 'jumlah', editable: true, dataField: 'debet', width: 100, cellsAlign: 'right', align: 'right', cellsFormat: 'n'}, //c2
                         {text: 'Kredit', columntype: 'textbox', columngroup: 'jumlah', editable: true, dataField: 'kredit', width: 100, cellsAlign: 'right', align: 'right', cellsFormat: 'n'},
-                        {text: '<html>Sumber<br>Dana</html>', align: 'center', editable: true, dataField: 'akadSumberDana', width: 80, columntype: 'template',
+                        {text: '<html>Sumber<br>Dana</html>', align: 'center', editable: true, dataField: 'kodeAkad', width: 80, columntype: 'template',
                             createeditor: function (row, cellvalue, editor, cellText, width, height) {
                                 // construct the editor.
                                 var inputElement = $("<div><input type='text'  /><button data-row='" + row + "' class='cariAkad'><img alt='search' width='16' height='16' src='../bower_components/jqwidgets/images/search_lg.png' /></button></div>").prependTo(editor);
-                                inputElement.jqxInput({source: getEditorDataAdapter('akadSumberDana'), displayMember: "akadSumberDana", width: width, height: height});
+                                inputElement.jqxInput({source: getEditorDataAdapter('kodeAkad'), displayMember: "kodeAkad", width: width, height: height});
                                 $(".cariAkad").on('click', function (event) {
                                     editClick(event, row);
                                 });
@@ -513,21 +583,54 @@
             $("#jqxgrid").jqxGrid('setcolumnproperty', datafield, 'editable', event.args.checked);
         });
         $("#btnAddRow").on('click', function () {
-            vm.data.detail.push({
-                akun: null,
-                keterangan: '',
-                debet: 0,
-                kredit: 0,
-                akadSumberDana: null,
-                program: null,
-                proyek: null
-            });
-            bindingGrid();
+//            vm.data.detail.push({
+//                akun: null,
+//                keterangan: '',
+//                debet: 0,
+//                kredit: 0,
+//                akadSumberDana: null,
+//                program: null,
+//                proyek: null
+//            });
+//            bindingGrid();
+            tambahDetail();
+        });
+        $("#btnDelRow").on('click', function () {
+            hapusItem();
+        });
+        $("#btnSimpan").on('click', function () {
+            console.log('row', $("#jqxgrid").jqxGrid('getrows'));
+            var rows = $('#jqxgrid').jqxGrid('getrows');
+            var result = "";
+            for (var i = 0; i < rows.length; i++)
+            {
+                var row = rows[i];
+                result += row.firstname + " " + row.lastname + " " + row.productname + " " + row.date + " " + row.quantity + " " + row.price + "\n";
+            }
+        });
+        $('#jqxgrid').on('cellvaluechanged', function (event) {
+            console.log('cellvaluechanged', event)
+            console.log('rowSelect', event.args.row);
+            if(event.args.datafield=='debet' && event.args.newvalue>0){
+                $("#jqxgrid").jqxGrid('setcellvalue', 0, 'kredit', 0);
+            }
+            if(event.args.datafield=='kredit' && event.args.newvalue>0){
+                $("#jqxgrid").jqxGrid('setcellvalue', 0, 'debet', 0);
+            }
+        });
+        $("#jqxgrid").on('rowSelect', function (event) {
+            console.log('rowSelect', event.args.row);
+            var sdId = event.args.row.id;
+            $("#btnDelRow").jqxButton({disabled: sdId != null});
         });
 
         $(document).ready(function () {
             $('#txtAkad').jqxInput({disabled: true});
-            $("#btnAddRow").jqxButton({width: 120, height: 25});
+            $("#btnAddRow").jqxButton({width: 100, height: 25});
+            $("#btnDelRow").jqxButton({width: 100, height: 25});
+            $("#btnSimpan").jqxButton({width: 100, height: 25});
+            $("#btnBatal").jqxButton({width: 100, height: 25});
+//            $("#numericInput").jqxNumberInput({theme: "arctic", width: '100px', height: '25px',  spinButtons: true });
         });
     }
 
