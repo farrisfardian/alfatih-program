@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('Alfatih.pages.transaksi')
-            .controller('JurnalController', JurnalController)
+            .controller('JurnalJqwController', JurnalJqwController)
 
     /** @ngInject */
-    function JurnalController($scope, $uibModal, $log, toastr, JurnalService, MataUangService, AkadSumberDanaService, JenisJurnalService, AkunService, ProgramService, ParseLinks, AlertService, paginationConstants, pagingParams, DokumenSumberService, CabangService, $state, $stateParams) {
+    function JurnalJqwController($scope, $uibModal, $log, toastr, JurnalService, MataUangService, AkadSumberDanaService, JenisJurnalService, AkunService, ProgramService, ParseLinks, AlertService, paginationConstants, pagingParams, DokumenSumberService, CabangService, $state, $stateParams) {
         var vm = this;
         vm.search = '';
         vm.loadAll = loadAll;
@@ -146,8 +146,8 @@
             console.log('Open modal');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'app/pages/template/lookupAkunJqw/lookupAkunJqw.html',
-                controller: 'LookupAkunJqwController',
+                templateUrl: 'app/pages/template/lookupAkunEndpoint/lookup-akun.html',
+                controller: 'LookupAkunEndpointController',
                 controllerAs: 'ctrl',
                 size: 'lg',
                 resolve: {
@@ -163,13 +163,7 @@
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                console.log('selectedItem', selectedItem);
-                AkunService.cariSatu({id: selectedItem}, function (data) {
-                    vm.data.listJurnalDetail[index].akun = data;
-                }, function (error) {
-                    console.log('error', error);
-                    toastr.error('error');
-                });
+                vm.data.listJurnalDetail[index].akun = selectedItem;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
@@ -214,42 +208,26 @@
             $scope.vm.data.listJurnalDetail.splice(idx, 1);
         }
 
-//        function baru() {
-//            var modalInstance = $uibModal.open({
-//                animation: true,
-//                templateUrl: 'app/pages/transaksi/jurnal/jurnal-detail-dialog.html',
-//                controller: 'JurnalDetailDialogController',
-//                controllerAs: 'ctrl',
-//                size: 'lg',
-//                resolve: {
-//                    entity: function () {
-//                        return {id: null};
-//                    }
-//                }
-//            });
-//            modalInstance.result.then(function (selectedItem) {
-//                if (vm.data.listJurnalDetail == null) {
-//                    vm.data.listJurnalDetail = [];
-//                }
-//                vm.data.listJurnalDetail.push(selectedItem);
-//            }, function () {
-//                $log.info('Modal dismissed at: ' + new Date());
-//            });
-//        }
         function baru() {
-
-            if (vm.data.listJurnalDetail == null) {
-                vm.data.listJurnalDetail = [];
-            }
-            vm.data.listJurnalDetail.push({
-                keterangan: null,
-                debet: 0,
-                kredit: 0,
-                rate: 0.0,
-                akun: null,
-                proyek: null,
-                program: null,
-                akadSumberDana: null
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'app/pages/transaksi/jurnal/jurnal-detail-dialog.html',
+                controller: 'JurnalDetailDialogController',
+                controllerAs: 'ctrl',
+                size: 'lg',
+                resolve: {
+                    entity: function () {
+                        return {id: null};
+                    }
+                }
+            });
+            modalInstance.result.then(function (selectedItem) {
+                if (vm.data.listJurnalDetail == null) {
+                    vm.data.listJurnalDetail = [];
+                }
+                vm.data.listJurnalDetail.push(selectedItem);
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 
