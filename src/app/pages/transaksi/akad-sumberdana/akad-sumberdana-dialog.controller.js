@@ -13,7 +13,7 @@
         vm.save = save;
         vm.lookupProgram = lookupProgram;
         vm.lookupSumberDana = lookupSumberDana;
-        vm.modalTitle = vm.data == undefined || vm.data.id == null ? "Tambah AkadDonatur" : "Ubah AkadDonatur";
+        vm.modalTitle = vm.data == undefined || vm.data.id == null ? "Tambah Akad Sumber Dana" : "Ubah Akad Sumber Dana";
         $scope.dateOptions = {format: 'DD/MM/YYYY', showClear: false};
         $timeout(function () {
             angular.element('.form-group:eq(1)>input').focus();

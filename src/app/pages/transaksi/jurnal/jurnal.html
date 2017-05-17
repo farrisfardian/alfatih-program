@@ -10,7 +10,7 @@
                                     <label class="control-label" for="nomor">Nomor</label>
                                 </div>
                                 <div class="col-md-4" ng-class="{error: form1.nomor.$invalid}">
-                                    <input name="nomor" type="text" class="form-control" id="nomor" ng-model="vm.data.nomor" autofocus/>
+                                    <input name="nomor" type="text" class="form-control input-sm" id="nomor" ng-model="vm.data.nomor" autofocus/>
                                 </div>
                                 <div class="col-md-2">
                                     <label class="control-label" for="cabang">Cabang</label>
@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col-md-4" ng-class="{error: form1.tanggal.$invalid}">
                                     <div class="input-group">
-                                        <input class="form-control" datetimepicker ng-model="vm.data.tanggal" options="dateOptions" name="tanggal"/>
+                                        <input class="form-control input-sm" datetimepicker ng-model="vm.data.tanggal" options="dateOptions" name="tanggal"/>
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                     <label class="control-label" for="multiCurrency">Multi Currency</label>
                                 </div>
                                 <div class="col-md-4" ng-class="{error: form1.multiCurrency.$invalid}">
-                                    <input name="multiCurrency" type="checkbox" class="form-control pull-left" id="multiCurrency" ng-model="vm.data.multiCurrency"  autofocus/>
+                                    <input name="multiCurrency" type="checkbox" class="form-control input-sm pull-left" id="multiCurrency" ng-model="vm.data.multiCurrency"  autofocus/>
                                 </div>
                             </div>
                         </div>-->
@@ -53,8 +53,8 @@
                                 <div class="col-md-2">
                                     <label class="control-label" for="uraian">Uraian</label>
                                 </div>
-                                <div class="col-md-8" ng-class="{error: form1.uraian.$invalid}">
-                                    <textarea name="uraian" class="form-control" id="uraian" ng-model="vm.data.uraian" autofocus rows="3"></textarea>
+                                <div class="col-md-10" ng-class="{error: form1.uraian.$invalid}">
+                                    <textarea name="uraian" class="form-control input-sm" id="uraian" ng-model="vm.data.uraian" autofocus rows="2" ></textarea>
                                 </div>                    
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                         <tr ng-repeat="c in vm.data.listJurnalDetail" style="margin: 0 0 0 0">
                                             <!--                                            <td style="padding: 0 0 0 0">
                                                                                             <div class="input-group" >
-                                                                                                <input class="form-control" ng-model="c.akun.kode" name="akun" ng-keypress="$event.keyCode == 13 ? vm.cariAkunByKode(c.akun.kode, $index) : undefined"/>
+                                                                                                <input class="form-control input-sm" ng-model="c.akun.kode" name="akun" ng-keypress="$event.keyCode == 13 ? vm.cariAkunByKode(c.akun.kode, $index) : undefined"/>
                                                                                                 <span class="input-group-addon" ng-click="vm.lookupAkun($index)"><span class="glyphicon glyphicon-search"></span></span>
                                                                                             </div>
                                                                                         </td>
@@ -92,7 +92,7 @@
                                                                                             {{c.akun.nama}}
                                                                                         </td>
                                                                                         <td style="padding: 0 0 0 0">
-                                                                                            <input class="form-control" type="text" ng-model="c.detail" name="detail" />
+                                                                                            <input class="form-control input-sm" type="text" ng-model="c.detail" name="detail" />
                                                                                         </td>
                                                                                         <td style="padding: 0 0 0 0">
                                                                                     <ui-select data-ng-model="c.mataAnggaran" name="mataAnggaran">
@@ -103,13 +103,13 @@
                                                                                     </ui-select>
                                                                                     </td>
                                                                                     <td style="padding: 0 0 0 0">
-                                                                                        <select class="form-control" ng-model="c.dk" name="dk">
+                                                                                        <select class="form-control input-sm" ng-model="c.dk" name="dk">
                                                                                             <option ng-value="D">D</option>
                                                                                             <option ng-value="K">K</option>
                                                                                         </select>
                                                                                     </td>
                                                                                     <td style="padding: 0 0 0 0">
-                                                                                        <input class="form-control" type="number" ng-model="c.jumlah" name="jumlah"/>
+                                                                                        <input class="form-control input-sm" type="number" ng-model="c.jumlah" name="jumlah"/>
                                                                                     </td>
                                                                                     <td ng-show="vm.data.multiCurrency" style="padding: 0 0 0 0">
                                                                                     <ui-select data-ng-model="c.mataUang" name="mataUang">
@@ -120,7 +120,7 @@
                                                                                     </ui-select>
                                                                                     </td>
                                                                                     <td ng-show="vm.data.multiCurrency" style="padding: 0 0 0 0">
-                                                                                        <input class="form-control" type="number" ng-model="c.rate" name="rate"/>
+                                                                                        <input class="form-control input-sm" type="number" ng-model="c.rate" name="rate"/>
                                                                                     </td>
                                                                                     <td>
                                                                                         <button class="btn btn-danger editable-table-button btn-xs" ng-confirm-message="Anda yakin akan menghapus Dokumen Sumber '{{c.nama}}'?" ng-confirm="vm.hapus(c)" type="button">Delete</button>

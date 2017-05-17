@@ -5,7 +5,7 @@
             .controller('JurnalController', JurnalController)
 
     /** @ngInject */
-    function JurnalController($scope, $uibModal, $log, toastr, JurnalService, MataUangService, AkadDonaturService, JenisJurnalService, AkunService, ProgramService, ParseLinks, AlertService, paginationConstants, pagingParams, DokumenSumberService, CabangService, $state, $stateParams) {
+    function JurnalController($scope, $uibModal, $log, toastr, JurnalService, MataUangService, AkadSumberDanaService, JenisJurnalService, AkunService, ProgramService, ParseLinks, AlertService, paginationConstants, pagingParams, DokumenSumberService, CabangService, $state, $stateParams) {
         var vm = this;
         vm.search = '';
         vm.loadAll = loadAll;
@@ -33,9 +33,9 @@
             console.log('vm.listMataUang', d);
             vm.listMataUang = d;
         });
-        AkadDonaturService.cariSemua({id: 'all'}, function (d) {
-            console.log('vm.listAkadDonatur', d);
-            vm.listAkadDonatur = d;
+        AkadSumberDanaService.cariSemua({id: 'all'}, function (d) {
+            console.log('vm.listAkadSumberDana', d);
+            vm.listAkadSumberDana = d;
         });
         JenisJurnalService.cariSemua({id: 'all'}, function (d) {
             console.log('vm.listJenisJurnal', d);
