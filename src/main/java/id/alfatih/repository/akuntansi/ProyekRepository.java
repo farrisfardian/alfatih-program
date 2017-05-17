@@ -7,6 +7,7 @@ package id.alfatih.repository.akuntansi;
 
 import id.alfatih.domain.akuntansi.AkadSumberDana;
 import id.alfatih.domain.akuntansi.Proyek;
+import id.alfatih.model.ProyekTreeDto;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,7 +50,7 @@ public interface ProyekRepository extends JpaRepository<Proyek, Integer> {
     public List<Proyek> listParentChildren();
 
     @Query("from Proyek a "
-            + "where a.program.id=:id "
+            + "where a.program.id=:id and a.parent.id is null "
             + "order by a.kode")
     public List<Proyek> listByProgram(@Param("id") Integer id);
 }

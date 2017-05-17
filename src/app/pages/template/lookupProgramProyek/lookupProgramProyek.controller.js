@@ -90,7 +90,7 @@
                 pagerMode: 'advanced',
                 theme: 'energyblue',
                 columns: [
-                    {text: 'Kode', datafield: 'kode', width: 100},
+                    {text: 'Kode', datafield: 'kode', width: 200},
                     {text: 'Detail Proyek', datafield: 'keterangan', width: 400},
                     {text: 'Budget', datafield: 'budget', cellsAlign: 'right', align: 'right', cellsformat: 'n', width: 100},
                 ]
