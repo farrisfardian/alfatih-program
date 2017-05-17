@@ -42,7 +42,7 @@ public class Jurnal {
     @Temporal(TemporalType.DATE)
     @Column
     private Date tanggal;
-    @Column
+    @Column(columnDefinition = "text")
     private String keterangan;
     @Column(name = "terima_dari")
     private String terimaDari;

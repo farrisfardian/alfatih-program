@@ -1,0 +1,108 @@
+<div class="table-scrollable">
+    <table class="table table-striped table-bordered table-hover" id="example">
+        <thead>                                
+            <tr>                                    
+                <td  rowspan="2" style="text-align: center;vertical-align: middle; width: 3000px;" >Nomor Akun</td>
+                <td rowspan="2" style="text-align: center;vertical-align: middle; width: 300px;">Keterangan</td>
+                <td colspan="2" style="text-align: center;vertical-align: middle">Jumlah</td>
+                <td rowspan="2" style="text-align: center;vertical-align: middle; width: 120px;">Sumber Dana</td>
+                <td colspan="2" style="text-align: center;vertical-align: middle">ID</td>
+                <td rowspan="2" style="text-align: center;vertical-align: middle; width: 400px">Nama Akun</td>
+            </tr>
+            <tr>                                    
+                <td style="text-align: right;vertical-align: middle; width: 120px;">Debet</td>
+                <td style="text-align: right;vertical-align: middle; width: 120px;">Kredit</td>
+                <td style="width: 120px;">Program</td>
+                <td style="width: 120px;">Proyek</td>
+            </tr>
+        </thead>   
+        <tbody>
+            <tr ng-repeat="c in data">
+                <td style="text-align: center" class="center" >
+                    <a href="" ng-click="edit(c)">
+                        <i class="glyphicon glyphicon-pencil" title="Edit"></i> 
+                    </a> 
+                    &nbsp;
+                    <a href="" ng-click="remove(c, $event)">
+                        <i class="glyphicon glyphicon-remove" title="Hapus"></i> 
+                    </a>
+                </td>
+                <td>{{c.jamReport.rangeJam}}</td>
+                <td style="text-align: right">{{c.tonTebu}}</td>
+                <td style="text-align: right">{{c.tonImb}}</td>
+                <td style="text-align: right">{{c.tonNm}}</td>
+                <td >{{c.jamBerhenti}}</td>
+                <td style="text-align: right">{{c.sebabBerhenti}}</td>
+                <td style="text-align: right">{{c.gil1Brix}}</td>
+                <td style="text-align: right">{{c.gil1Pol}}</td>
+                <td style="text-align: right">{{c.gil1Hk}}</td>
+                <td style="text-align: right">{{c.gil2Brix}}</td>
+                <td style="text-align: right">{{c.gil2Pol}}</td>
+                <td style="text-align: right">{{c.gil2Hk}}</td>
+                <td style="text-align: right">{{c.gil3Brix}}</td>
+                <td style="text-align: right">{{c.gil3Pol}}</td>
+                <td style="text-align: right">{{c.gil3Hk}}</td>
+                <td style="text-align: right">{{c.gil4Brix}}</td>
+                <td style="text-align: right">{{c.gil4Pol}}</td>
+                <td style="text-align: right">{{c.gil4Hk}}</td>
+                <td style="text-align: right">{{c.nmBrix}}</td>
+                <td style="text-align: right">{{c.nmPol}}</td>
+                <td style="text-align: right">{{c.nmHk}}</td>
+                <td style="text-align: right">{{c.nmGred}}</td>
+                <td style="text-align: right">{{c.nmCao}}</td>
+                <td style="text-align: right">{{c.nmP2o5}}</td>
+                <td style="text-align: right">{{c.neBrix}}</td>
+                <td style="text-align: right">{{c.nePol}}</td>
+                <td style="text-align: right">{{c.neHk}}</td>
+                <td style="text-align: right">{{c.neCao}}</td>
+                <td style="text-align: right">{{c.nkBrix}}</td>
+                <td style="text-align: right">{{c.nkPol}}</td>
+                <td style="text-align: right">{{c.nkHk}}</td>
+
+            </tr>
+            <tr ng-show="vm != null" style="text-align: center;" class="center">
+                <td style="padding-left: 0px; padding-right: 0px; padding-top: 0; padding-bottom: 0;">
+                    <div class="input-group">
+                        <input id="kwtab_fieldfilter" class="form-control" type="text" style="padding: 2px; "/>
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                    </div>
+                </td>
+                <td style="padding-left: 0px; padding-right: 0px; padding-top: 0; padding-bottom: 0;text-align: right">
+                    <input type="text" style="padding: 2px;" class="form-control" ng-model="vm.keterangan">
+                </td>
+                <td style="padding-left: 0px; padding-right: 0px; padding-top: 0; padding-bottom: 0;text-align: right">
+                    <input type="number" style="padding: 0px; text-align: right;" class="form-control" 
+                           ng-model="vm.debet">
+                </td>
+                <td style="padding-left: 0px; padding-right: 0px; padding-top: 0; padding-bottom: 0;text-align: right">
+                    <input type="number" style="padding: 0px; text-align: right; " class="form-control" 
+                           ng-model="vm.kredit">
+                </td>
+                <td style="padding-left: 0px; padding-right: 0px; padding-top: 0; padding-bottom: 0;text-align: right">
+                    <div class="input-group">
+                        <input id="kwtab_fieldfilter" class="form-control" type="text" style="padding: 2px; "/>
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                    </div>
+                </td>
+                <td style="padding-left: 0px; padding-right: 0px; padding-top: 0; padding-bottom: 0;text-align: right">
+                    <div class="input-group">
+                        <input id="kwtab_fieldfilter" class="form-control" type="text" style="padding: 2px; "/>
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                    </div>
+                </td>
+                <td style="padding-left: 0px; padding-right: 0px; padding-top: 0; padding-bottom: 0;text-align: right">
+                    Proyek
+                </td>
+                <td style="padding-left: 0px; padding-right: 0px; padding-top: 0; padding-bottom: 0;text-align: right">
+                    Nama Akun
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

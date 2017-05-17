@@ -64,7 +64,6 @@
             daProyek.dataBind();
 
             $("#programTreeGrid").on('rowSelect', function (event) {
-                console.log('event.args', event.args);
 //                if(event.args.row==undefined){
 //                    return;
 //                }
@@ -107,6 +106,20 @@
                 }
                 $uibModalInstance.close(obj);
 
+            });
+            $('#programTreeGrid').on('rowDoubleClick', function (event) {
+                if($scope.showProyek){
+                    return;
+                }else{
+                    var args = event.args;
+                    var row = args.row;
+                    console.log('row', row);
+                    var obj = {
+                        program: {id: row.id, kode: row.kode, nama: row.nama},
+                        proyek: null
+                    }
+                    $uibModalInstance.close(obj);
+                }
             });
 //            $("#programTreeGrid").jqxTreeGrid('selectRow', 0);
         });

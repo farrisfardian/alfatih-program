@@ -159,6 +159,8 @@
         "jqwidgets/jqxvalidator.js",
         "jqwidgets/jqxcombobox.js",
         "jqwidgets/jqxcomplexinput.js",
+        "jqwidgets/jqxnumberinput.js",
+        "jqwidgets/jqxresponse.js",
         "jqwidgets/jqxangular.js",
         "jqwidgets/styles/jqx.base.css",
         "jqwidgets/styles/jqx.energyblue.css",

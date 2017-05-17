@@ -7,7 +7,6 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        console.log('stateConfig');
         $stateProvider.state('app', {
             abstract: true,
             views: {

@@ -12,7 +12,7 @@
                 .state('transaksi.bkm', {
                     url: '/bkm/:id',
                     templateUrl: 'app/pages/transaksi/bukti-kas/bukti-kas-jqw.html',
-                    controller: 'BuktiKasController',
+                    controller: 'BuktiKasControllerJqw',
                     controllerAs: 'vm',
                     title: 'Transaksi Penerimaan Kas/ Bank',
                     data: {
