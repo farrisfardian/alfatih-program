@@ -11,7 +11,8 @@
         'Alfatih.pages.anggaran',
         'Alfatih.pages.pengaturan',
         'Alfatih.pages.transaksi',
-        'Alfatih.pages.percobaan'
+        'Alfatih.pages.percobaan',
+        'Alfatih.pages.laporan'
     ])
       .config(routeConfig);
 //

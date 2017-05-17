@@ -109,19 +109,19 @@ CREATE TABLE acc_kelompok_akun
 );
 
 INSERT INTO acc_kelompok_akun(id, nama, grup) VALUES 
-(1, 'Aset Lancar', 'AKTIVA'),
-(2, 'Aset Tidak Lancar', 'AKTIVA'),
-(3, 'Kewajiban Jangka Pendek', 'PASIVA'),
-(4, 'Kewajiban Jangka Panjang', 'PASIVA'),
-(5, 'Aset Bersih', 'AKTIVA'),
-(6, 'Pendapatan', 'PENDAPATAN'),
-(7, 'Pendapatan Dari Kegiatan Operasional', 'PENDAPATAN'),
-(8, 'Pendapatan Dari Kegiatan Non Operasional', 'PENDAPATAN'),
-(9, 'Aset Neto yang Berakhir Batasannya', 'AKTIVA'),
-(10, 'Beban Belanja Pegawai', 'BEBAN'),
-(11, 'Beban Belanja Barang Dan Jasa', 'BEBAN'),
-(12, 'Beban Belanja Hibah', 'BEBAN'),
-(13, 'Beban Belanja Bantuan Sosial', 'BEBAN');
+(1, 'Aset Lancar', 'Aset'),
+(2, 'Aset Tidak Lancar', 'Aset'),
+(3, 'Kewajiban Jangka Pendek', 'Liabilitas'),
+(4, 'Kewajiban Jangka Panjang', 'Liabilitas'),
+(5, 'Aset Bersih', 'Aset Netto'),
+(6, 'Pendapatan', 'Penerimaan'),
+(7, 'Pendapatan Dari Kegiatan Operasional', 'Penerimaan'),
+(8, 'Pendapatan Dari Kegiatan Non Operasional', 'Penerimaan'),
+(9, 'Aset Neto yang Berakhir Batasannya', 'Aset Netto'),
+(10, 'Beban Belanja Pegawai', 'Beban'),
+(11, 'Beban Belanja Barang Dan Jasa', 'Beban'),
+(12, 'Beban Belanja Hibah', 'Beban'),
+(13, 'Beban Belanja Bantuan Sosial', 'Beban');
 
 
 CREATE TABLE acc_akun(
@@ -353,3 +353,39 @@ select fn_hitung_budget_parent_proyek(4,'');
 select * from acc_proyek;
 */
 $$language plpgsql;
+
+CREATE OR REPLACE FUNCTION fn_akun_tree()
+  RETURNS SETOF record AS
+$BODY$
+declare
+	rcd	 record;
+begin
+for rcd in
+	WITH RECURSIVE nodes_akun AS (
+		SELECT k.grup, k.nama kelompok, a.id, a.kode, a.id_parent, a.nama, a.kode::TEXT AS path
+		FROM acc_akun AS a
+		inner join acc_kelompok_akun k on k.id=a.id_kelompok
+		WHERE a.id_parent is null
+	    UNION ALL
+	    SELECT k.grup, k.nama kelompok, c.id, c.kode, c.id_parent, c.nama, (p.path || '->' || c.kode::TEXT) AS path
+		FROM nodes_akun AS p
+		inner join acc_akun AS c on c.id_parent = p.id
+		inner join acc_kelompok_akun k on k.id=c.id_kelompok
+	)
+	(
+	    ---SELECT kode, parent_id, nama, '' as path FROM m_unit_organisasi_kerja WHERE parent_id is null
+	    --UNION ALL
+	    SELECT * FROM nodes_akun ORDER BY path ASC
+	)
+	
+LOOP
+	return next rcd ;
+END LOOP;
+/*
+select * from fn_akun_tree() as (grup varchar, kelompok varchar, id integer, kode varchar, parent_id integer, nama varchar, path text)
+where parent_id is null
+*/
+return;
+end
+$BODY$
+  LANGUAGE plpgsql VOLATILE;
