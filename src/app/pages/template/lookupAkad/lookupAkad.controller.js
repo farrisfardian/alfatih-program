@@ -59,19 +59,20 @@
             dataAdapter.dataBind();
             $("#sumberDanaGrid").on('rowselect', function (event) {
                 console.log('event.args', event.args);
-//                if(event.args.row==undefined){
-//                    return;
-//                }
-                var sdId = event.args.row.id;
-                var dataSource = {
-                    dataType: "json",
-                    datafields: dataFields,
-                    url: '/api/akuntansi/akad-sumberdana/filter-by-sumberdana/' + sdId,
-                };
-                var adapter = new $.jqx.dataAdapter(dataSource);
+                if (event.args.row == undefined) {
+                    return;
+                } else {
+                    var sdId = event.args.row.id;
+                    var dataSource = {
+                        dataType: "json",
+                        datafields: dataFields,
+                        url: '/api/akuntansi/akad-sumberdana/filter-by-sumberdana/' + sdId,
+                    };
+                    var adapter = new $.jqx.dataAdapter(dataSource);
 
-                // update data source.
-                $("#akadGrid").jqxGrid({source: adapter});
+                    // update data source.
+                    $("#akadGrid").jqxGrid({source: adapter});
+                }
             });
 
             $("#akadGrid").jqxGrid({

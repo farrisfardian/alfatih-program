@@ -36,8 +36,8 @@
                     </td>
                     <td> : </td>
                     <td colspan="4">
-                        <jqx-input jqx-width="600" jqx-height="25" id="txtKeterangan" ng-model="vm.data.keterangan"></jqx-input>
-                    </td>
+                <jqx-input jqx-width="600" jqx-height="25" id="txtKeterangan" ng-model="vm.data.keterangan"></jqx-input>
+                </td>
                 </tr>
                 <tr>
                     <td>
@@ -45,15 +45,21 @@
                     </td>
                     <td> : </td>
                     <td>
-                        <jqx-input jqx-width="100" jqx-height="25" id="txtKurs"></jqx-input>
-                        <jqx-button jqx-instance="buttonInstance" >...</jqx-button>
+                <jqx-input jqx-width="100" jqx-height="25" id="txtKurs"></jqx-input>
+                <jqx-button jqx-instance="buttonInstance" >...</jqx-button>
                 </td>
                 <td style="text-align:right">
                     Akun Kas/ Bank
                 </td>
                 <td> : </td>
                 <td>
-                <jqx-combo-box jqx-settings="comboboxSettings"></jqx-combo-box>
+                    <!--<jqx-combo-box jqx-settings="comboboxSettings"></jqx-combo-box>-->
+                <ui-select data-ng-model="vm.data.akunKasBank" name="akunKB" class="btn-group bootstrap-select form-control">
+                    <ui-select-match placeholder="Pilih Akun Kas/ Bank">[{{$select.selected.kode}}] {{$select.selected.nama}}</ui-select-match>
+                    <ui-select-choices data-repeat="i in vm.listKasBank | filter: $select.search">
+                        <div data-ng-bind-html="'['+i.kode+'] '+ i.nama | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
                 </td>
                 </tr>
                 <tr>

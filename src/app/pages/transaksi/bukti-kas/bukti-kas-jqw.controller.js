@@ -6,7 +6,7 @@
 
     /** @ngInject */
     function BuktiKasControllerJqw($scope, $uibModal, $log, toastr, BuktiKasService, MataUangService, EnumService,
-            AkunService, ParseLinks, AlertService, UnitService, $state, $stateParams) {
+            AkunService, JurnalService, $state, $stateParams) {
         var vm = this;
         vm.clear = clear;
         vm.tambahDetail = tambahDetail;
@@ -18,7 +18,7 @@
         vm.cariAkunMasterByKode = cariAkunMasterByKode;
         vm.save = save;
         vm.hapusItem = hapusItem;
-        vm.selectedRow =-1;
+        vm.selectedRow = -1;
         var dataFields = [
             {name: 'idAkun', map: 'akun>id'},
             {name: 'kode', map: 'akun>kode'},
@@ -67,9 +67,9 @@
             console.log('vm.data', vm.data);
             vm.isSaving = true;
             if (vm.data.id !== null && vm.data.id !== undefined) {
-                BuktiKasService.update(vm.data, onSaveSuccess, onSaveError);
+                JurnalService.update(vm.data, onSaveSuccess, onSaveError);
             } else {
-                BuktiKasService.save(vm.data, onSaveSuccess, onSaveError);
+                JurnalService.save(vm.data, onSaveSuccess, onSaveError);
             }
         }
 
@@ -602,19 +602,68 @@
             console.log('row', $("#jqxgrid").jqxGrid('getrows'));
             var rows = $('#jqxgrid').jqxGrid('getrows');
             var result = "";
-            for (var i = 0; i < rows.length; i++)
-            {
+
+            var det = [];
+            det.push({
+                keterangan: vm.data.keterangan,
+                debet: vm.data.debet,
+                kredit: vm.data.kredit,
+                rate: vm.data.rate,
+                akun: vm.data.akunKasBank,
+                proyek: null,
+                program: null,
+                akadSumberDana: vm.data.akadSumberDana,
+                urut: 1
+            });
+            var tot = 0;
+            for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                result += row.firstname + " " + row.lastname + " " + row.productname + " " + row.date + " " + row.quantity + " " + row.price + "\n";
+                console.log('row', row);
+                det.push({
+                    keterangan: row.keterangan,
+                    debet: row.debet,
+                    kredit: row.kredit,
+                    rate: 1,
+                    akun: {id: row.idAkun},
+                    proyek: row.idProyek == null ? null : {id: row.idProyek},
+                    program: row.idProgram == null ? null : {id: row.idProgram},
+                    akadSumberDana: row.idAkad == null ? null : {id: row.idAkad},
+                    urut: i + 2
+                });
+                tot += row.debet - row.kredit;
             }
+            var url = $state.current.url;
+
+            det[0].debet = tot<0? Math.abs(tot): tot;
+            det[0].kredit = tot>0? tot: 0;
+            vm.data = {
+                noVoucher: vm.data.noVoucer,
+                tanggal: vm.data.tanggal,
+                keterangan: vm.data.keterangan,
+                terimaDari: vm.data.terimaDari,
+                multiCurrency: false,
+                cabang: {id: 1},
+                listJurnalDetail: det
+            };
+            
+            
+            if (url.indexOf('bkm') > -1) {
+                console.log('masuk');
+                vm.data.dokumen = {id: 'BKM'};
+            }else{
+                console.log('masuk');
+                vm.data.dokumen = {id: 'BKK'};
+            }
+            console.log('simpan', vm.data);
+            console.log('tot', tot);
+            save();
+            
         });
         $('#jqxgrid').on('cellvaluechanged', function (event) {
-            console.log('cellvaluechanged', event)
-            console.log('rowSelect', event.args.row);
-            if(event.args.datafield=='debet' && event.args.newvalue>0){
+            if (event.args.datafield == 'debet' && event.args.newvalue > 0) {
                 $("#jqxgrid").jqxGrid('setcellvalue', 0, 'kredit', 0);
             }
-            if(event.args.datafield=='kredit' && event.args.newvalue>0){
+            if (event.args.datafield == 'kredit' && event.args.newvalue > 0) {
                 $("#jqxgrid").jqxGrid('setcellvalue', 0, 'debet', 0);
             }
         });

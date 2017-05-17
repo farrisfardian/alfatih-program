@@ -54,6 +54,8 @@ public class JurnalDetail {
     @JoinColumn(name = "id_jurnal")
     @JsonBackReference
     private Jurnal jurnal;
+    
+    private Integer urut;
 
     public String getId() {
         return id;
@@ -134,4 +136,13 @@ public class JurnalDetail {
     public void setProgram(Program program) {
         this.program = program;
     }
+
+    public Integer getUrut() {
+        return urut;
+    }
+
+    public void setUrut(Integer urut) {
+        this.urut = urut;
+    }
+    
 }
