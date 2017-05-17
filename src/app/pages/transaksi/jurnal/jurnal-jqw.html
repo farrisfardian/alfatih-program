@@ -1,133 +1,169 @@
 <div class="widgets">
-    <form name="form1">
+    <form class="form-horizontal" name="form1">
         <div class="row">
-            <div class="col-md-12">
-                <div ba-panel ba-panel-title="Entri Jurnal" ba-panel-class="with-scroll">
-                    <div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="control-label" for="nomor">Nomor</label>
-                                </div>
-                                <div class="col-md-4" ng-class="{error: form1.nomor.$invalid}">
-                                    <input name="nomor" type="text" class="form-control input-sm" id="nomor" ng-model="vm.data.nomor" autofocus/>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label" for="cabang">Cabang</label>
-                                </div>
-                                <div class="col-md-4" ng-class="{error: form1.cabang.$invalid}">
-                                    <ui-select data-ng-model="vm.data.cabang" name="cabang">
-                                        <ui-select-match placeholder="Pilih Cabang">{{$select.selected.nama}}</ui-select-match>
-                                        <ui-select-choices data-repeat="i in vm.listCabang | filter: $select.search">
-                                            <div data-ng-bind-html="i.nama | highlight: $select.search"></div>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="control-label" for="tanggal">Tanggal</label>
-                                </div>
-                                <div class="col-md-4" ng-class="{error: form1.tanggal.$invalid}">
-                                    <div class="input-group">
-                                        <input class="form-control input-sm" datetimepicker ng-model="vm.data.tanggal" options="dateOptions" name="tanggal"/>
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-<!--                        <div class="form-group">
-                            <div class="row">                                
-                                <div class="col-md-2">
-                                    <label class="control-label" for="multiCurrency">Multi Currency</label>
-                                </div>
-                                <div class="col-md-4" ng-class="{error: form1.multiCurrency.$invalid}">
-                                    <input name="multiCurrency" type="checkbox" class="form-control input-sm pull-left" id="multiCurrency" ng-model="vm.data.multiCurrency"  autofocus/>
-                                </div>
-                            </div>
-                        </div>-->
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="control-label" for="uraian">Uraian</label>
-                                </div>
-                                <div class="col-md-10" ng-class="{error: form1.uraian.$invalid}">
-                                    <textarea name="uraian" class="form-control input-sm" id="uraian" ng-model="vm.data.uraian" autofocus rows="2" ></textarea>
-                                </div>                    
-                            </div>
-                        </div>
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+                <tr >
+                    <td width="80%" style="vertical-align: top">
+                        <table width="100%" >
+                            <tr>
+                                <td width="10%">
+                                    No. Voucher 
+                                </td>
+                                <td  width="2%"> : </td>
+                                <td  width="15%">
+                            <jqx-input jqx-width="180" jqx-height="25" id="txtNoVoucher" ng-model="vm.data.noVoucher"></jqx-input>
+                    </td>
+                    <td  width="15%" style="text-align:right">
+                        Tanggal 
+                    </td>
+                    <td  width="2%"> : </td>
+                    <td width="66%">
+                <jqx-date-time-input ng-model="vm.data.tanggal" jqx-width="150" jqx-height="25" id="birthInput"></jqx-date-time-input>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        Terima Dari
+                    </td>
+                    <td> : </td>
+                    <td colspan="4">
+                <jqx-input jqx-width="600" jqx-height="25" id="txtTerimaDari" ng-model="vm.data.terimaDari"></jqx-input>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        Keterangan
+                    </td>
+                    <td> : </td>
+                    <td colspan="4">
+                <jqx-input jqx-width="600" jqx-height="25" id="txtKeterangan" ng-model="vm.data.keterangan"></jqx-input>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kurs Transaksi
+                    </td>
+                    <td> : </td>
+                    <td>
+                <jqx-input jqx-width="100" jqx-height="25" id="txtKurs"></jqx-input>
+                <jqx-button jqx-instance="buttonInstance" >...</jqx-button>
+                </td>
+                <td style="text-align:right">
+                    Akun Kas/ Bank
+                </td>
+                <td> : </td>
+                <td>
+                    <!--<jqx-combo-box jqx-settings="comboboxSettings"></jqx-combo-box>-->
+                <ui-select data-ng-model="vm.data.akunKasBank" name="akunKB" class="btn-group bootstrap-select form-control">
+                    <ui-select-match placeholder="Pilih Akun Kas/ Bank">[{{$select.selected.kode}}] {{$select.selected.nama}}</ui-select-match>
+                    <ui-select-choices data-repeat="i in vm.listKasBank | filter: $select.search">
+                        <div data-ng-bind-html="'['+i.kode+'] '+ i.nama | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mata Uang
+                    </td>
+                    <td> : </td>
+                    <td>
+                <jqx-input jqx-width="100" jqx-height="25" id="userInput" ng-disabled="true"></jqx-input>
+                </td>
+                <td style="text-align:right">
+                    Akad - Sumber Dana
+                </td>
+                <td> : </td>
+                <td>
+
+                    <div><jqx-input jqx-width="430" jqx-height="25" id="txtAkad" ng-value="vm.data.akadSumberDana.kode + ' -' +vm.data.akadSumberDana.sumberdana" disabled></jqx-input>
+                        <jqx-button jqx-on-click="vm.lookupAkad(null, -1)" >
+                            <img alt='search' width='16' height='16' src='../bower_components/jqwidgets/images/search_lg.png' />
+                        </jqx-button>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <div ba-panel ba-panel-title="Detail" ba-panel-class="with-scroll table-panel">
-                                <div class="horizontal-scroll">
-                                    <table class="table table-bordered table-hover table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 150px"><span>Akun</span></th>
-                                                <th style="width: 250px"><span>Nama</span></th>
-                                                <th style="width: 300px"><span>Uraian</span></th>
-                                                <th style="width: 100px"><span>Debet</span></th>
-                                                <th style="width: 100px"><span>Kredit</span></th>
-                                                <th style="width: 150px"><span>Mata Uang</span></th>
-                                                <th style="width: 150px"><span>Rate</span></th>
-                                                <th style="width: 200px"><span>Akad</span></th>
-                                                <th style="width: 200px"><span>Program</span></th>
-                                                <th style="width: 200px"><span>Proyek</span></th>
-                                                <th>
-                                                    <button class="btn btn-info editable-table-button btn-xs" ng-click="vm.baru()" type="button">Tambah</button>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tr ng-repeat="c in vm.data.listJurnalDetail" style="margin: 0 0 0 0">                          
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.akun.kode}}
-                                            </td>
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.akun.nama}}
-                                            </td>
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.detail}}
-                                            </td>
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.debet|number}}
-                                            </td>
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.kredit|number}}
-                                            </td>
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.akun.mataUang.nama}}
-                                            </td>
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.rate|number}}
-                                            </td>
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.akadDonatur.keterangan}}
-                                            </td>
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.akadDonatur.program.nama}}
-                                            </td>
-                                            <td style="padding: 0 0 0 0">
-                                                {{c.proyek.kode}}
-                                            </td>
-                                        <td>
-                                            <button class="btn btn-pencil editable-table-button btn-xs" type="button" ng-click="vm.ubah(c, $index)">Edit</button>
-                                            <button class="btn btn-danger editable-table-button btn-xs" ng-confirm-message="Anda yakin akan menghapus '{{c.akun.nama}}'?" ng-confirm="vm.hapusItem($index)" type="button">Delete</button>
-                                        </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive">                        
-                    </div>
-                    <button type="button" class="btn btn-primary pull-right" ng-click="vm.save()" ng-disabled="!vm.isBalance() || form1.$invalid">Simpan</button>
-                    <button type="button" class="btn btn-danger pull-right" ng-click="$dismiss()">Batal</button>
-                </div>
+                </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                    </td>
+                </tr>
+            </table>
+            </td>
+            <td style="vertical-align: top">
+                <table width="100%" border="1" style="font-size: 80%">
+                    <tr>
+                        <td width="65%">
+                            Saldo Awal 
+                        </td>
+                        <td style="text-align: right" width="35%">
+                            <b>45,000,000.00</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Saldo Awal Sumber Dana
+                        </td>
+                        <td style="text-align: right" >
+                            <b>45,000,000.00</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Total Terima</b>
+                        </td>
+                        <td style="text-align: right" >
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Saldo Akhir Sumber Dana
+                        </td>
+                        <td style="text-align: right" >
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Saldo Akhir</b>
+                        </td>
+                        <td style="text-align: right" >
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <table border="0">
+                    <tbody>
+                        <tr>&nbsp;</tr>
+                        <tr>
+                            <td>
+                                <input type="button" value="Tambah Baris" id='btnAddRow' />
+                                <input type="button" value="Hapus Baris" id='btnDelRow' />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </td>
+            </tr>
+            </table>
+
+        </div>
+        <br>
+        <div class="row">
+            <!--<jqx-grid jqx-columns="columns" jqx-sortable="true" jqx-source="people" jqx-width="1000" jqx-height="200" jqx-alt-rows="true"></jqx-grid>-->
+            <div id="jqxgrid">
             </div>
         </div>
+
     </form>
+    <div>
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+            <input type="button" value="Batal" id='btnBatal' />
+            <input type="button" value="Simpan" id='btnSimpan' />
+        </div>
+    </div>
 </div>
+
+{{vm.data}}
