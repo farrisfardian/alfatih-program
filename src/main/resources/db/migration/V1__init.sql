@@ -1,3 +1,15 @@
+CREATE TABLE m_dokumen_sumber(
+  id character varying(36) NOT NULL,
+  nama character varying(255),
+  CONSTRAINT m_dokumen_sumber_pkey PRIMARY KEY (id)
+);
+
+insert into m_dokumen_sumber(id, nama) VALUES
+('BKM', 'Bukti Kas Masuk'),
+('BKK', 'Bukti Kas Keluar'),
+('JUM', 'Jurnal Umum'),
+('TST', 'Transaksi Santri');
+
 CREATE TABLE m_tahun_ajaran(
   id serial primary key,
   kode character varying(5) unique not null,
