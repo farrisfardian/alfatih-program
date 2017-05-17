@@ -60,6 +60,13 @@ public class Jurnal {
     @OneToMany(mappedBy = "jurnal", cascade = {javax.persistence.CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<JurnalDetail> listJurnalDetail;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "post_time")
+    private Date postTime;
+    
+    @Column(name = "post_by", length = 50)
+    private String postBy;
 
     public String getId() {
         return id;
@@ -140,4 +147,22 @@ public class Jurnal {
     public void setCabang(Cabang cabang) {
         this.cabang = cabang;
     }
+
+    public Date getPostTime() {
+        return postTime;
+    }
+
+    public void setPostTime(Date postTime) {
+        this.postTime = postTime;
+    }
+
+    public String getPostBy() {
+        return postBy;
+    }
+
+    public void setPostBy(String postBy) {
+        this.postBy = postBy;
+    }
+    
 }
+
