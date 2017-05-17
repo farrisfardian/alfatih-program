@@ -8,6 +8,7 @@ package id.alfatih.web.rest.akuntansi;
 import com.codahale.metrics.annotation.Timed;
 import id.alfatih.domain.akuntansi.Proyek;
 import id.alfatih.model.ProyekDto;
+import id.alfatih.model.ProyekTreeDto;
 import id.alfatih.repository.akuntansi.ProyekRepository;
 import id.alfatih.repository.jdbc.ProyekRepositoryJdbc;
 import id.alfatih.service.util.HeaderUtil;

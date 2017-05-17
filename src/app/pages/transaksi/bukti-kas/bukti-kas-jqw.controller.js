@@ -459,7 +459,44 @@
                                 return editor.find('input').val();
                             }
                         },
-                        {text: 'Keterangan', editable: true, dataField: 'keterangan', width: 250},
+                        {text: 'Keterangan', editable: true, dataField: 'keterangan', width: 250, columntype: 'template',
+                            createeditor: function (row, cellvalue, editor, cellText, width, height) {
+                                // construct the editor.
+                                var inputElement = $("<div><input type='text'  data-row='ket" + row + "'/></div>").prependTo(editor);
+                                inputElement.jqxInput({source: getEditorDataAdapter('keterangan'), displayMember: "keterangan", width: width, height: height});
+                                $(".ket"+row).on('blur', function (event) {
+                                    editClick(event, row);
+                                });
+
+                                var editClick = function (event, row) {
+                                    var target = $(event.target);
+                                    vm.data.detail[editrow].keterangan = $(".ket"+row).val();
+                                    var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
+                                    $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
+                                    var inputField = editor.find('input');
+                                    inputField.jqxInput('val', vm.data.detail[editrow].keterangan);
+                                    bindingGrid();
+                                }
+                            },
+                            initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
+                                editrow = row;
+                                // set the editor's current value. The callback is called each time the editor is displayed.
+                                var inputField = editor.find('input');
+//                                inputField.attr("disabled", "disabled"); 
+                                if (pressedkey) {
+                                    inputField.val(pressedkey);
+                                    inputField.jqxInput('selectLast');
+                                } else {
+                                    inputField.val(cellvalue);
+                                    inputField.jqxInput('selectAll');
+                                }
+
+                            },
+                            geteditorvalue: function (row, cellvalue, editor) {
+                                // return the editor's value.
+                                return editor.find('input').val();
+                            }
+                        },
                         {text: 'Debet', columntype: 'textbox', columngroup: 'jumlah', editable: true, dataField: 'debet', width: 100, cellsAlign: 'right', align: 'right', cellsFormat: 'n'}, //c2
                         {text: 'Kredit', columntype: 'textbox', columngroup: 'jumlah', editable: true, dataField: 'kredit', width: 100, cellsAlign: 'right', align: 'right', cellsFormat: 'n'},
                         {text: '<html>Sumber<br>Dana</html>', align: 'center', editable: true, dataField: 'kodeAkad', width: 80, columntype: 'template',
