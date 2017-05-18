@@ -2,150 +2,44 @@
     <form class="form-horizontal" name="form1">
         <div class="row">
             <table width="100%" border="0" cellspacing="2" cellpadding="2">
-                <tr >
-                    <td width="80%" style="vertical-align: top">
-                        <table width="100%" >
-                            <tr>
-                                <td width="10%">
-                                    No. Voucher 
-                                </td>
-                                <td  width="2%"> : </td>
-                                <td  width="15%">
-                            <jqx-input jqx-width="180" jqx-height="25" id="txtNoVoucher" ng-model="vm.data.noVoucher"></jqx-input>
+                <tr>
+                    <td style="vertical-align: top">
+                        Nomor 
                     </td>
-                    <td  width="15%" style="text-align:right">
-                        Tanggal 
+                    <td style="vertical-align: top;width: 20px">
+                        : 
                     </td>
-                    <td  width="2%"> : </td>
-                    <td width="66%">
+                    <td style="vertical-align: top">
+                <jqx-input jqx-width="180" jqx-height="25" id="txtNoVoucher" ng-model="vm.data.noVoucher"></jqx-input>
+                </td>                
+                <td style="vertical-align: top;">
+                    Tanggal
+                </td>
+                <td style="vertical-align: top;width: 20px">
+                    :
+                </td>
+                <td style="vertical-align: top;">
                 <jqx-date-time-input ng-model="vm.data.tanggal" jqx-width="150" jqx-height="25" id="birthInput"></jqx-date-time-input>
                 </td>
-                </tr>
-                <tr>
-                    <td>
-                        Terima Dari
-                    </td>
-                    <td> : </td>
-                    <td colspan="4">
-                <jqx-input jqx-width="600" jqx-height="25" id="txtTerimaDari" ng-model="vm.data.terimaDari"></jqx-input>
-                </td>
-                </tr>
+
+                </tr>                
                 <tr>
                     <td>
                         Keterangan
                     </td>
-                    <td> : </td>
+                    <td>
+                        :
+                    </td>
                     <td colspan="4">
-                <jqx-input jqx-width="600" jqx-height="25" id="txtKeterangan" ng-model="vm.data.keterangan"></jqx-input>
+                <jqx-input jqx-width="800" jqx-height="25" id="txtKeterangan" ng-model="vm.data.keterangan"></jqx-input>
                 </td>
                 </tr>
                 <tr>
-                    <td>
-                        Kurs Transaksi
-                    </td>
-                    <td> : </td>
-                    <td>
-                <jqx-input jqx-width="100" jqx-height="25" id="txtKurs"></jqx-input>
-                <jqx-button jqx-instance="buttonInstance" >...</jqx-button>
-                </td>
-                <td style="text-align:right">
-                    Akun Kas/ Bank
-                </td>
-                <td> : </td>
-                <td>
-                    <!--<jqx-combo-box jqx-settings="comboboxSettings"></jqx-combo-box>-->
-                <ui-select data-ng-model="vm.data.akunKasBank" name="akunKB" class="btn-group bootstrap-select form-control">
-                    <ui-select-match placeholder="Pilih Akun Kas/ Bank">[{{$select.selected.kode}}] {{$select.selected.nama}}</ui-select-match>
-                    <ui-select-choices data-repeat="i in vm.listKasBank | filter: $select.search">
-                        <div data-ng-bind-html="'['+i.kode+'] '+ i.nama | highlight: $select.search"></div>
-                    </ui-select-choices>
-                </ui-select>
-                </td>
-                </tr>
-                <tr>
-                    <td>
-                        Mata Uang
-                    </td>
-                    <td> : </td>
-                    <td>
-                <jqx-input jqx-width="100" jqx-height="25" id="userInput" ng-disabled="true"></jqx-input>
-                </td>
-                <td style="text-align:right">
-                    Akad - Sumber Dana
-                </td>
-                <td> : </td>
-                <td>
-
-                    <div><jqx-input jqx-width="430" jqx-height="25" id="txtAkad" ng-value="vm.data.akadSumberDana.kode + ' -' +vm.data.akadSumberDana.sumberdana" disabled></jqx-input>
-                        <jqx-button jqx-on-click="vm.lookupAkad(null, -1)" >
-                            <img alt='search' width='16' height='16' src='../bower_components/jqwidgets/images/search_lg.png' />
-                        </jqx-button>
-                    </div>
-                </td>
-                </tr>
-                <tr>
-                    <td colspan="5">
+                    <td style="vertical-align: top" colspan="6">
+                        <input type="button" value="Tambah Baris" id='btnAddRow' class="pull-right"/>
+                        <input type="button" value="Hapus Baris" id='btnDelRow'  class="pull-right"/>
                     </td>
                 </tr>
-            </table>
-            </td>
-            <td style="vertical-align: top">
-                <table width="100%" border="1" style="font-size: 80%">
-                    <tr>
-                        <td width="65%">
-                            Saldo Awal 
-                        </td>
-                        <td style="text-align: right" width="35%">
-                            <b>45,000,000.00</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Saldo Awal Sumber Dana
-                        </td>
-                        <td style="text-align: right" >
-                            <b>45,000,000.00</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Total Terima</b>
-                        </td>
-                        <td style="text-align: right" >
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Saldo Akhir Sumber Dana
-                        </td>
-                        <td style="text-align: right" >
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Saldo Akhir</b>
-                        </td>
-                        <td style="text-align: right" >
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <table border="0">
-                    <tbody>
-                        <tr>&nbsp;</tr>
-                        <tr>
-                            <td>
-                                <input type="button" value="Tambah Baris" id='btnAddRow' />
-                                <input type="button" value="Hapus Baris" id='btnDelRow' />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </td>
-            </tr>
             </table>
 
         </div>

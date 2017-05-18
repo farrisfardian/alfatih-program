@@ -11,8 +11,8 @@
         $stateProvider
                 .state('transaksi.jurnal', {
                     url: '/jurnal/:id',
-                    templateUrl: 'app/pages/transaksi/jurnal/jurnal.html',
-                    controller: 'JurnalController',
+                    templateUrl: 'app/pages/transaksi/jurnal/jurnal-jqw.html',
+                    controller: 'JurnalJqwController',
                     controllerAs: 'vm',
                     title: 'Entri Jurnal',
                     data: {
