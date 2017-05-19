@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PosisiKeuanganSum" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8b8267d0-91b9-4c3d-9aa0-aa87584bfbdd">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from fn_acc_rpt_posisi_keuangan_sum(1, '2017-03-01', '2017-03-31') as (grup varchar, kelompok varchar, kode varchar, nama varchar, total numeric)]]>
+	</queryString>
+	<field name="grup" class="java.lang.String"/>
+	<field name="kelompok" class="java.lang.String"/>
+	<field name="kode" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<variable name="totKelompok" class="java.math.BigDecimal" resetType="Group" resetGroup="kelompok" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="totNeraca" class="java.math.BigDecimal" resetType="Group" resetGroup="neraca" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<group name="neraca">
+		<groupExpression><![CDATA[$F{grup}.equalsIgnoreCase( "Aset" )? $F{grup}: "Liabilitas dan Aset Netto"]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<textField>
+					<reportElement x="0" y="0" width="484" height="13" forecolor="#0000FF" uuid="aa0eb856-90b1-4ce7-918b-5e5526d65626"/>
+					<box topPadding="2" leftPadding="2">
+						<topPen lineWidth="0.75" lineColor="#000000"/>
+						<bottomPen lineWidth="1.25" lineStyle="Double" lineColor="#000000"/>
+						<rightPen lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total " + ($F{grup}.equalsIgnoreCase( "Aset" )? $F{grup}: "Liabilitas dan Aset Netto") + " : "]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="484" y="0" width="71" height="13" forecolor="#0000FF" uuid="8f4eb4a4-5f65-486b-a47e-5ca566ee8695"/>
+					<box topPadding="2" leftPadding="2">
+						<topPen lineWidth="0.75" lineColor="#000000"/>
+						<bottomPen lineWidth="1.25" lineStyle="Double" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totNeraca}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="grup">
+		<groupExpression><![CDATA[$F{grup}]]></groupExpression>
+		<groupHeader>
+			<band height="13">
+				<textField>
+					<reportElement x="0" y="0" width="555" height="13" forecolor="#0000FF" uuid="f9cb0083-16c6-49eb-b446-c7fa5aa6c743"/>
+					<box topPadding="2" leftPadding="2"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{grup}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="kelompok">
+		<groupExpression><![CDATA[$F{kelompok}]]></groupExpression>
+		<groupHeader>
+			<band height="13">
+				<textField>
+					<reportElement x="11" y="0" width="544" height="13" uuid="5c1d62c5-41f5-4e67-95f7-329a95682ffc"/>
+					<box topPadding="2" leftPadding="2"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{kelompok}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13">
+				<textField pattern="#,##0.00">
+					<reportElement x="484" y="0" width="71" height="13" uuid="9c8b9f27-0547-4bd2-a546-09882ce34aa2"/>
+					<box topPadding="2" leftPadding="2">
+						<topPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totKelompok}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="484" height="13" uuid="397721c3-2917-4d98-b54a-ce89e0dc5de8"/>
+					<box topPadding="2" leftPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total " + $F{kelompok} + " : "]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="14" uuid="69484c2a-0ffa-40ad-a8a0-1e1665fa3db8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Posisi Keuangan]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement x="484" y="0" width="71" height="13" uuid="0b561a39-fc2e-4c95-b5de-e97b70c25011"/>
+				<box topPadding="2" leftPadding="2"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="26" y="0" width="458" height="13" uuid="290f7433-a1f1-4cd5-9608-1e2accd54b45"/>
+				<box topPadding="2" leftPadding="2"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

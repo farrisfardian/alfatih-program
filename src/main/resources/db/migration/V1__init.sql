@@ -43,7 +43,7 @@ CREATE TABLE m_unit
   id_parent integer,
   id_cabang integer references m_cabang(id),
   CONSTRAINT fknjjpk5o3sv3c335e7y2kosfw6 FOREIGN KEY (id_parent)
-      REFERENCES public.m_unit (id) MATCH SIMPLE
+      REFERENCES m_unit (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT uk_bw1y3c716f90o50go30x2tox0 UNIQUE (nama)
 );
@@ -52,6 +52,24 @@ insert into m_unit(nama, id_cabang) VALUES
 ('Kuttab Al Fatih Depok', 1),
 ('Kuttab Al Fatih Bandung', 1),
 ('Akademi Guru', 1);
+
+CREATE TABLE acc_sumber_dana(
+  id serial primary key,
+  alamat character varying(255),
+  email character varying(255),
+  fax character varying(255),
+  kode character varying(255) NOT NULL unique,
+  nama character varying(255),
+  selisih_kurs boolean,
+  telepon character varying(255),
+  web character varying(255)
+);
+
+insert into acc_sumber_dana(kode, nama) VALUES
+('TWF', 'TAWAF'),
+('PJKP', 'PENDAPATAN JASA KERJASAMA PENDIDIKAN'),
+('PJLP', 'PENDAPATAN JASA LAYANAN PENDIDIKAN'),
+('KPKAF', 'KONTRIBUSI PENDAPATAN PROGRAM');
 
 CREATE TABLE acc_program(
   id serial primary key,
@@ -68,13 +86,13 @@ CREATE TABLE acc_program(
   id_tahun_ajaran integer,
   id_unit integer,
   CONSTRAINT fk7y22o9mmsq19ew7ljuokyyoum FOREIGN KEY (id_parent)
-      REFERENCES public.acc_program (id) MATCH SIMPLE
+      REFERENCES acc_program (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fkd95i8yxt414aha1o46yqbkivi FOREIGN KEY (id_unit)
-      REFERENCES public.m_unit (id) MATCH SIMPLE
+      REFERENCES m_unit (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fkhogbv404cdrmduh7nus0pdktr FOREIGN KEY (id_tahun_ajaran)
-      REFERENCES public.m_tahun_ajaran (id) MATCH SIMPLE
+      REFERENCES m_tahun_ajaran (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT uk_c3i4w7540b5buhn7wkhkmpa1x UNIQUE (kode),
   CONSTRAINT uk_tc27muxb1mwpcnvgcd6khwn86 UNIQUE (nama)
@@ -135,13 +153,13 @@ CREATE TABLE acc_akun(
   created_by varchar(50) not null,
   created_date timestamp not null default  now(),
   CONSTRAINT fk12h25ebnmpekf8ayo96ugbdn FOREIGN KEY (id_kelompok)
-      REFERENCES public.acc_kelompok_akun (id) MATCH SIMPLE
+      REFERENCES acc_kelompok_akun (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fk6ytrhoe25ftj0tapn855n67as FOREIGN KEY (id_parent)
-      REFERENCES public.acc_akun (id) MATCH SIMPLE
+      REFERENCES acc_akun (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fkftb47oqwkt9ocj97r68taoiuj FOREIGN KEY (id_mata_uang)
-      REFERENCES public.acc_mata_uang (id) MATCH SIMPLE
+      REFERENCES acc_mata_uang (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT uk_3p7ki0qt8cfjbyo8cxn4enulc UNIQUE (nama),
   CONSTRAINT uk_n5ex4q846oja1lipmcewduem2 UNIQUE (kode)
@@ -354,38 +372,22 @@ select * from acc_proyek;
 */
 $$language plpgsql;
 
-CREATE OR REPLACE FUNCTION fn_akun_tree()
-  RETURNS SETOF record AS
-$BODY$
-declare
-	rcd	 record;
-begin
-for rcd in
-	WITH RECURSIVE nodes_akun AS (
-		SELECT k.grup, k.nama kelompok, a.id, a.kode, a.id_parent, a.nama, a.kode::TEXT AS path
-		FROM acc_akun AS a
-		inner join acc_kelompok_akun k on k.id=a.id_kelompok
-		WHERE a.id_parent is null
-	    UNION ALL
-	    SELECT k.grup, k.nama kelompok, c.id, c.kode, c.id_parent, c.nama, (p.path || '->' || c.kode::TEXT) AS path
-		FROM nodes_akun AS p
-		inner join acc_akun AS c on c.id_parent = p.id
-		inner join acc_kelompok_akun k on k.id=c.id_kelompok
-	)
-	(
-	    ---SELECT kode, parent_id, nama, '' as path FROM m_unit_organisasi_kerja WHERE parent_id is null
-	    --UNION ALL
-	    SELECT * FROM nodes_akun ORDER BY path ASC
-	)
-	
-LOOP
-	return next rcd ;
-END LOOP;
-/*
-select * from fn_akun_tree() as (grup varchar, kelompok varchar, id integer, kode varchar, parent_id integer, nama varchar, path text)
-where parent_id is null
-*/
-return;
-end
-$BODY$
-  LANGUAGE plpgsql VOLATILE;
+create view vw_akun_tree 
+as
+WITH RECURSIVE nodes_akun AS (
+	SELECT k.grup, k.nama kelompok, a.id, a.kode, a.id_parent, a.nama, a.kode::TEXT AS path
+	FROM acc_akun AS a
+	inner join acc_kelompok_akun k on k.id=a.id_kelompok
+	WHERE a.id_parent is null
+    UNION ALL
+    SELECT k.grup, k.nama kelompok, c.id, c.kode, c.id_parent, c.nama, (p.path || '->' || c.kode::TEXT) AS path
+	FROM nodes_akun AS p
+	inner join acc_akun AS c on c.id_parent = p.id
+	inner join acc_kelompok_akun k on k.id=c.id_kelompok
+)
+(
+    ---SELECT kode, parent_id, nama, '' as path FROM m_unit_organisasi_kerja WHERE parent_id is null
+    --UNION ALL
+    SELECT * FROM nodes_akun ORDER BY path ASC
+)
+
