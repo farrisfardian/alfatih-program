@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -160,6 +161,22 @@ public class JurnalResource {
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, akun.getId().toString()))
                 .body(result);
+    }
+
+    @RequestMapping(value = "/posting/{ids}", method = RequestMethod.PUT)
+    @Timed
+    public ModelMap postingJurnal(@PathVariable String ids) throws URISyntaxException {
+        log.debug("REST request to update Jurnal : {}", ids);
+        String[] listId = ids.split(",");
+        for (int i = 0; i < listId.length; i++) {
+            Jurnal findOne = repository.findOne(listId[i]);
+            findOne.setPostTime(new Date());
+            findOne.setPostBy("system");
+            repository.save(findOne);
+        }
+        ModelMap map = new ModelMap();
+        map.addAttribute("data", "Sukses Posting Ya Akhi!!");
+        return map;
     }
 
     /**
