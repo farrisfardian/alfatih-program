@@ -638,7 +638,7 @@
             det[0].debet = tot<0? Math.abs(tot): tot;
             det[0].kredit = tot>0? tot: 0;
             vm.data = {
-                noVoucher: vm.data.noVoucer,
+                noVoucher: vm.data.noVoucher,
                 tanggal: vm.data.tanggal,
                 keterangan: vm.data.keterangan,
                 terimaDari: vm.data.terimaDari,

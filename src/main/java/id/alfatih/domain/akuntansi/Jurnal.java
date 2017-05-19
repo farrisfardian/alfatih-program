@@ -22,7 +22,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -39,6 +41,8 @@ public class Jurnal {
     private String id;
 
     @Column(name = "no_voucher")
+    @NotNull
+    @NotBlank
     private String noVoucher;
     @Temporal(TemporalType.DATE)
     @Column

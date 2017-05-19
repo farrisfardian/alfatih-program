@@ -1,12 +1,13 @@
 <div class="widgets">
     <form class="form-horizontal" name="form1">
-        <div class="row">            
-
+        <div class="row"> 
+            <jqx-button jqx-width="100" jqx-on-click="vm.selectAll(event)">Select All</jqx-button>
+            <jqx-button jqx-width="100" jqx-on-click="vm.deselectAll(event)">Deselect All</jqx-button>
+            <jqx-button jqx-width="100" jqx-on-click="vm.toggle(event)">Toggle</jqx-button>
         </div>
         <br>
         <div class="row">
             <jqx-grid jqx-settings="jurnalGridSettings" jqx-create="jurnalGridSettings" jqx-instance="jurnalGrid"></jqx-grid>
-            {{dataJurnal}}
             <h3>
                 Detail</h3>
             <jqx-grid jqx-settings="detailGridSettings" jqx-create="detailGridSettings" jqx-instance="detailGrid"></jqx-grid>
