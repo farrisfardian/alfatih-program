@@ -130,8 +130,15 @@
                         "name": "transaksi.jurnal",
                         "title": "Jurnal",
                         "level": 1,
-                        "order": 200,
+                        "order": 101,
                         "stateRef": "transaksi.jurnal"
+                    },
+                    {
+                        "name": "transaksi.posting",
+                        "title": "Posting",
+                        "level": 1,
+                        "order": 102,
+                        "stateRef": "transaksi.posting"
                     },
                     {
                         "name": "transaksi.akad-sumberdana",

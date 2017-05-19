@@ -1,0 +1,23 @@
+<div class="widgets">
+    <form class="form-horizontal" name="form1">
+        <div class="row">            
+
+        </div>
+        <br>
+        <div class="row">
+            <jqx-grid jqx-settings="jurnalGridSettings" jqx-create="jurnalGridSettings" jqx-instance="jurnalGrid"></jqx-grid>
+            {{dataJurnal}}
+            <h3>
+                Detail</h3>
+            <jqx-grid jqx-settings="detailGridSettings" jqx-create="detailGridSettings" jqx-instance="detailGrid"></jqx-grid>
+        </div>
+</div>
+<div>
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+        <input type="button" value="Batal" id='btnBatal' />
+        <input type="button" value="Simpan" id='btnSimpan' />
+    </div>
+</div>
+
+{{vm.data}}

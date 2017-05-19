@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -67,6 +68,9 @@ public class Jurnal {
     
     @Column(name = "post_by", length = 50)
     private String postBy;
+    
+    @Transient
+    private Boolean selected;
 
     public String getId() {
         return id;
@@ -162,6 +166,14 @@ public class Jurnal {
 
     public void setPostBy(String postBy) {
         this.postBy = postBy;
+    }
+
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
     }
     
 }
