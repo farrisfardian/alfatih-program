@@ -8,10 +8,10 @@
     JurnalService.inject = ['$http', '$resource'];
 
     function JurnalService($http, $resource) {
-        var resourceUrl =  'api/akuntansi/jurnal/:id/:cari';
+        var resourceUrl = 'api/akuntansi/jurnal/:id/:cari';
 
         return $resource(resourceUrl, {id: "@id", cari: "@cari"}, {
-            'query': { method: 'GET', isArray: true},
+            'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
@@ -21,7 +21,7 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' },
+            'update': {method: 'PUT'},
             'cariSemua': {
                 method: 'GET', isArray: true,
                 transformResponse: function (data, header) {
@@ -31,7 +31,8 @@
                     return data;
 
                 }
-            }
+            },
+            'putMultiple': {method: 'PUT'},
         });
     }
 

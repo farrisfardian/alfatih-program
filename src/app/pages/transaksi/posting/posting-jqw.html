@@ -4,6 +4,7 @@
             <jqx-button jqx-width="100" jqx-on-click="vm.selectAll(event)">Select All</jqx-button>
             <jqx-button jqx-width="100" jqx-on-click="vm.deselectAll(event)">Deselect All</jqx-button>
             <jqx-button jqx-width="100" jqx-on-click="vm.toggle(event)">Toggle</jqx-button>
+            <jqx-button jqx-width="100" jqx-on-click="vm.posting()" ng-show="vm.isSelected()">Posting</jqx-button>
         </div>
         <br>
         <div class="row">
@@ -12,13 +13,6 @@
                 Detail</h3>
             <jqx-grid jqx-settings="detailGridSettings" jqx-create="detailGridSettings" jqx-instance="detailGrid"></jqx-grid>
         </div>
+        <div class="row"> 
+        </div>
 </div>
-<div>
-    <div class="col-md-9"></div>
-    <div class="col-md-3">
-        <input type="button" value="Batal" id='btnBatal' />
-        <input type="button" value="Simpan" id='btnSimpan' />
-    </div>
-</div>
-
-{{vm.data}}

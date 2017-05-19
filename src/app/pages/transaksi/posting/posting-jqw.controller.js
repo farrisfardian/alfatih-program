@@ -16,14 +16,21 @@
         vm.selectAll = selectAll;
         vm.deselectAll = deselectAll;
         vm.toggle = toggle;
+        vm.posting = posting;
+        vm.isSelected = isSelected;
+        vm.posted = "";
 
-        JurnalService.query({id: 'outstanding-all'},
-                function (data) {
-                    initGrid(data);
-                }, function (error) {
-            toastr.error('Gagal mencari data');
+
+        init();
+        function init() {
+            JurnalService.query({id: 'outstanding-all'},
+                    function (data) {
+                        initGrid(data);
+                    }, function (error) {
+                toastr.error('Gagal mencari data');
+            }
+            );
         }
-        );
         function initGrid(data) {
             $scope.dataJurnal = data;
             initJurnal();
@@ -65,8 +72,8 @@
                         cellendedit: function (event) {
                             console.log('event', event);
                             for (var i = 0; i < $scope.dataJurnal.length; i++) {
-                                if ($scope.dataJurnal[i].id===event.args.row.id) {
-                                    $scope.dataJurnal[i].selected=event.args.value;
+                                if ($scope.dataJurnal[i].id === event.args.row.id) {
+                                    $scope.dataJurnal[i].selected = event.args.value;
                                 }
                             }
                         }
@@ -133,6 +140,33 @@
                 $scope.dataJurnal[i].selected = !$scope.dataJurnal[i].selected;
             }
             initJurnal();
+        }
+        function isSelected() {
+            var ok = false;
+            for (var i = 0; i < $scope.dataJurnal.length; i++) {
+                if ($scope.dataJurnal[i].selected === true) {
+                    ok = true;
+                }
+            }
+            return ok;
+        }
+        function posting() {
+            vm.posted = "";
+            for (var i = 0; i < $scope.dataJurnal.length; i++) {
+                if ($scope.dataJurnal[i].selected === true) {
+                    if (i > 0) {
+                        vm.posted += ",";
+                    }
+                    vm.posted += $scope.dataJurnal[i].id;
+                }
+            }
+            console.log('posted', vm.posted);
+            JurnalService.putMultiple({id: "posting", cari: vm.posted}, function (data) {
+                toastr.success(data.data);
+                init();
+            }, function (error) {
+                toastr.error(error);
+            });
         }
     }
 
