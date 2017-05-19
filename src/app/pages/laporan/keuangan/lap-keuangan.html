@@ -1,9 +1,92 @@
-<!--<div id="ownerPanel" style="height: 300px; width:800px;">-->
-<div >
-    <div id="content">
-        <div id='jqxWidget'>
+<div class="widgets">
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 rapat">
+            <div ba-panel ba-panel-title="Sumber Dana" ba-panel-class="panel">
+                <label><input type="radio" name="optradio" ng-model="tipeSumberDana" value="konsolidasi"> Konsilidasi </label> &nbsp; &nbsp;
+                <label><input type="radio" name="optradio" ng-model="tipeSumberDana" value="perdonor"> Per Donor </label>
+            </div>
         </div>
     </div>
-</div>
-<div style="padding-top: 20px; clear:both;">
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-xs-12 col-sm-12 rapat">
+            <div ba-panel ba-panel-title="Jenis Laporan" ba-panel-class="panel">
+                <div id='jqxListBox'>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-xs-12 col-sm-12 rapat">
+            <row>
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 rapat">
+                    <div ba-panel ba-panel-title="Periode Laporan" ba-panel-class="panel">
+                        <table border="0" cellpadding="2">
+                            <tbody>
+                                <tr>
+                                    <td><input type="radio" name="radioPeriode" ng-model="tipePeriode" value="bulanan"> &nbsp;Bulanan</td>
+                                    <td ng-show="tipePeriode == 'bulanan'"> &nbsp; : &nbsp; </td>
+                                    <td ng-show="tipePeriode == 'bulanan'">
+                                        <select class="form-control" style="width: 150px">
+                                            <option class="form-control" style="width: 150px" ng-repeat="bl in vm.listBulan" value="{{bl.kode}}">{{bl.nama}}</option>
+                                        </select>
+                                    </td>
+                                    <td ng-show="tipePeriode == 'bulanan'"> &nbsp; Tahun : &nbsp; </td>
+                                    <td ng-show="tipePeriode == 'bulanan'">
+                                        <input type="number" ng-model="param.tahun" class="form-control" style="width: 100px"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" name="radioPeriode" ng-model="tipePeriode" value="tahunan"> &nbsp;Tahunan</td>
+                                    <td ng-show="tipePeriode == 'tahunan'"> &nbsp; : &nbsp; </td>
+                                    <td ng-show="tipePeriode == 'tahunan'">
+                                        <input type="number" ng-model="vm.param.tahun" class="form-control" style="width: 150px"/>
+                                    </td>
+                                    <td ng-show="tipePeriode == 'tahunan'"> &nbsp; </td>
+                                    <td > &nbsp; </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" name="radioPeriode" ng-model="tipePeriode" value="perTanggal"> &nbsp;Per Tanggal</td>
+                                    <td ng-show="tipePeriode == 'perTanggal'"> &nbsp; : &nbsp; </td>
+                                    <td ng-show="tipePeriode == 'perTanggal'">
+                            <jqx-date-time-input ng-model="vm.data.tanggal" jqx-width="150" jqx-height="25" id="birthInput"></jqx-date-time-input>
+                            </td>
+                            <td ng-show="tipePeriode == 'perTanggal'"> &nbsp; S/D : &nbsp; </td>
+                            <td ng-show="tipePeriode == 'perTanggal'">
+                            <jqx-date-time-input ng-model="vm.data.tanggal" jqx-width="150" jqx-height="25" id="birthInput"></jqx-date-time-input>
+                            </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </row>
+            <row>
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 rapat">
+                    <div ba-panel ba-panel-title="Opsi" ba-panel-class="panel">
+                        <div class="row" id="divOpsiPosisiKeu" ng-show="reportLabel=='Posisi Keuangan'">
+                            <div class="radio" >
+                                <label><input type="radio" name="radioOpsiPosisiKeu" ng-model="optPosisiKeu" value="rekap">Rekap</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="radioOpsiPosisiKeu" ng-model="optPosisiKeu" value="detail">Detail</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="radioOpsiPosisiKeu" ng-model="optPosisiKeu" value="komparasi">Komparasi</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </row>
+            <row>
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 rapat">
+                    <div ba-panel ba-panel-title="" ba-panel-class="panel">
+                        <button class="btn btn-primary editable-table-button btn-sm pull-right" ng-click="cetak('pdf')">Cetak</button>
+                        <button class="btn btn-primary editable-table-button btn-sm pull-right" ng-click="cetak('xlsx')">Export XLS</button>
+                    </div>
+                </div>
+            </row>
+        </div>
+    </div>
+
 </div>

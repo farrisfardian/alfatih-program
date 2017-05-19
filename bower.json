@@ -162,6 +162,10 @@
         "jqwidgets/jqxnumberinput.js",
         "jqwidgets/jqxresponse.js",
         "jqwidgets/jqxangular.js",
+        "jqwidgets/jqxwindow.js",
+        "jqwidgets/jqxdocking.js",
+        "jqwidgets/jqxdockinglayout.js",
+        "jqwidgets/jqxdockpanel.js",
         "jqwidgets/styles/jqx.base.css",
         "jqwidgets/styles/jqx.energyblue.css",
         "jqwidgets/styles/jqx.ui-sunny.css"

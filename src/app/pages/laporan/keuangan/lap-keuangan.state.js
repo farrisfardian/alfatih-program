@@ -14,7 +14,7 @@
                     title: 'Laporan Keuangan',
                     templateUrl: 'app/pages/laporan/keuangan/lap-keuangan.html',
                     controller: 'LaporanKeuanganController',
-                    controllerAs: 'vm',
+//                    controllerAs: 'vm',
                     data: {
                         authorities: ['ROLE_ADMIN'],
                         pageTitle: 'Daftar Akun'
