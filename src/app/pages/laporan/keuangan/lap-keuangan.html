@@ -12,6 +12,7 @@
         <div class="col-lg-5 col-md-5 col-xs-12 col-sm-12 rapat">
             <div ba-panel ba-panel-title="Jenis Laporan" ba-panel-class="panel">
                 <div id='jqxListBox'>
+                    <jqx-list-box jqx-instance="listBox" jqx-on-select="onSelect(event)" jqx-on-unselect="onUnselect(event)" jqx-settings="settings"></jqx-list-box>
                 </div>
             </div>
         </div>
@@ -64,7 +65,7 @@
             <row>
                 <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 rapat">
                     <div ba-panel ba-panel-title="Opsi" ba-panel-class="panel">
-                        <div class="row" id="divOpsiPosisiKeu" ng-show="reportLabel=='Posisi Keuangan'">
+                        <div class="row" id="divOpsiPosisiKeu" ng-show="reportLabel == 'Posisi Keuangan'">
                             <div class="radio" >
                                 <label><input type="radio" name="radioOpsiPosisiKeu" ng-model="optPosisiKeu" value="rekap">Rekap</label>
                             </div>
