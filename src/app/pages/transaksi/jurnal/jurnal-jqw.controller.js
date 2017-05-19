@@ -2,11 +2,10 @@
     'use strict';
 
     angular.module('Alfatih.pages.transaksi')
-            .controller('BuktiKasControllerJqw', BuktiKasControllerJqw)
+            .controller('JurnalJqwController', JurnalJqwController)
 
     /** @ngInject */
-    function BuktiKasControllerJqw($scope, $uibModal, $log, toastr, BuktiKasService, MataUangService, EnumService,
-            AkunService, JurnalService, $state, $stateParams) {
+    function JurnalJqwController($scope, $uibModal, $log, toastr, JurnalService, MataUangService, AkadSumberDanaService, JenisJurnalService, AkunService, ProgramService, ParseLinks, AlertService, paginationConstants, pagingParams, DokumenSumberService, CabangService, $state, $stateParams) {
         var vm = this;
         vm.clear = clear;
         vm.tambahDetail = tambahDetail;
@@ -40,6 +39,10 @@
         AkunService.cariSemua({id: 'kas-bank'}, function (d) {
             vm.listKasBank = d;
         });
+        CabangService.cariSemua({id: 'all'}, function (d) {
+            console.log('vm.listCabang', d);
+            vm.listCabang = d;
+        });
 //        UnitService.cariSemua({id: 'all'}, function (d) {
 //            console.log('vm.listUnit', d);
 //            vm.listUnit = d;
@@ -51,7 +54,7 @@
 
         function onSaveSuccess(result) {
             console.log('onSaveSuccess', result);
-            toastr.success('Simpan BuktiKas sukses!');
+            toastr.success('Simpan Jurnal sukses!');
             vm.isSaving = true;
             clear();
         }
@@ -59,7 +62,7 @@
         function onSaveError(data) {
             console.log('onSaveError data', data);
             toastr.error(data.headers('X-alfatihApp-error'));
-            toastr.error('Simpan BuktiKas gagal!');
+            toastr.error('Simpan Jurnal gagal!');
             vm.isSaving = false;
         }
 
@@ -121,16 +124,17 @@
                     }
                 ]
             };
+            bindingGrid();
         }
 
         function initForm(id) {
-            BuktiKasService.get({id: id},
+            JurnalService.get({id: id},
                     function (data) {
                         vm.data = data;
-                        toastr.success("Bukti Kas ditemukan");
+                        toastr.success("Jurnal ditemukan");
                     },
                     function (data) {
-                        toastr.error("Bukti Kas tidak ditemukan");
+                        toastr.error("Jurnal tidak ditemukan");
                     }
             );
         }
@@ -385,9 +389,7 @@
         var dataAdapter = new $.jqx.dataAdapter(source);
         console.log('dataAdapter', dataAdapter);
 
-        // Create a jqxComboBox
-        $scope.comboboxSettings = {selectedIndex: 0, source: dataAdapter, displayMember: "nama", valueMember: "id", width: "98%", height: 25};
-
+        
         var source =
                 {
                     localData: vm.data.detail,
@@ -464,18 +466,17 @@
                                 // construct the editor.
                                 var inputElement = $("<div><input type='text'  data-row='ket" + row + "'/></div>").prependTo(editor);
                                 inputElement.jqxInput({source: getEditorDataAdapter('keterangan'), displayMember: "keterangan", width: width, height: height});
-                                $(".ket"+row).on('blur', function (event) {
+                                $(".ket" + row).on('blur', function (event) {
                                     editClick(event, row);
                                 });
 
                                 var editClick = function (event, row) {
                                     var target = $(event.target);
-                                    vm.data.detail[editrow].keterangan = $(".ket"+row).val();
+                                    vm.data.detail[editrow].keterangan = $(".ket" + row).val();
                                     var rowID = $('#jqxgrid').jqxGrid('getrowid', editrow);
                                     $('#jqxgrid').jqxGrid('updaterow', rowID, vm.data.detail[editrow]);
                                     var inputField = editor.find('input');
-                                    inputField.jqxInput('val', vm.data.detail[editrow].keterangan);
-                                    bindingGrid();
+                                    inputField.jqxInput('val', vm.data.detail[editrow].keterangan);                                    
                                 }
                             },
                             initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
@@ -604,17 +605,17 @@
             var result = "";
 
             var det = [];
-            det.push({
-                keterangan: vm.data.keterangan,
-                debet: vm.data.debet,
-                kredit: vm.data.kredit,
-                rate: vm.data.rate,
-                akun: vm.data.akunKasBank,
-                proyek: null,
-                program: null,
-                akadSumberDana: vm.data.akadSumberDana,
-                urut: 1
-            });
+//            det.push({
+//                keterangan: vm.data.keterangan,
+//                debet: vm.data.debet,
+//                kredit: vm.data.kredit,
+//                rate: vm.data.rate,
+//                akun: vm.data.akunKasBank,
+//                proyek: null,
+//                program: null,
+//                akadSumberDana: vm.data.akadSumberDana,
+//                urut: 1
+//            });
             var tot = 0;
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
@@ -628,16 +629,14 @@
                     proyek: row.idProyek == null ? null : {id: row.idProyek},
                     program: row.idProgram == null ? null : {id: row.idProgram},
                     akadSumberDana: row.idAkad == null ? null : {id: row.idAkad},
-                    urut: i + 2
+                    urut: i + 1
                 });
-                tot += row.debet - row.kredit;
             }
             var url = $state.current.url;
 
-            det[0].debet = tot<0? Math.abs(tot): tot;
-            det[0].kredit = tot>0? tot: 0;
+            
             vm.data = {
-                noVoucher: vm.data.noVoucer,
+                noVoucher: vm.data.noVoucher,
                 tanggal: vm.data.tanggal,
                 keterangan: vm.data.keterangan,
                 terimaDari: vm.data.terimaDari,
@@ -645,26 +644,27 @@
                 cabang: {id: 1},
                 listJurnalDetail: det
             };
-            
-            
+
+
             if (url.indexOf('bkm') > -1) {
                 console.log('masuk');
                 vm.data.dokumen = {id: 'BKM'};
-            }else{
+            } else {
                 console.log('masuk');
                 vm.data.dokumen = {id: 'BKK'};
             }
             console.log('simpan', vm.data);
             console.log('tot', tot);
             save();
-            
+
         });
         $('#jqxgrid').on('cellvaluechanged', function (event) {
+            console.log('event', event);
             if (event.args.datafield == 'debet' && event.args.newvalue > 0) {
-                $("#jqxgrid").jqxGrid('setcellvalue', 0, 'kredit', 0);
+                $("#jqxgrid").jqxGrid('setcellvalue', event.args.rowindex, 'kredit', 0);
             }
             if (event.args.datafield == 'kredit' && event.args.newvalue > 0) {
-                $("#jqxgrid").jqxGrid('setcellvalue', 0, 'debet', 0);
+                $("#jqxgrid").jqxGrid('setcellvalue', event.args.rowindex, 'debet', 0);
             }
         });
         $("#jqxgrid").on('rowSelect', function (event) {

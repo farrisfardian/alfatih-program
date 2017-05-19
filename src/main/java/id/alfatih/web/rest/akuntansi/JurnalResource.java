@@ -14,6 +14,9 @@ import id.alfatih.service.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -63,6 +66,26 @@ public class JurnalResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(x, "/api/akuntansi/jurnal");
 
         return new ResponseEntity<>(x.getContent(), headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/outstanding-all", method = RequestMethod.GET)
+    @Timed
+    public List<Jurnal> cariOutstanding() throws URISyntaxException {
+        log.debug("REST request to get all Jurnal by Page");
+        List<Jurnal> x = repository.cariOutstanding();
+        return x;
+    }
+
+    @RequestMapping(value = "/outstanding-tgl/{tglAwal}/{tglAkhir}", method = RequestMethod.GET)
+    @Timed
+    public List<Jurnal> cariOutstandingByTgl(@PathVariable String tglAwal, @PathVariable String tglAkhir) throws URISyntaxException, ParseException {
+        log.debug("REST request to get all Jurnal by Page");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("tglAwal = " + tglAwal + ", tglAkhir = " + tglAkhir);
+        Date dateAwal = sdf.parse(tglAwal);
+        Date dateAkhir = sdf.parse(tglAkhir);
+        List<Jurnal> x = repository.cariOutstandingByTgl(dateAwal, dateAkhir);
+        return x;
     }
 
     @RequestMapping("/filter/{s}")

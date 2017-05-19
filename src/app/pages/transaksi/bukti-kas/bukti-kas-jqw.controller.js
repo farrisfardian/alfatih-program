@@ -121,6 +121,7 @@
                     }
                 ]
             };
+            bindingGrid();
         }
 
         function initForm(id) {
@@ -651,7 +652,7 @@
                 console.log('masuk');
                 vm.data.dokumen = {id: 'BKM'};
             }else{
-                console.log('masuk');
+                console.log('keluar');
                 vm.data.dokumen = {id: 'BKK'};
             }
             console.log('simpan', vm.data);
@@ -674,6 +675,14 @@
         });
 
         $(document).ready(function () {
+            var url = $state.current.url;            
+            if (url.indexOf('bkm') > -1) {
+                console.log('masuk');
+                vm.status = 'BKM';
+            }else{
+                console.log('keluar');
+                vm.status = 'BKK';
+            }
             $('#txtAkad').jqxInput({disabled: true});
             $("#btnAddRow").jqxButton({width: 100, height: 25});
             $("#btnDelRow").jqxButton({width: 100, height: 25});

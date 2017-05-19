@@ -26,6 +26,23 @@
                         isBalance: '='
                     }
                 })
+                .state('transaksi.bkk', {
+                    url: '/bkk/:id',
+                    templateUrl: 'app/pages/transaksi/bukti-kas/bukti-kas-jqw.html',
+                    controller: 'BuktiKasControllerJqw',
+                    controllerAs: 'vm',
+                    title: 'Transaksi Pengeluaran Kas/ Bank',
+                    data: {
+                        authorities: ['ROLE_ADMIN'],
+                        pageTitle: 'Entri Bukti Kas'
+                    },
+                    sidebarMeta: {
+                        order: 100,
+                    },
+                    scope: {
+                        isBalance: '='
+                    }
+                })
                 .state('akuntansi.daftar.list-bukti-kas', {
                     url: '/list-bukti-kas',
                     templateUrl: 'app/pages/akuntansi/daftar/buktiKas/list-bukti-kas.html',

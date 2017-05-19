@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('Alfatih.pages.transaksi')
-            .controller('JurnalJqwController', JurnalJqwController)
+            .controller('JurnalJqwOldController', JurnalJqwOldController)
 
     /** @ngInject */
-    function JurnalJqwController($scope, $uibModal, $log, toastr, JurnalService, MataUangService, AkadSumberDanaService, JenisJurnalService, AkunService, ProgramService, ParseLinks, AlertService, paginationConstants, pagingParams, DokumenSumberService, CabangService, $state, $stateParams) {
+    function JurnalJqwOldController($scope, $uibModal, $log, toastr, JurnalService, MataUangService, AkadSumberDanaService, JenisJurnalService, AkunService, ProgramService, ParseLinks, AlertService, paginationConstants, pagingParams, DokumenSumberService, CabangService, $state, $stateParams) {
         var vm = this;
         vm.search = '';
         vm.loadAll = loadAll;
